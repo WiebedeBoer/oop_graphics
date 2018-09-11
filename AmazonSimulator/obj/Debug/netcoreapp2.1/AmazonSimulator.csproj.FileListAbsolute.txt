@@ -1,0 +1,14 @@
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.deps.json
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.runtimeconfig.json
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.runtimeconfig.dev.json
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.dll
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.pdb
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.csprojAssemblyReference.cache
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.csproj.CoreCompileInputs.cache
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.RazorAssemblyInfo.cache
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.RazorAssemblyInfo.cs
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.AssemblyInfoInputs.cache
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.AssemblyInfo.cs
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.RazorTargetAssemblyInfo.cache
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.dll
+C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.pdb
