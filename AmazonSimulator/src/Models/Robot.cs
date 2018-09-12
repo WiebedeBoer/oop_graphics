@@ -23,8 +23,9 @@ namespace Models {
 
         public bool needsUpdate = true;
 
-        public Robot(double x, double y, double z, double rotationX, double rotationY, double rotationZ) {
-            this.type = "robot";
+        public Robot(double x, double y, double z, double rotationX, double rotationY, double rotationZ, string type) {
+            //type = "robot" of "dumptruck"
+            this.type = type;
             this.guid = Guid.NewGuid();
 
             this._x = x;

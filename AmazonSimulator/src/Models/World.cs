@@ -10,12 +10,21 @@ namespace Models {
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
         public World() {
-            Robot r = CreateRobot(0,0,0);
-            r.Move(4.6, 0, 13);
+            //Alle 'Workers'
+            Robot robot1 = CreateRobot(0,0,0,"robot");
+            robot1.Move(4.6, 0, 13);
+            Robot robot2 = CreateRobot(0,0,0,"robot");
+            robot2.Move(4.6, 0, 11);
+            Robot robot3 = CreateRobot(0,0,0,"robot");
+            robot3.Move(4.6, 0, 9);
+
+            //Dumptruck die pakketen afleverd en ophaalt.
+            Robot dumptruck = CreateRobot(0,0,0,"dumptruck");
+            dumptruck.Move(4.6, 0, 11);
         }
 
-        private Robot CreateRobot(double x, double y, double z) {
-            Robot r = new Robot(x,y,z,0,0,0);
+        private Robot CreateRobot(double x, double y, double z, string type) {
+            Robot r = new Robot(x,y,z,0,0,0,type);
             worldObjects.Add(r);
             return r;
         }
