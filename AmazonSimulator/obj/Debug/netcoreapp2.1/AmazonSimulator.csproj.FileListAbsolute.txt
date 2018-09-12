@@ -12,3 +12,17 @@ C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Deb
 C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.RazorTargetAssemblyInfo.cache
 C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.dll
 C:\Users\wiebe\Documents\oop_graphics\AmazonSimulator(1)\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.pdb
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.deps.json
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.runtimeconfig.json
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.runtimeconfig.dev.json
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.dll
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\bin\Debug\netcoreapp2.1\AmazonSimulator.pdb
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.csprojAssemblyReference.cache
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.csproj.CoreCompileInputs.cache
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.RazorAssemblyInfo.cache
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.RazorAssemblyInfo.cs
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.AssemblyInfoInputs.cache
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.AssemblyInfo.cs
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.RazorTargetAssemblyInfo.cache
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.dll
+C:\Downloads\Dropbox\school\NHL\Vakken\Graphics - SE2 18-19 (SOI_HBOI_18_174)\Opdrachten\OOP&Graphics_AmazonWarehouse\GitRepo\AmazonSimulator\obj\Debug\netcoreapp2.1\AmazonSimulator.pdb

@@ -89,7 +89,7 @@
                             scene.add(group);
                             worldObjects[command.parameters.guid] = group;
                         }
-                        else if (command.parameters.type == "dumptruck") {
+                        //else if (command.parameters.type == "dumptruck") {
                             // instantiate a loader
                             var loader = new THREE.OBJLoader();
 
@@ -116,9 +116,9 @@
 
 	                        }
                         );
-                        } else {
+                        //} else {
                             
-                        }
+                        //}
                     }
 
                     var object = worldObjects[command.parameters.guid];
@@ -140,7 +140,7 @@
 
     <script src="three.min.js"></script>
     <script src="OrbitControls.js"></script>
-    <!--<script src="OBJLoader.js"></script>-->
+    <script src="OBJLoader.js"></script>
 </body>
 
 </html>
