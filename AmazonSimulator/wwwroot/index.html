@@ -76,6 +76,24 @@
                             scene.add(group);
                             worldObjects[command.parameters.guid] = group;
                         }
+                        else if (command.parameters.type == "kast") {
+                            var geometry = new THREE.BoxGeometry(0.9, 2.3, 0.9);
+                            var cubeMaterials = [
+                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.png"), side: THREE.DoubleSide }), //LEFT
+                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.png"), side: THREE.DoubleSide }), //RIGHT
+                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.png"), side: THREE.DoubleSide }), //TOP
+                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.png"), side: THREE.DoubleSide }), //BOTTOM
+                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.png"), side: THREE.DoubleSide }), //FRONT
+                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.png"), side: THREE.DoubleSide }), //BACK
+                            ];
+                            var material = new THREE.MeshFaceMaterial(cubeMaterials);
+                            var kast = new THREE.Mesh(geometry, material);
+                            kast.position.y = 0.15;
+                            var group = new THREE.Group();
+                            group.add(kast);
+                            scene.add(group);
+                            worldObjects[command.parameters.guid] = group;
+                        }
                         else if (command.parameters.type == "dumptruck") {
                             // instantiate a loader
                             var loader = new THREE.OBJLoader();
