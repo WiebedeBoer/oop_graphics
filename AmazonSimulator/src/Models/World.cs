@@ -9,10 +9,14 @@ namespace Models {
         private List<Robot> worldObjects = new List<Robot>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
+        double xpos = 4.5; //global x
+        double ypos = 0; //global y
+        double zpos = 13; //global z
+
         public World() {
             //Alle 'Workers'
             Robot robot1 = CreateRobot(0,0,0,"robot");
-            robot1.Move(4.6, 0, 13);
+            robot1.Move(xpos, ypos, zpos);
             Robot robot2 = CreateRobot(0,0,0,"robot");
             robot2.Move(4.6, 0, 11);
             Robot robot3 = CreateRobot(0,0,0,"robot");
@@ -20,7 +24,7 @@ namespace Models {
 
             //Dumptruck die pakketen afleverd en ophaalt.
             Robot dumptruck = CreateRobot(0,0,0,"dumptruck");
-            dumptruck.Move(4.6, 0, 11);
+            dumptruck.Move(4.6, 0, 15);
         }
 
         private Robot CreateRobot(double x, double y, double z, string type) {
@@ -58,7 +62,8 @@ namespace Models {
 
                 if(u is IUpdatable) {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
-
+                    xpos = xpos + 0.05;
+                    u.Move(xpos, ypos, zpos);
                     if(needsCommand) {
                         SendCommandToObservers(new UpdateModel3DCommand(u));
                     }
