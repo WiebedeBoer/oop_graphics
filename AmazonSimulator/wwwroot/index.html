@@ -101,17 +101,17 @@
                             var loader = new THREE.MTLLoader()
                             .setPath( 'models/' )
                             .load( 'Dump_Truck_01.mtl', function ( materials ) {
-                            materials.preload();
-                            new THREE.OBJLoader()
-                            .setMaterials( materials )
-                            .setPath( 'models/' )
-                            .load( 'Dump_Truck_01.obj', function ( object ){
-                                var group = new THREE.Group();
-                                worldObjects[command.parameters.guid] = group;
-                                group.add(object);                                
-                                scene.add( group );
-                            }, function(xhr){console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-                             function(error){console.log( 'An error happened' );} );
+                                materials.preload();
+                                new THREE.OBJLoader()
+                                .setMaterials( materials )
+                                .setPath( 'models/' )
+                                .load( 'Dump_Truck_01.obj', function ( object ){
+                                    var group = new THREE.Group();
+                                    worldObjects[command.parameters.guid] = group;
+                                    group.add(object);                                
+                                    scene.add( group );
+                                }, function(xhr){console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
+                                function(error){console.log( 'An error happened' );} );
                             } );
                             
                             /*
@@ -185,9 +185,30 @@
                         // } );
 
 
-                        } 
-                        else {
-                            
+                        }else if (command.parameters.type == "kast") {
+                            // instantiate a loader
+                            var loader = new THREE.OBJLoader();
+                            var group = new THREE.Group();
+                            worldObjects[command.parameters.guid] = group;
+                            // load a resource
+                            loader.load(
+                                // resource URL
+                                'models/kast.obj',
+                                // called when resource is loaded
+                                function ( object ) {
+                                    object.scale.x = 1;
+                                    group.add(object);
+                                    scene.add( group );
+                                },
+                                // called when loading is in progresses
+                                function ( xhr ) {
+                                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+                                },
+                                // called when loading has errors
+                                function ( error ) {
+                                console.log( 'An error happened' );
+                                }
+                            );
                         }
                     }
                     var object = worldObjects[command.parameters.guid];
