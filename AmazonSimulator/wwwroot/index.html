@@ -52,11 +52,26 @@
                 cameraControls.update();
                 renderer.render(scene, camera);
             }
+
+            function loadOBJModel(modelPath, modelName, texturePath, textureName, onload) {
+                new THREE.MTLLoader()
+                    .setPath(texturePath)
+                    .load(textureName, function (materials) {
+                        materials.preload();
+                        new THREE.OBJLoader()
+                            .setPath(modelPath)
+                            .setMaterials(materials)
+                            .load(modelName, function (object) {
+                                onload(object);
+                            }, function () { }, function (e) { console.log("Error loading"); });
+                    });
+            }
+
             exampleSocket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
             exampleSocket.onmessage = function (event) {
                 var command = parseCommand(event.data);
                 if (command.command == "update") {
-                    
+
                     if (Object.keys(worldObjects).indexOf(command.parameters.guid) < 0) {
                         if (command.parameters.type == "robot") {
                             var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
@@ -76,7 +91,7 @@
                             scene.add(group);
                             worldObjects[command.parameters.guid] = group;
                         }
-                        
+
                         else if (command.parameters.type == "kast") {
                             var geometry = new THREE.BoxGeometry(0.9, 1.3, 0.9);
                             var cubeMaterials = [
@@ -95,8 +110,37 @@
                             scene.add(group);
                             worldObjects[command.parameters.guid] = group;
                         }
-                        
+
                         else if (command.parameters.type == "dumptruck") {
+
+                            //@param {string} modelPath
+                            //@param {string} modelName
+                            //@param {string} texturePath
+                            //@param {string} textureName
+                            //@param {function(Three.Mesh): void} onload
+                            //@param return {void}
+
+/*
+                            group.add(dumptruck);
+                            scene.add(group);
+                            worldObjects[command.parameters.guid] = group;
+                            */
+
+                            loadOBJModel("models/","Dump_Truck_01.mtl","models/","Dump_Truck_01.obj",mesh =>
+                            {
+                                mesh.scale.set(0.5,0.5,0.5);
+                                dumptruck.add(mesh);
+                                gdumptruck = dumptruck;
+                            });
+
+                            dumptruck.position.y = 0.55;
+                            var group = new THREE.Group();
+                            group.add(dumptruck);
+                            scene.add(group);
+                            worldObjects[command.parameters.guid] = group;
+
+
+                            /*
                             // instantiate a loader
                             THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
                             var loader = new THREE.MTLLoader()
@@ -114,7 +158,8 @@
                                 }, function(xhr){console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
                                 function(error){console.log( 'An error happened' );} );
                             } );
-                            
+                            */
+
                             /*
                             var group = new THREE.Group();
                             worldObjects[command.parameters.guid] = group;
@@ -161,20 +206,20 @@
 	                        }
                         );
                         */
-                        //mtl loader
-			            // THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
-                        // new THREE.MTLLoader()
-                        // .setPath( 'models/' )
-                        // .load( 'Dump_Truck_01.mtl', function ( materials ) {
-                        // materials.preload();
-                        // new THREE.OBJLoader()
-                        // .setMaterials( materials )
-                        // .setPath( 'models/' )
-                        // .load( 'Dump_Truck_01.obj', function ( object ) {
-                        // // object.position.y = 10;
-                        // scene.add( object );
-                        // }, function(){}, function(){} );
-                        // } );
+                            //mtl loader
+                            // THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+                            // new THREE.MTLLoader()
+                            // .setPath( 'models/' )
+                            // .load( 'Dump_Truck_01.mtl', function ( materials ) {
+                            // materials.preload();
+                            // new THREE.OBJLoader()
+                            // .setMaterials( materials )
+                            // .setPath( 'models/' )
+                            // .load( 'Dump_Truck_01.obj', function ( object ) {
+                            // // object.position.y = 10;
+                            // scene.add( object );
+                            // }, function(){}, function(){} );
+                            // } );
                         }
                         /*
                         else if (command.parameters.type == "kast") {
@@ -205,7 +250,7 @@
                         */
                     }
                     var object = worldObjects[command.parameters.guid];
-                    
+
                     object.position.x = command.parameters.x;
                     object.position.y = command.parameters.y;
                     object.position.z = command.parameters.z;
