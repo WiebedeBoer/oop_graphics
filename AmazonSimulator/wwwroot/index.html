@@ -126,18 +126,20 @@
                             worldObjects[command.parameters.guid] = group;
                             */
 
-                            loadOBJModel("models/","Dump_Truck_01.mtl","models/","Dump_Truck_01.obj",mesh =>
-                            {
-                                mesh.scale.set(0.5,0.5,0.5);
+                           var dumptruck = new THREE.Group();
+                           //var group = new THREE.Group();
+
+                            loadOBJModel("models/","materials.mtl","models/","model.obj", (mesh) => {
+                                mesh.scale.set(1,1,1);
                                 dumptruck.add(mesh);
-                                gdumptruck = dumptruck;
+                                
                             });
 
                             dumptruck.position.y = 0.55;
-                            var group = new THREE.Group();
-                            group.add(dumptruck);
-                            scene.add(group);
-                            worldObjects[command.parameters.guid] = group;
+                            
+                            //group.add(dumptruck);
+                            scene.add(dumptruck);
+                            worldObjects[command.parameters.guid] = dumptruck;
 
 
                             /*
@@ -266,9 +268,9 @@
 
     <script src="three.min.js"></script>
     <script src="OrbitControls.js"></script>
-    <script src="OBJloader.js"></script>
-    <script src="MTLloader.js"></script>
-    <script src="DDSloader.js"></script>
+    <script src="OBJLoader.js"></script>
+    <script src="MTLLoader.js"></script>
+    <script src="DDSLoader.js"></script>
 </body>
 
 </html>
