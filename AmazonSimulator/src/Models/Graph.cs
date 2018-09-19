@@ -32,12 +32,12 @@ namespace Models {
         }
 
         private Gnode CreateNode(double x, double y, double z, string nodename) {
-            Gnode g = new Gnode(0,0,0);
+            Gnode g = new Gnode(x,y,z,0,0,0);
             graphObjects.Add(g);
             return g;
         }
 
-        public class Gnode() {
+        public class Gnode {
 
             private double _x = 0;
             private double _y = 0;
