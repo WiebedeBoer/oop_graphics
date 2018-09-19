@@ -30,3 +30,34 @@ namespace Models {
             Gnode LC = CreateNode(4,6,0);
             Gnode LD = CreateNode(4,8,0);
         }
+
+        private Gnode CreateNode(double x, double y, double z, string nodename) {
+            Gnode g = new Gnode(0,0,0);
+            graphObjects.Add(g);
+            return g;
+        }
+
+        public class Gnode() {
+
+            private double _x = 0;
+            private double _y = 0;
+            private double _z = 0;
+
+            public string nodename { get; }
+            public double x { get { return _x; } }
+            public double y { get { return _y; } }
+            public double z { get { return _z; } }
+
+            public Gnode(double x, double y, double z, string nodename) {
+            //type = "robot" of "dumptruck"
+            this.nodename = nodename;
+            
+            this._x = x;
+            this._y = y;
+            this._z = z;
+            }
+           
+
+        }
+
+    }
