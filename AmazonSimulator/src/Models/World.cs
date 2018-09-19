@@ -49,6 +49,12 @@ namespace Models {
             return d;
         }
 
+        private Kast CreateKast(double x, double y, double z, string type) {
+            Kast d = new Kast(x,y,z,0,0,0);
+            worldObjects.Add(d);
+            return d;
+        }
+
         public IDisposable Subscribe(IObserver<Command> observer)
         {
             if (!observers.Contains(observer)) {
