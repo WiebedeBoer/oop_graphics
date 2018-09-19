@@ -132,148 +132,17 @@
                         }
 
                         else if (command.parameters.type == "dumptruck") {
-
-                            //@param {string} modelPath
-                            //@param {string} modelName
-                            //@param {string} texturePath
-                            //@param {string} textureName
-                            //@param {function(Three.Mesh): void} onload
-                            //@param return {void}
-
-/*
-                            group.add(dumptruck);
-                            scene.add(group);
-                            worldObjects[command.parameters.guid] = group;
-                            */
-
-                           //var dumptruck = new THREE.Group();
                            dumptruck = new THREE.Group();
 
                            scene.add(dumptruck);
                             worldObjects[command.parameters.guid] = dumptruck;
-                           //var group = new THREE.Group();
 
                             loadOBJModel("models/","Santasleigh.obj","models/","Santasleigh.mtl", (mesh) => {
                                 dumptruck.position.y = 1;
                                 dumptruck.add(mesh);
                                 
                             });
-
-                            //mesh.scale.set(1,1,1);
-                            //dumptruck.position.y = 0.55;
-                            
-                            //group.add(dumptruck);
-
-
-
-                            /*
-                            // instantiate a loader
-                            THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
-                            var loader = new THREE.MTLLoader()
-                            .setPath( 'models/' )
-                            .load( 'Dump_Truck_01.mtl', function ( materials ) {
-                                materials.preload();
-                                new THREE.OBJLoader()
-                                .setMaterials( materials )
-                                .setPath( 'models/' )
-                                .load( 'Dump_Truck_01.obj', function ( object ){
-                                    var group = new THREE.Group();
-                                    worldObjects[command.parameters.guid] = group;
-                                    group.add(object);                                
-                                    scene.add( group );
-                                }, function(xhr){console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-                                function(error){console.log( 'An error happened' );} );
-                            } );
-                            */
-
-                            /*
-                            var group = new THREE.Group();
-                            worldObjects[command.parameters.guid] = group;
-                            // load a resource
-                            loader.load(
-	                        // resource URL
-	                        'models/Dump_Truck_01.obj',
-	                        // called when resource is loaded
-	                        function ( object ) {
-                                group.add(object);
-                                scene.add( group );
-	                        },
-	                        // called when loading is in progresses
-	                        function ( xhr ) {
-		                    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	                        },
-	                        // called when loading has errors
-	                        function ( error ) {
-		                    console.log( 'An error happened' );
-	                        }
-                        );
-                        */
-                            /*
-                            // instantiate a loader
-                            var loader = new THREE.OBJLoader();
-                            var group = new THREE.Group();
-                            worldObjects[command.parameters.guid] = group;
-                            // load a resource
-                            loader.load(
-	                        // resource URL
-	                        'models/Dump_Truck_01.obj',
-	                        // called when resource is loaded
-	                        function ( object ) {
-                                group.add(object);
-                                scene.add( group );
-	                        },
-	                        // called when loading is in progresses
-	                        function ( xhr ) {
-		                    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	                        },
-	                        // called when loading has errors
-	                        function ( error ) {
-		                    console.log( 'An error happened' );
-	                        }
-                        );
-                        */
-                            //mtl loader
-                            // THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
-                            // new THREE.MTLLoader()
-                            // .setPath( 'models/' )
-                            // .load( 'Dump_Truck_01.mtl', function ( materials ) {
-                            // materials.preload();
-                            // new THREE.OBJLoader()
-                            // .setMaterials( materials )
-                            // .setPath( 'models/' )
-                            // .load( 'Dump_Truck_01.obj', function ( object ) {
-                            // // object.position.y = 10;
-                            // scene.add( object );
-                            // }, function(){}, function(){} );
-                            // } );
                         }
-                        /*
-                        else if (command.parameters.type == "kast") {
-                            // instantiate a loader
-                            var loader = new THREE.OBJLoader();
-                            var group = new THREE.Group();
-                            worldObjects[command.parameters.guid] = group;
-                            // load a resource
-                            loader.load(
-                                // resource URL
-                                'models/kast.obj',
-                                // called when resource is loaded
-                                function ( object ) {
-                                    object.scale.x = 1;
-                                    group.add(object);
-                                    scene.add( group );
-                                },
-                                // called when loading is in progresses
-                                function ( xhr ) {
-                                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-                                },
-                                // called when loading has errors
-                                function ( error ) {
-                                console.log( 'An error happened' );
-                                }
-                            );
-                        }
-                        */
                     }
                     var object = worldObjects[command.parameters.guid];
 
