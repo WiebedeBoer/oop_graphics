@@ -13,6 +13,12 @@ namespace Models {
         double ypos = 0; //global y
         double zpos = 13; //global z
 
+        Robot robot1;
+        Robot robot2;
+        Robot robot3;
+        Robot kast1;
+        Robot dumptruck;
+
         public World() {
             //Alle 'Workers'
             Robot robot1 = CreateRobot(0,0,0,"robot");
@@ -24,17 +30,23 @@ namespace Models {
 
             //Alle kasten
             Robot kast1 = CreateRobot(0,0,0,"kast");
-            kast1.Move(4.6, 0.5, 9);
+            kast1.Move(4.6, 0.9, 9);
 
             //Dumptruck die pakketen afleverd en ophaalt.
             Robot dumptruck = CreateRobot(0,0,0,"dumptruck");
-            dumptruck.Move(4.6, 0, 15);
+            dumptruck.Move(6.6, 0, 15);
         }
 
         private Robot CreateRobot(double x, double y, double z, string type) {
             Robot r = new Robot(x,y,z,0,0,0,type);
             worldObjects.Add(r);
             return r;
+        }
+
+        private Dumptruck CreateDumptruck(double x, double y, double z, string type) {
+            Dumptruck d = new Dumptruck(x,y,z,0,0,0,type);
+            worldObjects.Add(d);
+            return d;
         }
 
         public IDisposable Subscribe(IObserver<Command> observer)
@@ -66,7 +78,7 @@ namespace Models {
 
                 if(u is IUpdatable) {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
-                    xpos = xpos + 0.05;
+                    //xpos = xpos + 0.05;
                     u.Move(xpos, ypos, zpos);
                     if(needsCommand) {
                         SendCommandToObservers(new UpdateModel3DCommand(u));
