@@ -6,7 +6,7 @@ using Controllers;
 namespace Models {
     public class World : IObservable<Command>, IUpdatable
     {
-        private List<Robot> worldObjects = new List<Robot>();
+        private List<C3model> worldObjects = new List<C3model>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
         double xpos = 4.5; //global x
@@ -33,7 +33,7 @@ namespace Models {
             kast1.Move(4.6, 0.9, 9);
 
             //Dumptruck die pakketen afleverd en ophaalt.
-            Robot dumptruck = CreateRobot(0,0,0,"dumptruck");
+            Dumptruck dumptruck = CreateDumptruck(0,0,0,"dumptruck");
             dumptruck.Move(6.6, 0, 15);
         }
 
