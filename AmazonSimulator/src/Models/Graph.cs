@@ -20,19 +20,19 @@ namespace Models {
 
         public Graph() {
             //Alle 'nodes'
-            Gnode vrachtdepot = CreateNode(0,0,0);
-            Gnode RA = CreateNode(0,2,0);
-            Gnode RB = CreateNode(0,4,0);
-            Gnode RC = CreateNode(0,6,0);
-            Gnode RD = CreateNode(0,8,0);
-            Gnode LA = CreateNode(4,2,0);
-            Gnode LB = CreateNode(4,4,0);
-            Gnode LC = CreateNode(4,6,0);
-            Gnode LD = CreateNode(4,8,0);
+            Gnode vrachtdepot = CreateNode(0,0,0, "vrachtdepot");
+            Gnode RA = CreateNode(0,2,0,"RA");
+            Gnode RB = CreateNode(0,4,0,"RB");
+            Gnode RC = CreateNode(0,6,0,"RC");
+            Gnode RD = CreateNode(0,8,0,"RD");
+            Gnode LA = CreateNode(4,2,0,"LA");
+            Gnode LB = CreateNode(4,4,0,"LB");
+            Gnode LC = CreateNode(4,6,0,"LC");
+            Gnode LD = CreateNode(4,8,0,"LD");
         }
 
         private Gnode CreateNode(double x, double y, double z, string nodename) {
-            Gnode g = new Gnode(x,y,z,0,0,0);
+            Gnode g = new Gnode(0,0,0,nodename);
             graphObjects.Add(g);
             return g;
         }
