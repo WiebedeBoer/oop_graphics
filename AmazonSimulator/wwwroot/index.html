@@ -41,6 +41,26 @@
                 var light = new THREE.AmbientLight(0x404040);
                 light.intensity = 4;
                 scene.add(light);
+
+                // axes skybox
+	            var axes = new THREE.AxisHelper(100);
+	            scene.add( axes );
+	
+	            var imagePrefix = "images/skybox";
+	            var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+	            var imageSuffix = ".png";
+	            var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );	
+	
+	            var materialArray = [];
+	            for (var i = 0; i < 6; i++)
+		            materialArray.push( new THREE.MeshBasicMaterial({
+			        map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+			        side: THREE.BackSide
+		            }));
+	            var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+	            var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+	            scene.add( skyBox );
+                
             }
             function onWindowResize() {
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -126,20 +146,24 @@
                             worldObjects[command.parameters.guid] = group;
                             */
 
-                           var dumptruck = new THREE.Group();
+                           //var dumptruck = new THREE.Group();
+                           dumptruck = new THREE.Group();
+
+                           scene.add(dumptruck);
+                            worldObjects[command.parameters.guid] = dumptruck;
                            //var group = new THREE.Group();
 
-                            loadOBJModel("models/","materials.mtl","models/","model.obj", (mesh) => {
-                                mesh.scale.set(1,1,1);
+                            loadOBJModel("models/","Santasleigh.mtl","models/","Santasleigh.obj", (mesh) => {
+                                dumptruck.position.y = 1;
                                 dumptruck.add(mesh);
                                 
                             });
 
-                            dumptruck.position.y = 0.55;
+                            //mesh.scale.set(1,1,1);
+                            //dumptruck.position.y = 0.55;
                             
                             //group.add(dumptruck);
-                            scene.add(dumptruck);
-                            worldObjects[command.parameters.guid] = dumptruck;
+
 
 
                             /*
