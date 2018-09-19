@@ -6,10 +6,9 @@ using Newtonsoft.Json;
 namespace Models {
     public class Dumptruck : C3model, IUpdatable {
         
-        public Dumptruck (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ)
+        public Dumptruck (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"dumptruck")
         {
-            this.type = "dumptruck";
-            this.guid = Guid.NewGuid();
+            
         }
         public virtual bool Update(int tick)
         {

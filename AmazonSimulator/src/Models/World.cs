@@ -38,13 +38,13 @@ namespace Models {
         }
 
         private Robot CreateRobot(double x, double y, double z, string type) {
-            Robot r = new Robot(x,y,z,0,0,0,type);
+            Robot r = new Robot(x,y,z,0,0,0);
             worldObjects.Add(r);
             return r;
         }
 
         private Dumptruck CreateDumptruck(double x, double y, double z, string type) {
-            Dumptruck d = new Dumptruck(x,y,z,0,0,0,type);
+            Dumptruck d = new Dumptruck(x,y,z,0,0,0);
             worldObjects.Add(d);
             return d;
         }
@@ -66,7 +66,7 @@ namespace Models {
         }
 
         private void SendCreationCommandsToObserver(IObserver<Command> obs) {
-            foreach(Robot m3d in worldObjects) {
+            foreach(C3model m3d in worldObjects) {
                 obs.OnNext(new UpdateModel3DCommand(m3d));
             }
         }
@@ -74,7 +74,7 @@ namespace Models {
         public bool Update(int tick)
         {
             for(int i = 0; i < worldObjects.Count; i++) {
-                Robot u = worldObjects[i];
+                C3model u = worldObjects[i];
 
                 if(u is IUpdatable) {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
