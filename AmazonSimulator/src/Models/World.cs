@@ -29,7 +29,7 @@ namespace Models {
             robot3.Move(4.6, 0, 9);
 
             //Alle kasten
-            Robot kast1 = CreateRobot(0,0,0,"kast");
+            Kast kast1 = CreateKast(0,0,0,"kast");
             kast1.Move(4.6, 0.9, 9);
 
             //Dumptruck die pakketen afleverd en ophaalt.
