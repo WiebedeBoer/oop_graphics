@@ -11502,19 +11502,19 @@
   },
   "packageFolders": {
     "C:\\Users\\silhu\\.nuget\\packages\\": {},
-    "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "g:\\Downloads\\Dropbox\\school\\NHL\\Vakken\\Graphics - SE2 18-19 (SOI_HBOI_18_174)\\Opdrachten\\OOP&Graphics_AmazonWarehouse\\oop_graphics\\AmazonSimulator\\AmazonSimulator.csproj",
+      "projectUniqueName": "c:\\Downloads\\Dropbox\\school\\NHL\\Vakken\\Graphics - SE2 18-19 (SOI_HBOI_18_174)\\Opdrachten\\OOP&Graphics_AmazonWarehouse\\oop_graphics\\AmazonSimulator\\AmazonSimulator.csproj",
       "projectName": "AmazonSimulator",
-      "projectPath": "g:\\Downloads\\Dropbox\\school\\NHL\\Vakken\\Graphics - SE2 18-19 (SOI_HBOI_18_174)\\Opdrachten\\OOP&Graphics_AmazonWarehouse\\oop_graphics\\AmazonSimulator\\AmazonSimulator.csproj",
+      "projectPath": "c:\\Downloads\\Dropbox\\school\\NHL\\Vakken\\Graphics - SE2 18-19 (SOI_HBOI_18_174)\\Opdrachten\\OOP&Graphics_AmazonWarehouse\\oop_graphics\\AmazonSimulator\\AmazonSimulator.csproj",
       "packagesPath": "C:\\Users\\silhu\\.nuget\\packages\\",
-      "outputPath": "g:\\Downloads\\Dropbox\\school\\NHL\\Vakken\\Graphics - SE2 18-19 (SOI_HBOI_18_174)\\Opdrachten\\OOP&Graphics_AmazonWarehouse\\oop_graphics\\AmazonSimulator\\obj\\",
+      "outputPath": "c:\\Downloads\\Dropbox\\school\\NHL\\Vakken\\Graphics - SE2 18-19 (SOI_HBOI_18_174)\\Opdrachten\\OOP&Graphics_AmazonWarehouse\\oop_graphics\\AmazonSimulator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\silhu\\AppData\\Roaming\\NuGet\\NuGet.Config",
