@@ -30,7 +30,7 @@ namespace Models {
 
             //Alle kasten
             Kast kast1 = CreateKast(0,0,0,"kast");
-            kast1.Move(4.6, 0.9, 9);
+            kast1.Move(4.6, 3.25, 9);
 
             //Dumptruck die pakketen afleverd en ophaalt.
             Dumptruck dumptruck = CreateDumptruck(0,0,0,"dumptruck");
@@ -85,7 +85,7 @@ namespace Models {
                 if(u is IUpdatable) {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
                     //xpos = xpos + 0.05;
-                    u.Move(xpos, ypos, zpos);
+                    //u.Move(xpos, ypos, zpos);
                     if(needsCommand) {
                         SendCommandToObservers(new UpdateModel3DCommand(u));
                     }

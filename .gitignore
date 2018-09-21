@@ -1,1 +1,3 @@
-AmazonSimulator/obj/*
+AmazonSimulator/bin/
+
+AmazonSimulator/obj/
