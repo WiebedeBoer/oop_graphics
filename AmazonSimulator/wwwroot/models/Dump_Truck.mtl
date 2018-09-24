@@ -1,0 +1,112 @@
+newmtl Dump_Truck_01:A1A1A
+illum 4
+Kd 0.10 0.10 0.10
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_01:A64
+illum 4
+Kd 0.27 0.35 0.39
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_01:F44336
+illum 4
+Kd 0.96 0.26 0.21
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_01:FF5722
+illum 4
+Kd 1.00 0.34 0.13
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_01:FF9800
+illum 4
+Kd 1.00 0.60 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_01:FFEB3B
+illum 4
+Kd 1.00 0.92 0.23
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_01:FFFFFF
+illum 4
+Kd 1.00 1.00 1.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_02:A1A1A
+illum 4
+Kd 0.10 0.10 0.10
+Ka 1.00 1.00 1.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_02:A64
+illum 4
+Kd 0.27 0.35 0.39
+Ka 1.00 1.00 1.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_02:F44336
+illum 4
+Kd 0.96 0.26 0.21
+Ka 1.00 1.00 1.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_02:FF5722
+illum 4
+Kd 1.00 0.34 0.13
+Ka 1.00 1.00 1.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_02:FF9800
+illum 4
+Kd 1.00 0.60 0.00
+Ka 1.00 1.00 1.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_02:FFEB3B
+illum 4
+Kd 1.00 0.92 0.23
+Ka 1.00 1.00 1.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl Dump_Truck_02:FFFFFF
+illum 4
+Kd 1.00 1.00 1.00
+Ka 1.00 1.00 1.00
+Tf 0.00 0.00 0.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
