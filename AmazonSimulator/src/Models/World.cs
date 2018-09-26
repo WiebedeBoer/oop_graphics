@@ -9,7 +9,7 @@ namespace Models {
         private List<C3model> worldObjects = new List<C3model>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
-        double xpos = 4.5; //global x
+        double xpos = 4.6; //global x
         double ypos = 0; //global y
         double zpos = 13; //global z
 

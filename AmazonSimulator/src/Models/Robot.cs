@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 
 namespace Models {
     public class Robot : C3model, IUpdatable {
-        
-        private double tX, tY, tZ;
+        //Target coordinaten
+        private double tX = -1, tY = -1, tZ =-1;
+        //Status
+
 
         public Robot (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"robot")
         {
@@ -14,16 +16,20 @@ namespace Models {
         }
 
         public void Target (double x, double y, double z){
-            //while(x!=this.x && y!=this.y && z!=this.z){
-                if(x>this.x) {
-                    Move(this.x+0.1,this.y,this.z);
-                    needsUpdate = true;
-                }
-            //}
+            tX = x;
+            tY = y;
+            tZ = z;
         }
         public override bool Update(int tick)
         {
-            this.Target(this.x+0.1,this.y,this.z);
+            if(tX>x && tX != -1){
+                this.Move(x+0.1,y,z);        
+                needsUpdate = true;    
+            }else if(tX<x && tX != -1){
+                this.Move(x-0.1,y,z); 
+                needsUpdate = true; 
+            }
+            
             return base.Update(tick);
             
             //if(needsUpdate) {
