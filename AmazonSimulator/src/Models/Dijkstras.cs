@@ -5,20 +5,20 @@ namespace Models
 {
     class Dijkstra
     {
-        Dictionary<char, Dictionary<char, int>> vertices = new Dictionary<char, Dictionary<char, int>>();
+        Dictionary<string, Dictionary<string, int>> vertices = new Dictionary<string, Dictionary<string, int>>();
 
-        public void add_vertex(char name, Dictionary<char, int> edges)
+        public void add_vertex(string name, Dictionary<string, int> edges)
         {
             vertices[name] = edges;
         }
 
-        public List<char> shortest_path(char start, char finish)
+        public List<string> shortest_path(string start, string finish)
         {
-            var previous = new Dictionary<char, char>();
-            var distances = new Dictionary<char, int>();
-            var nodes = new List<char>();
+            var previous = new Dictionary<string, string>();
+            var distances = new Dictionary<string, int>();
+            var nodes = new List<string>();
 
-            List<char> path = null;
+            List<string> path = null;
 
             foreach (var vertex in vertices)
             {
@@ -43,7 +43,7 @@ namespace Models
 
                 if (smallest == finish)
                 {
-                    path = new List<char>();
+                    path = new List<string>();
                     while (previous.ContainsKey(smallest))
                     {
                         path.Add(smallest);
@@ -80,16 +80,18 @@ namespace Models
         //{
             public void Graphclass() {
             Dijkstra g = new Dijkstra();
-            g.add_vertex('A', new Dictionary<char, int>() {{'B', 7}, {'C', 8}});
-            g.add_vertex('B', new Dictionary<char, int>() {{'A', 7}, {'F', 2}});
-            g.add_vertex('C', new Dictionary<char, int>() {{'A', 8}, {'F', 6}, {'G', 4}});
-            g.add_vertex('D', new Dictionary<char, int>() {{'F', 8}});
-            g.add_vertex('E', new Dictionary<char, int>() {{'H', 1}});
-            g.add_vertex('F', new Dictionary<char, int>() {{'B', 2}, {'C', 6}, {'D', 8}, {'G', 9}, {'H', 3}});
-            g.add_vertex('G', new Dictionary<char, int>() {{'C', 4}, {'F', 9}});
-            g.add_vertex('H', new Dictionary<char, int>() {{'E', 1}, {'F', 3}});
+            g.add_vertex("vrachtdepot", new Dictionary<string, int>() {{"RA", 1}, {"LA", 1}});
+            g.add_vertex("RA", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"RB", 2}});
+            g.add_vertex("RB", new Dictionary<string, int>() {{"RA", 2}, {"RC", 2}});
+            g.add_vertex("RC", new Dictionary<string, int>() {{"RC", 2}, {"RD", 2}});
+            g.add_vertex("RD", new Dictionary<string, int>() {{"RC", 2}});
+            g.add_vertex("LA", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"LB", 2}});
+            g.add_vertex("LB", new Dictionary<string, int>() {{"LA", 2}, {"LC", 2}});
+            g.add_vertex("LC", new Dictionary<string, int>() {{"LC", 2}, {"LD", 2}});
+            g.add_vertex("LD", new Dictionary<string, int>() {{"LC", 2}});
 
-            g.shortest_path('A', 'H').ForEach( x => Console.WriteLine(x) );
+            //g.shortest_path('A', 'H').ForEach( x => Console.WriteLine(x) );
+            g.shortest_path("vrachtdepot", "LD");
             }
        //}
     }
