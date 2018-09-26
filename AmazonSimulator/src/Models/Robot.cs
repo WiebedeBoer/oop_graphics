@@ -22,11 +22,35 @@ namespace Models {
         }
         public override bool Update(int tick)
         {
+            //Beweging na bestemming (Gaat veranderd worden voor correcte path vinding)
             if(tX>x && tX != -1){
-                this.Move(x+0.1,y,z);        
+                if (tX-x < 0.1){
+                    this.Move(tX,y,z); 
+                }else{ 
+                this.Move(x+0.1,y,z);  
+                }
                 needsUpdate = true;    
             }else if(tX<x && tX != -1){
-                this.Move(x-0.1,y,z); 
+                if (tX-x > 0.1){
+                    this.Move(tX,y,z); 
+                }else{ 
+                this.Move(x-0.1,y,z);  
+                } 
+                needsUpdate = true; 
+                //En nu voor de Y as
+            }else if(tZ>z && tX != -1){
+                if (tZ-z < 0.1){
+                    this.Move(x,y,tZ); 
+                }else{ 
+                this.Move(x,y,z+0.1);  
+                }
+                needsUpdate = true;    
+            }else if(tZ<z && tX != -1){
+                if (tZ-z > 0.1){
+                    this.Move(x,y,tZ); 
+                }else{ 
+                this.Move(x,y,tZ-0.1);  
+                } 
                 needsUpdate = true; 
             }
             
