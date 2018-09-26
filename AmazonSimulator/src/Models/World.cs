@@ -9,15 +9,15 @@ namespace Models {
         private List<C3model> worldObjects = new List<C3model>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
-        double xpos = 4.6; //global x
+        double xpos = 4.5; //global x
         double ypos = 0; //global y
         double zpos = 13; //global z
 
         Robot robot1;
         Robot robot2;
         Robot robot3;
-        Robot kast1;
-        Robot dumptruck;
+        Kast kast1;
+        Dumptruck dumptruck;
 
         public World() {
             //Alle 'Workers'
@@ -27,6 +27,7 @@ namespace Models {
             robot2.Move(4.6, 0, 11);
             Robot robot3 = CreateRobot(0,0,0,"robot");
             robot3.Move(4.6, 0, 9);
+            //robot3.Move(5.8, 0, 9);
 
             //Alle kasten
             Kast kast1 = CreateKast(0,0,0,"kast");
@@ -34,10 +35,14 @@ namespace Models {
 
             //Dumptruck die pakketen afleverd en ophaalt.
             Dumptruck dumptruck = CreateDumptruck(0,0,0,"dumptruck");
-            dumptruck.Move(6.6, 0, 15);
+            dumptruck.Move(1.6, 0, 45);
 
-            //Start Simulatie
-            robot3.Target(6,0,9);
+             //Start Simulatie
+            robot1.Target(6,0,15);
+            robot2.Target(6,0,13);
+            robot3.Target(6,0,11);
+
+            dumptruck.Target(1.6,0,5);
         }
 
         private Robot CreateRobot(double x, double y, double z, string type) {
@@ -87,7 +92,7 @@ namespace Models {
 
                 if(u is IUpdatable) {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
-                    //xpos = xpos + 0.05;
+                    //xpos = xpos + 0.01;
                     //u.Move(xpos, ypos, zpos);
                     if(needsCommand) {
                         SendCommandToObservers(new UpdateModel3DCommand(u));
