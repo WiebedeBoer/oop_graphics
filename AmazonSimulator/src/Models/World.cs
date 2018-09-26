@@ -35,6 +35,9 @@ namespace Models {
             //Dumptruck die pakketen afleverd en ophaalt.
             Dumptruck dumptruck = CreateDumptruck(0,0,0,"dumptruck");
             dumptruck.Move(6.6, 0, 15);
+
+            //Start Simulatie
+            robot3.Target(6,0,9);
         }
 
         private Robot CreateRobot(double x, double y, double z, string type) {
