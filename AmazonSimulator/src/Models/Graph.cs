@@ -20,15 +20,15 @@ namespace Models {
 
         public Graph() {
             //Alle 'nodes'
-            Gnode vrachtdepot = CreateNode(0,0,0, "vrachtdepot");
-            Gnode RA = CreateNode(0,2,0,"RA");
-            Gnode RB = CreateNode(0,4,0,"RB");
-            Gnode RC = CreateNode(0,6,0,"RC");
-            Gnode RD = CreateNode(0,8,0,"RD");
-            Gnode LA = CreateNode(4,2,0,"LA");
-            Gnode LB = CreateNode(4,4,0,"LB");
-            Gnode LC = CreateNode(4,6,0,"LC");
-            Gnode LD = CreateNode(4,8,0,"LD");
+            Gnode vrachtdepot = CreateNode(0,0,3, "vrachtdepot");
+            Gnode RA = CreateNode(0,0,2,"RA");
+            Gnode RB = CreateNode(0,0,4,"RB");
+            Gnode RC = CreateNode(0,0,6,"RC");
+            Gnode RD = CreateNode(0,0,8,"RD");
+            Gnode LA = CreateNode(4,0,2,"LA");
+            Gnode LB = CreateNode(4,0,4,"LB");
+            Gnode LC = CreateNode(4,0,6,"LC");
+            Gnode LD = CreateNode(4,0,8,"LD");
         }
 
         private Gnode CreateNode(double x, double y, double z, string nodename) {
