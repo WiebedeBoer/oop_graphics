@@ -18,8 +18,11 @@ namespace Models {
         Robot robot3;
         Kast kast1;
         Dumptruck dumptruck;
+        private List<Hraph> HraphObjects = new List<Hraph>();
+        
 
         public World() {
+            populeerGraph();
             //Alle 'Workers'
             Robot robot1 = CreateRobot(0,0,0,"robot");
             robot1.Move(xpos, ypos, zpos);
@@ -40,7 +43,7 @@ namespace Models {
              //Start Simulatie
             robot1.Target(6,0,15);
             robot2.Target(6,0,13);
-            robot3.Target(6,0,11);
+            robot3.Target(worldObjects[0].x,worldObjects[0].y,worldObjects[0].z);
 
             dumptruck.Target(1.6,0,5);
         }
@@ -83,6 +86,26 @@ namespace Models {
             foreach(C3model m3d in worldObjects) {
                 obs.OnNext(new UpdateModel3DCommand(m3d));
             }
+        }
+        private void populeerGraph(){
+            Hraph vrachtdepot = new Hraph(0,0,3, "vrachtdepot");
+            HraphObjects.Add(vrachtdepot);
+            Hraph RA = new Hraph(0,0,2,"RA");
+            HraphObjects.Add(RA);
+            Hraph RB = new Hraph(0,0,4,"RB");
+            HraphObjects.Add(RB);
+            Hraph RC = new Hraph(0,0,6,"RC");
+            HraphObjects.Add(RC);
+            Hraph RD = new Hraph(0,0,8,"RD");
+            HraphObjects.Add(RD);
+            Hraph LA = new Hraph(4,0,2,"LA");
+            HraphObjects.Add(LA);
+            Hraph LB = new Hraph(4,0,4,"LB");
+            HraphObjects.Add(LB);
+            Hraph LC = new Hraph(4,0,6,"LC");
+            HraphObjects.Add(LC);
+            Hraph LD = new Hraph(4,0,8,"LD");
+            HraphObjects.Add(LD);
         }
 
         public bool Update(int tick)

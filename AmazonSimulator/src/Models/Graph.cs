@@ -49,7 +49,7 @@ namespace Models {
             public double z { get { return _z; } }
 
             public Gnode(double x, double y, double z, string nodename) {
-            //type = "robot" of "dumptruck"
+                
             this.nodename = nodename;
             
             this._x = x;
