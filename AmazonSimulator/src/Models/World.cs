@@ -19,7 +19,15 @@ namespace Models {
         Kast kast1;
         Dumptruck dumptruck;
         private List<Hraph> HraphObjects = new List<Hraph>();
-        
+        public Hraph vrachtdepot;
+        public Hraph RA;
+        public Hraph RB;
+        public Hraph RC;
+        public Hraph RD;
+        public Hraph LA;
+        public Hraph LB;
+        public Hraph LC;
+        public Hraph LD;
 
         public World() {
             populeerGraph();
@@ -43,7 +51,7 @@ namespace Models {
              //Start Simulatie
             robot1.Target(6,0,15);
             robot2.Target(6,0,13);
-            robot3.Target(worldObjects[0].x,worldObjects[0].y,worldObjects[0].z);
+            robot3.Target(LD.x,LD.y,LD.z);
 
             dumptruck.Target(1.6,0,5);
         }
@@ -88,23 +96,23 @@ namespace Models {
             }
         }
         private void populeerGraph(){
-            Hraph vrachtdepot = new Hraph(0,0,3, "vrachtdepot");
+            vrachtdepot = new Hraph(0,0,3, "vrachtdepot");
             HraphObjects.Add(vrachtdepot);
-            Hraph RA = new Hraph(0,0,2,"RA");
+            RA = new Hraph(0,0,2,"RA");
             HraphObjects.Add(RA);
-            Hraph RB = new Hraph(0,0,4,"RB");
+            RB = new Hraph(0,0,4,"RB");
             HraphObjects.Add(RB);
-            Hraph RC = new Hraph(0,0,6,"RC");
+            RC = new Hraph(0,0,6,"RC");
             HraphObjects.Add(RC);
-            Hraph RD = new Hraph(0,0,8,"RD");
+            RD = new Hraph(0,0,8,"RD");
             HraphObjects.Add(RD);
-            Hraph LA = new Hraph(4,0,2,"LA");
+            LA = new Hraph(4,0,2,"LA");
             HraphObjects.Add(LA);
-            Hraph LB = new Hraph(4,0,4,"LB");
+            LB = new Hraph(4,0,4,"LB");
             HraphObjects.Add(LB);
-            Hraph LC = new Hraph(4,0,6,"LC");
+            LC = new Hraph(4,0,6,"LC");
             HraphObjects.Add(LC);
-            Hraph LD = new Hraph(4,0,8,"LD");
+            LD = new Hraph(4,0,8,"LD");
             HraphObjects.Add(LD);
         }
 

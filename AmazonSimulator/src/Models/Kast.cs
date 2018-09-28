@@ -10,7 +10,7 @@ namespace Models {
         {
             
         }
-        public virtual bool Update(int tick)
+        public override bool Update(int tick)
         {
             if(needsUpdate) {
                 needsUpdate = false;
