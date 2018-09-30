@@ -18,6 +18,7 @@ namespace Models {
         Robot robot3;
         Kast kast1;
         Dumptruck dumptruck;
+        GraphClass graphContent = new GraphClass();
         private List<Hraph> HraphObjects = new List<Hraph>();
         public Hraph vrachtdepot;
         public Hraph RA;
@@ -30,6 +31,10 @@ namespace Models {
         public Hraph LD;
 
         public World() {
+            foreach(var result in graphContent.GetPath("vrachtdepot","LD")){
+                System.Diagnostics.Debug.WriteLine(result);
+            }
+            //System.Diagnostics.Debug.WriteLine(graphContent.GetPath("vrachtdepot","LD"));
             populeerGraph();
             //Alle 'Workers'
             Robot robot1 = CreateRobot(0,0,0,"robot");
@@ -38,7 +43,6 @@ namespace Models {
             robot2.Move(4.6, 0, 11);
             Robot robot3 = CreateRobot(0,0,0,"robot");
             robot3.Move(4.6, 0, 9);
-            //robot3.Move(5.8, 0, 9);
 
             //Alle kasten
             Kast kast1 = CreateKast(0,0,0,"kast");

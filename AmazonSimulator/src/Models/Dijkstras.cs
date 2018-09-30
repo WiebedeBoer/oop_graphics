@@ -76,24 +76,22 @@ namespace Models
  
     class GraphClass
     {
-        //public static void Main(string[] args)
-        //{
+        public Dijkstra g = new Dijkstra();
             public void Graphclass() {
-            Dijkstra g = new Dijkstra();
-            g.add_vertex("vrachtdepot", new Dictionary<string, int>() {{"RA", 1}, {"LA", 1}});
-            g.add_vertex("RA", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"RB", 2}});
-            g.add_vertex("RB", new Dictionary<string, int>() {{"RA", 2}, {"RC", 2}});
-            g.add_vertex("RC", new Dictionary<string, int>() {{"RC", 2}, {"RD", 2}});
-            g.add_vertex("RD", new Dictionary<string, int>() {{"RC", 2}});
-            g.add_vertex("LA", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"LB", 2}});
-            g.add_vertex("LB", new Dictionary<string, int>() {{"LA", 2}, {"LC", 2}});
-            g.add_vertex("LC", new Dictionary<string, int>() {{"LC", 2}, {"LD", 2}});
-            g.add_vertex("LD", new Dictionary<string, int>() {{"LC", 2}});
-
-            //g.shortest_path('A', 'H').ForEach( x => Console.WriteLine(x) );
-            g.shortest_path("vrachtdepot", "LD");
+                g.add_vertex("vrachtdepot", new Dictionary<string, int>() {{"RA", 1}, {"LA", 1}});
+                g.add_vertex("RA", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"RB", 2}});
+                g.add_vertex("RB", new Dictionary<string, int>() {{"RA", 2}, {"RC", 2}});
+                g.add_vertex("RC", new Dictionary<string, int>() {{"RC", 2}, {"RD", 2}});
+                g.add_vertex("RD", new Dictionary<string, int>() {{"RC", 2}});
+                g.add_vertex("LA", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"LB", 2}});
+                g.add_vertex("LB", new Dictionary<string, int>() {{"LA", 2}, {"LC", 2}});
+                g.add_vertex("LC", new Dictionary<string, int>() {{"LC", 2}, {"LD", 2}});
+                g.add_vertex("LD", new Dictionary<string, int>() {{"LC", 2}});
             }
-       //}
+            public List<string> GetPath(string startingPlace, string destination) {
+                //g.shortest_path('A', 'H').ForEach( x => Console.WriteLine(x) );
+                return(g.shortest_path(startingPlace, destination));
+            }
     }
     
 }

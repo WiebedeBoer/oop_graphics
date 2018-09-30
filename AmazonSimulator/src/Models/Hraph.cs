@@ -20,9 +20,5 @@ namespace Models {
             this.nodeName = nodeName;
         }
 
-
-        public class Gnode {
-        }
-
     }
 }
