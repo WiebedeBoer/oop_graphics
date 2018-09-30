@@ -77,7 +77,7 @@ namespace Models
     class GraphClass
     {
         public Dijkstra g = new Dijkstra();
-            public void Graphclass() {
+            public GraphClass() {
                 g.add_vertex("vrachtdepot", new Dictionary<string, int>() {{"RA", 1}, {"LA", 1}});
                 g.add_vertex("RA", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"RB", 2}});
                 g.add_vertex("RB", new Dictionary<string, int>() {{"RA", 2}, {"RC", 2}});

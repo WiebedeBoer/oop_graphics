@@ -31,7 +31,7 @@ namespace Models {
         public Hraph LD;
 
         public World() {
-            foreach(var result in graphContent.GetPath("vrachtdepot","LD")){
+            foreach(var result in graphContent.GetPath("vrachtdepot","LC")){
                 System.Diagnostics.Debug.WriteLine(result);
             }
             //System.Diagnostics.Debug.WriteLine(graphContent.GetPath("vrachtdepot","LD"));
