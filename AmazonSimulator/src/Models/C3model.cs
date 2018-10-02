@@ -24,7 +24,8 @@ namespace Models {
         protected List<Hraph> hraphTarget = new List<Hraph>();
         protected double tX = -1, tY = -1, tZ =-1;
         protected int waypointNr = 0;
-        protected string actorStatus = "idle";
+        public string actorStatus = "idle";
+        private string location;
 
         public bool needsUpdate = true;
 
@@ -57,7 +58,7 @@ namespace Models {
         //goTo geeft een lijst met coordinaten waar de acteur heen moet gaan, in die volgorde.
         public void goTo (List<string> waypointName, List<Hraph> allWaypoints){
             //Wissel volgorde om van de lijst van waypoints, die staan namelijk niet goed.
-            waypointName.Reverse();
+           
             //Je bent weer terug bij af
             waypointNr = 0;
             foreach(var input in waypointName){

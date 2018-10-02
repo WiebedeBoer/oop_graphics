@@ -68,7 +68,7 @@ namespace Models
                     }
                 }
             }
-
+            path.Reverse();
             return path;
         }
     }

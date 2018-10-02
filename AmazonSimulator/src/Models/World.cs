@@ -7,6 +7,8 @@ namespace Models {
     public class World : IObservable<Command>, IUpdatable
     {
         private List<C3model> worldObjects = new List<C3model>();
+        private List<Robot> robotLijst = new List<Robot>();
+        private List<Kast> kastLijst = new List<Kast>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
         double xpos = 4.5; //global x
@@ -19,9 +21,12 @@ namespace Models {
         Kast kast1;
         Kast kast2;
         Kast kast3;
+        Kast kast4;
         Dumptruck dumptruck;
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
+        Random rnd = new Random();
+
 
         public World() {
             //Initialiseren van actoren binnen de simulatie en de paths.
@@ -29,49 +34,52 @@ namespace Models {
             PopuleerGraph();
 
             //Dumptruck die pakketen afleverd en ophaalt.
-            dumptruck = CreateDumptruck(0,1000,0,"dumptruck");
+            dumptruck = CreateDumptruck(0,1000,0);
             dumptruck.Move(1.6, 0, 45);
             dumptruck.Target(1.6, 0, 7);
-
-
-
-            //dumptruck.Target(1.6,0,7);
 
             //TODO: Maak simulatie dat alle acteurs continu beweegt en simuleerd.
         }
 
-        private Robot CreateRobot(double x, double y, double z, string type) {
+        private Robot CreateRobot(double x, double y, double z) {
             Robot r = new Robot(x,y,z,0,0,0);
             worldObjects.Add(r);
+            robotLijst.Add(r);
             return r;
         }
 
-        private Dumptruck CreateDumptruck(double x, double y, double z, string type) {
+        private Dumptruck CreateDumptruck(double x, double y, double z) {
             Dumptruck d = new Dumptruck(x,y,z,0,0,0);
             worldObjects.Add(d);
             return d;
         }
 
         private Kast CreateKast(double x, double y, double z, string type) {
-            Kast d = new Kast(x,y,z,0,0,0);
+            Kast d = new Kast(x,y,z,0,0,0,"");
             worldObjects.Add(d);
+            kastLijst.Add(d);
             return d;
         }
 
         //Word 1x aangeroept. creert en plaatst alle actoren
         private void CreerActoren() {
             //Alle 'Workers'
-            robot1 = CreateRobot(0,0,0,"robot");
+            robot1 = CreateRobot(0,0,0);
             robot1.Move(xpos, ypos, zpos);
-            robot2 = CreateRobot(0,0,0,"robot");
-            robot2.Move(4.6, 0, 11);
-            robot3 = CreateRobot(0,0,0,"robot");
-            robot3.Move(0, 0, 3);
+            robot2 = CreateRobot(0,0,0);
+            robot2.Move(7,0,7);
+            robot3 = CreateRobot(0,0,0);
+            robot3.Move(7,0,7);
 
             //Alle kasten
-            kast1 = CreateKast(0,1000,0,"kast");
-            kast2 = CreateKast(0,1000,0,"kast");
-            kast3 = CreateKast(0,1000,0,"kast");            
+            kast1 = CreateKast(0,1000,0,"depot");
+            kast2 = CreateKast(0,1000,0,"depot");
+            kast3 = CreateKast(0,1000,0,"depot");
+
+            kast4 = CreateKast(25,0,7,"RB");
+            kast4.actorStatus = "opgeslagen";
+            kast4.opgeslagenLocatie = "LC";
+
 
         }
 
@@ -81,14 +89,6 @@ namespace Models {
             kast2.Move(6.8, 3.25, 6.6);
             kast3.Move(6.8, 3.25, 7.4);
         }
-
-        //starten bewegen robots
-        private void MoveAllRobots(){
-            robot1.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
-            robot2.goTo(graphContent.GetPath("vrachtdepot","LD"),HraphObjects);
-            robot3.goTo(graphContent.GetPath("vrachtdepot","RD"),HraphObjects);
-        }           
-
 
         //Er worden aangelegd
         private void PopuleerGraph(){
@@ -127,7 +127,6 @@ namespace Models {
         public bool Update(int tick)
         {
             
-            
             for(int i = 0; i < worldObjects.Count; i++) {
                 C3model u = worldObjects[i];
 
@@ -139,9 +138,37 @@ namespace Models {
                 }
             }
 
-            if (dumptruck.Cargodrop ==true){
+            //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
+            if (rnd.Next(1000) <= 10){
+                //Ophalen van een pakket
+                foreach (Kast kast in kastLijst){
+                        if(kast.actorStatus == "opgeslagen"){
+                            foreach (Robot robot in robotLijst)
+                            {
+                                if(robot.actorStatus == "idle"){
+                                    var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie);
+                                    var terugReis = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie);
+                                    //terugReis word bij rijs ingevoegd
+                                    rijs.AddRange(terugReis);
+                                    //Navigeer de robot na de locatie van de Kast.
+                                    if (robot.actorStatus == "idle")
+                                    robot.goTo(rijs,HraphObjects);
+                                    robot.carryingKast = kast;
+                                    robot.actorStatus = "GoingToKast";
+                                    kast.actorStatus = "WachtOpRobot";
+                                    break;
+                                }
+                            }
+                        }
+                }
+            }
+
+            foreach (Robot robot in robotLijst){
+                //als robot opzelfde locatie is als kast? en hij hoort de kast op te pakken?
+                // Dan pak hem op!
+            } 
+            if (dumptruck.Cargodrop == true){
                 CargoDropped();
-                MoveAllRobots(); 
             }
 
             return true;

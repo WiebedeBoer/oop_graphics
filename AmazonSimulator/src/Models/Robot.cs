@@ -5,18 +5,13 @@ using Newtonsoft.Json;
 
 namespace Models {
     public class Robot : C3model, IUpdatable {
-        //Status van de robot
-        string roboCommand;
-
+        public Kast carryingKast;
         public Robot (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"robot")
         {
             
         }
         //RoboCommand geeft naast het bewegen, ook een commando.
         //Denk aan een kast op te pakken zodra meneer robot op zijn bestemming is.
-        public void RoboCommand (){
-
-        }
         
         public override bool Update(int tick)
         {
