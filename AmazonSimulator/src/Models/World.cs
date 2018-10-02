@@ -28,17 +28,14 @@ namespace Models {
             CreerActoren();
             PopuleerGraph();
 
-            if (dumptruck.Cargodrop ==true){
-              CargoDropped();  
-            }
+            //Dumptruck die pakketen afleverd en ophaalt.
+            dumptruck = CreateDumptruck(0,1000,0,"dumptruck");
+            dumptruck.Move(1.6, 0, 45);
+            dumptruck.Target(1.6, 0, 7);
 
 
-             //Start bewegingen, word later verwijderd.
-            robot1.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
-            robot2.goTo(graphContent.GetPath("vrachtdepot","LD"),HraphObjects);
-            robot3.goTo(graphContent.GetPath("vrachtdepot","RD"),HraphObjects);
 
-            dumptruck.Target(1.6,0,7);
+            //dumptruck.Target(1.6,0,7);
 
             //TODO: Maak simulatie dat alle acteurs continu beweegt en simuleerd.
         }
@@ -74,18 +71,24 @@ namespace Models {
             //Alle kasten
             kast1 = CreateKast(0,1000,0,"kast");
             kast2 = CreateKast(0,1000,0,"kast");
-            kast3 = CreateKast(0,1000,0,"kast");
-            
-            //Dumptruck die pakketen afleverd en ophaalt.
-            dumptruck = CreateDumptruck(0,1000,0,"dumptruck");
-            dumptruck.Move(1.6, 0, 45);
+            kast3 = CreateKast(0,1000,0,"kast");            
+
         }
 
+        //droppen van cargo
         private void CargoDropped(){
             kast1.Move(6.8, 3.25, 6.2);
             kast2.Move(6.8, 3.25, 6.6);
             kast3.Move(6.8, 3.25, 7.4);
         }
+
+        //starten bewegen robots
+        private void MoveAllRobots(){
+            robot1.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
+            robot2.goTo(graphContent.GetPath("vrachtdepot","LD"),HraphObjects);
+            robot3.goTo(graphContent.GetPath("vrachtdepot","RD"),HraphObjects);
+        }           
+
 
         //Er worden aangelegd
         private void PopuleerGraph(){
@@ -123,6 +126,8 @@ namespace Models {
 
         public bool Update(int tick)
         {
+            
+            
             for(int i = 0; i < worldObjects.Count; i++) {
                 C3model u = worldObjects[i];
 
@@ -132,6 +137,11 @@ namespace Models {
                         SendCommandToObservers(new UpdateModel3DCommand(u));
                     }
                 }
+            }
+
+            if (dumptruck.Cargodrop ==true){
+                CargoDropped();
+                MoveAllRobots(); 
             }
 
             return true;

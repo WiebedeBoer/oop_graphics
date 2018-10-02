@@ -33,7 +33,7 @@ namespace Models {
             //if(x==tX && y==tX && z==tZ){
             if(tZ<this.z) {
                 this.Move(this.x,this.y,this.z-0.1);
-                this._Cargo =true;
+                this._Cargo =false;
                 return base.Update(tick);
                 
             }
