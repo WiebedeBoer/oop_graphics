@@ -19,7 +19,7 @@ namespace Models {
         Kast kast1;
         Dumptruck dumptruck;
         GraphClass graphContent = new GraphClass();
-        private List<Hraph> HraphObjects = new List<Hraph>();
+        public List<Hraph> HraphObjects = new List<Hraph>();
         public Hraph vrachtdepot;
         public Hraph RA;
         public Hraph RB;
@@ -31,10 +31,7 @@ namespace Models {
         public Hraph LD;
 
         public World() {
-            foreach(var result in graphContent.GetPath("vrachtdepot","LC")){
-                System.Diagnostics.Debug.WriteLine(result);
-            }
-            //System.Diagnostics.Debug.WriteLine(graphContent.GetPath("vrachtdepot","LD"));
+            
             populeerGraph();
             //Alle 'Workers'
             Robot robot1 = CreateRobot(0,0,0,"robot");
@@ -55,7 +52,9 @@ namespace Models {
              //Start Simulatie
             robot1.Target(6,0,15);
             robot2.Target(6,0,13);
-            robot3.Target(LD.x,LD.y,LD.z);
+            //robot3.Target(LD.x,LD.y,LD.z);
+
+            robot3.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
 
             dumptruck.Target(1.6,0,5);
         }
@@ -138,7 +137,8 @@ namespace Models {
             return true;
         }
     }
-
+    //Waypoints word gebruikt om coordinaten in op te slaan en te versturen na de respectiefelijke robots.
+    //Ook word het door de robots zelf gebruikt om de waypoints op te slaan. Robot loopt ze dan 1 voor 1 af.
     internal class Unsubscriber<Command> : IDisposable
     {
         private List<IObserver<Command>> _observers;
