@@ -17,6 +17,8 @@ namespace Models {
         Robot robot2;
         Robot robot3;
         Kast kast1;
+        Kast kast2;
+        Kast kast3;
         Dumptruck dumptruck;
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
@@ -28,9 +30,9 @@ namespace Models {
 
 
              //Start bewegingen, word later verwijderd.
-            robot1.Target(6,0,15);
-            robot2.Target(6,0,13);
-            robot3.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
+            robot1.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
+            robot2.goTo(graphContent.GetPath("vrachtdepot","LD"),HraphObjects);
+            robot3.goTo(graphContent.GetPath("vrachtdepot","RD"),HraphObjects);
 
             dumptruck.Target(1.6,0,5);
 
@@ -67,7 +69,11 @@ namespace Models {
 
             //Alle kasten
             kast1 = CreateKast(0,0,0,"kast");
-            kast1.Move(4.6, 3.25, 9);
+            kast1.Move(6.8, 3.25, 6.2);
+            kast2 = CreateKast(0,0,0,"kast");
+            kast2.Move(6.8, 3.25, 6.6);
+            kast3 = CreateKast(0,0,0,"kast");
+            kast3.Move(6.8, 3.25, 7.4);
 
             //Dumptruck die pakketen afleverd en ophaalt.
             dumptruck = CreateDumptruck(0,0,0,"dumptruck");
@@ -75,15 +81,15 @@ namespace Models {
         }
         //Er worden aangelegd
         private void PopuleerGraph(){
-            HraphObjects.Add(new Hraph(0,0,3,"vrachtdepot"));
-            HraphObjects.Add(new Hraph(0,0,22,"RA"));
-            HraphObjects.Add(new Hraph(0,0,24,"RB"));
-            HraphObjects.Add(new Hraph(0,0,26,"RC"));
-            HraphObjects.Add(new Hraph(0,0,28,"RD"));
-            HraphObjects.Add(new Hraph(4,0,22,"LA"));
-            HraphObjects.Add(new Hraph(4,0,24,"LB"));
-            HraphObjects.Add(new Hraph(4,0,26,"LC"));
-            HraphObjects.Add(new Hraph(4,0,28,"LD"));
+            HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot"));
+            HraphObjects.Add(new Hraph(22,0,5,"RA"));
+            HraphObjects.Add(new Hraph(24,0,5,"RB"));
+            HraphObjects.Add(new Hraph(26,0,5,"RC"));
+            HraphObjects.Add(new Hraph(28,0,5,"RD"));
+            HraphObjects.Add(new Hraph(22,0,9,"LA"));
+            HraphObjects.Add(new Hraph(24,0,9,"LB"));
+            HraphObjects.Add(new Hraph(26,0,9,"LC"));
+            HraphObjects.Add(new Hraph(28,0,9,"LD"));
         }
         public IDisposable Subscribe(IObserver<Command> observer)
         {
