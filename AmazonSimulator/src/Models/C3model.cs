@@ -20,6 +20,9 @@ namespace Models {
         public double rotationX { get { return _rX; } }
         public double rotationY { get { return _rY; } }
         public double rotationZ { get { return _rZ; } }
+        public List<Hraph> hraphTarget = new List<Hraph>();
+        public double tX = -1, tY = -1, tZ =-1;
+        public int waypointNr = 0;
 
         public bool needsUpdate = true;
 
@@ -36,7 +39,14 @@ namespace Models {
             this._rY = rotationY;
             this._rZ = rotationZ;
         }
-
+        //Target kan gebruikt worden om een robot handbatig na coordianten te sturen.
+        //Ook word Target gebruikt door goTo als waypoint of destination.
+        public void Target (double x, double y, double z){
+            tX = x;
+            tY = y;
+            tZ = z;
+        }
+        //Move beweegt de acteur onmiddelijk zonder transitie of animatie.
         public virtual void Move(double x, double y, double z) {
             this._x = x;
             this._y = y;
@@ -44,7 +54,23 @@ namespace Models {
 
             needsUpdate = true;
         }
-
+        //goTo geeft een lijst met coordinaten waar de acteur heen moet gaan, in die volgorde.
+        public void goTo (List<string> waypointName, List<Hraph> allWaypoints){
+            //Wissel volgorde om van de lijst van waypoints, die staan namelijk niet goed.
+            waypointName.Reverse();
+            //Je bent weer terug bij af
+            waypointNr = 0;
+            foreach(var input in waypointName){
+                foreach (var hraph in allWaypoints){
+                    if(input == hraph.nodeName){
+                        hraphTarget.Add( new Hraph(hraph.x,hraph.y,hraph.z,hraph.nodeName));
+                    }
+                }
+            }
+            //Eerste waypoint/destination eerst...
+            Target(hraphTarget[0].x,hraphTarget[0].y,hraphTarget[0].z);
+        }
+        //Rotate draait de acteur onmiddelijk zonder transitie of animatie.
         public virtual void Rotate(double rotationX, double rotationY, double rotationZ) {
             this._rX = rotationX;
             this._rY = rotationY;

@@ -8,14 +8,14 @@ namespace Models {
     {
         private List<Gnode> graphObjects = new List<Gnode>();
         
-        public Gnode vrachtdepot;
-        public Gnode RA;
-        public Gnode RB;
-        public Gnode RC;
-        public Gnode RD;
-        public Gnode LA;
-        public Gnode LB;
-        public Gnode LC;
+        Gnode vrachtdepot;
+        Gnode RA;
+        Gnode RB;
+        Gnode RC;
+        Gnode RD;
+        Gnode LA;
+        Gnode LB;
+        Gnode LC;
         Gnode LD;
 
         public Graph() {
@@ -32,14 +32,12 @@ namespace Models {
         }
 
         private Gnode CreateNode(double x, double y, double z, string nodename) {
-            Gnode g = new Gnode(0,0,0,nodename);
+            Gnode g = new Gnode(x,y,z,nodename);
             graphObjects.Add(g);
             return g;
         }
-     
-    }
 
-    public class Gnode {
+        public class Gnode {
 
             private double _x = 0;
             private double _y = 0;
@@ -51,7 +49,7 @@ namespace Models {
             public double z { get { return _z; } }
 
             public Gnode(double x, double y, double z, string nodename) {
-            //type = "robot" of "dumptruck"
+                
             this.nodename = nodename;
             
             this._x = x;
@@ -60,7 +58,7 @@ namespace Models {
             }
            
 
+        }
+
     }
-
-
 }

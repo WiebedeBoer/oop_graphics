@@ -18,16 +18,28 @@ namespace Models {
         Robot robot3;
         Kast kast1;
         Dumptruck dumptruck;
+        GraphClass graphContent = new GraphClass();
+        public List<Hraph> HraphObjects = new List<Hraph>();
+        public Hraph vrachtdepot;
+        public Hraph RA;
+        public Hraph RB;
+        public Hraph RC;
+        public Hraph RD;
+        public Hraph LA;
+        public Hraph LB;
+        public Hraph LC;
+        public Hraph LD;
 
         public World() {
+            
+            populeerGraph();
             //Alle 'Workers'
             Robot robot1 = CreateRobot(0,0,0,"robot");
             robot1.Move(xpos, ypos, zpos);
             Robot robot2 = CreateRobot(0,0,0,"robot");
             robot2.Move(4.6, 0, 11);
             Robot robot3 = CreateRobot(0,0,0,"robot");
-            robot3.Move(4.6, 0, 9);
-            //robot3.Move(5.8, 0, 9);
+            robot3.Move(0, 0, 3);
 
             //Alle kasten
             Kast kast1 = CreateKast(0,0,0,"kast");
@@ -38,16 +50,11 @@ namespace Models {
             dumptruck.Move(1.6, 0, 45);
 
              //Start Simulatie
-            robot1.Target(26,0,25);
-            robot2.Target(26,0,23);
-            //robot3.Target(26,0,21);
-            Graph graph = new Graph();
-            //Gnode gnode = new Gnode();
-            //Graph.Gnode RA = Graph.Gnode(CreateNode(0,0,2,"RA"));
-            //Models.Gnode RA = new Models.Gnode();
-            //robot3.Target(Graph.Gnode.RA.x,Graph.Gnode.RA.y,Graph.Gnode.RA.z);
-            //Graph.Gnode RA = Graph.CreateNode(0,0,2,"RA");
-            robot3.Target(graph.RA.x,graph.RA.y,graph.RA.z);
+            robot1.Target(6,0,15);
+            robot2.Target(6,0,13);
+            //robot3.Target(LD.x,LD.y,LD.z);
+
+            robot3.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
 
             dumptruck.Target(1.6,0,5);
         }
@@ -91,6 +98,26 @@ namespace Models {
                 obs.OnNext(new UpdateModel3DCommand(m3d));
             }
         }
+        private void populeerGraph(){
+            vrachtdepot = new Hraph(0,0,3, "vrachtdepot");
+            HraphObjects.Add(vrachtdepot);
+            RA = new Hraph(0,0,22,"RA");
+            HraphObjects.Add(RA);
+            RB = new Hraph(0,0,24,"RB");
+            HraphObjects.Add(RB);
+            RC = new Hraph(0,0,26,"RC");
+            HraphObjects.Add(RC);
+            RD = new Hraph(0,0,28,"RD");
+            HraphObjects.Add(RD);
+            LA = new Hraph(4,0,22,"LA");
+            HraphObjects.Add(LA);
+            LB = new Hraph(4,0,24,"LB");
+            HraphObjects.Add(LB);
+            LC = new Hraph(4,0,26,"LC");
+            HraphObjects.Add(LC);
+            LD = new Hraph(4,0,28,"LD");
+            HraphObjects.Add(LD);
+        }
 
         public bool Update(int tick)
         {
@@ -110,7 +137,8 @@ namespace Models {
             return true;
         }
     }
-
+    //Waypoints word gebruikt om coordinaten in op te slaan en te versturen na de respectiefelijke robots.
+    //Ook word het door de robots zelf gebruikt om de waypoints op te slaan. Robot loopt ze dan 1 voor 1 af.
     internal class Unsubscriber<Command> : IDisposable
     {
         private List<IObserver<Command>> _observers;
