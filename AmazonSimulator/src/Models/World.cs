@@ -28,6 +28,10 @@ namespace Models {
             CreerActoren();
             PopuleerGraph();
 
+            if (dumptruck.Cargodrop ==true){
+              CargoDropped();  
+            }
+
 
              //Start bewegingen, word later verwijderd.
             robot1.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
