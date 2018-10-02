@@ -34,7 +34,7 @@ namespace Models {
             robot2.goTo(graphContent.GetPath("vrachtdepot","LD"),HraphObjects);
             robot3.goTo(graphContent.GetPath("vrachtdepot","RD"),HraphObjects);
 
-            dumptruck.Target(1.6,0,5);
+            dumptruck.Target(1.6,0,7);
 
             //TODO: Maak simulatie dat alle acteurs continu beweegt en simuleerd.
         }
@@ -68,17 +68,21 @@ namespace Models {
             robot3.Move(0, 0, 3);
 
             //Alle kasten
-            kast1 = CreateKast(0,0,0,"kast");
-            kast1.Move(6.8, 3.25, 6.2);
-            kast2 = CreateKast(0,0,0,"kast");
-            kast2.Move(6.8, 3.25, 6.6);
-            kast3 = CreateKast(0,0,0,"kast");
-            kast3.Move(6.8, 3.25, 7.4);
-
+            kast1 = CreateKast(0,1000,0,"kast");
+            kast2 = CreateKast(0,1000,0,"kast");
+            kast3 = CreateKast(0,1000,0,"kast");
+            
             //Dumptruck die pakketen afleverd en ophaalt.
-            dumptruck = CreateDumptruck(0,0,0,"dumptruck");
+            dumptruck = CreateDumptruck(0,1000,0,"dumptruck");
             dumptruck.Move(1.6, 0, 45);
         }
+
+        private void CargoDropped(){
+            kast1.Move(6.8, 3.25, 6.2);
+            kast2.Move(6.8, 3.25, 6.6);
+            kast3.Move(6.8, 3.25, 7.4);
+        }
+
         //Er worden aangelegd
         private void PopuleerGraph(){
             HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot"));
