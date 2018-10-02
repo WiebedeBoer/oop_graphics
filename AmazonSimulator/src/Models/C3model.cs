@@ -20,14 +20,15 @@ namespace Models {
         public double rotationX { get { return _rX; } }
         public double rotationY { get { return _rY; } }
         public double rotationZ { get { return _rZ; } }
-        public List<Hraph> hraphTarget = new List<Hraph>();
-        public double tX = -1, tY = -1, tZ =-1;
-        public int waypointNr = 0;
+
+        protected List<Hraph> hraphTarget = new List<Hraph>();
+        protected double tX = -1, tY = -1, tZ =-1;
+        protected int waypointNr = 0;
+        protected string actorStatus = "idle";
 
         public bool needsUpdate = true;
 
         public C3model(double x, double y, double z, double rotationX, double rotationY, double rotationZ, string type) {
-            //type = "robot" of "dumptruck"
             this.type = type;
             this.guid = Guid.NewGuid();
 
@@ -51,7 +52,6 @@ namespace Models {
             this._x = x;
             this._y = y;
             this._z = z;
-
             needsUpdate = true;
         }
         //goTo geeft een lijst met coordinaten waar de acteur heen moet gaan, in die volgorde.
@@ -67,6 +67,7 @@ namespace Models {
                     }
                 }
             }
+            actorStatus = "moving to waypoints";
             //Eerste waypoint/destination eerst...
             Target(hraphTarget[0].x,hraphTarget[0].y,hraphTarget[0].z);
         }

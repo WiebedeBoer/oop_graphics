@@ -20,43 +20,21 @@ namespace Models {
         Dumptruck dumptruck;
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
-        public Hraph vrachtdepot;
-        public Hraph RA;
-        public Hraph RB;
-        public Hraph RC;
-        public Hraph RD;
-        public Hraph LA;
-        public Hraph LB;
-        public Hraph LC;
-        public Hraph LD;
 
         public World() {
-            
-            populeerGraph();
-            //Alle 'Workers'
-            Robot robot1 = CreateRobot(0,0,0,"robot");
-            robot1.Move(xpos, ypos, zpos);
-            Robot robot2 = CreateRobot(0,0,0,"robot");
-            robot2.Move(4.6, 0, 11);
-            Robot robot3 = CreateRobot(0,0,0,"robot");
-            robot3.Move(0, 0, 3);
+            //Initialiseren van actoren binnen de simulatie en de paths.
+            CreerActoren();
+            PopuleerGraph();
 
-            //Alle kasten
-            Kast kast1 = CreateKast(0,0,0,"kast");
-            kast1.Move(4.6, 3.25, 9);
 
-            //Dumptruck die pakketen afleverd en ophaalt.
-            Dumptruck dumptruck = CreateDumptruck(0,0,0,"dumptruck");
-            dumptruck.Move(1.6, 0, 45);
-
-             //Start Simulatie
+             //Start bewegingen, word later verwijderd.
             robot1.Target(6,0,15);
             robot2.Target(6,0,13);
-            //robot3.Target(LD.x,LD.y,LD.z);
-
             robot3.goTo(graphContent.GetPath("vrachtdepot","LC"),HraphObjects);
 
             dumptruck.Target(1.6,0,5);
+
+            //TODO: Maak simulatie dat alle acteurs continu beweegt en simuleerd.
         }
 
         private Robot CreateRobot(double x, double y, double z, string type) {
@@ -77,6 +55,36 @@ namespace Models {
             return d;
         }
 
+        //Word 1x aangeroept. creert en plaatst alle actoren
+        private void CreerActoren() {
+            //Alle 'Workers'
+            robot1 = CreateRobot(0,0,0,"robot");
+            robot1.Move(xpos, ypos, zpos);
+            robot2 = CreateRobot(0,0,0,"robot");
+            robot2.Move(4.6, 0, 11);
+            robot3 = CreateRobot(0,0,0,"robot");
+            robot3.Move(0, 0, 3);
+
+            //Alle kasten
+            kast1 = CreateKast(0,0,0,"kast");
+            kast1.Move(4.6, 3.25, 9);
+
+            //Dumptruck die pakketen afleverd en ophaalt.
+            dumptruck = CreateDumptruck(0,0,0,"dumptruck");
+            dumptruck.Move(1.6, 0, 45);
+        }
+        //Er worden aangelegd
+        private void PopuleerGraph(){
+            HraphObjects.Add(new Hraph(0,0,3,"vrachtdepot"));
+            HraphObjects.Add(new Hraph(0,0,22,"RA"));
+            HraphObjects.Add(new Hraph(0,0,24,"RB"));
+            HraphObjects.Add(new Hraph(0,0,26,"RC"));
+            HraphObjects.Add(new Hraph(0,0,28,"RD"));
+            HraphObjects.Add(new Hraph(4,0,22,"LA"));
+            HraphObjects.Add(new Hraph(4,0,24,"LB"));
+            HraphObjects.Add(new Hraph(4,0,26,"LC"));
+            HraphObjects.Add(new Hraph(4,0,28,"LD"));
+        }
         public IDisposable Subscribe(IObserver<Command> observer)
         {
             if (!observers.Contains(observer)) {
@@ -98,26 +106,6 @@ namespace Models {
                 obs.OnNext(new UpdateModel3DCommand(m3d));
             }
         }
-        private void populeerGraph(){
-            vrachtdepot = new Hraph(0,0,3, "vrachtdepot");
-            HraphObjects.Add(vrachtdepot);
-            RA = new Hraph(0,0,22,"RA");
-            HraphObjects.Add(RA);
-            RB = new Hraph(0,0,24,"RB");
-            HraphObjects.Add(RB);
-            RC = new Hraph(0,0,26,"RC");
-            HraphObjects.Add(RC);
-            RD = new Hraph(0,0,28,"RD");
-            HraphObjects.Add(RD);
-            LA = new Hraph(4,0,22,"LA");
-            HraphObjects.Add(LA);
-            LB = new Hraph(4,0,24,"LB");
-            HraphObjects.Add(LB);
-            LC = new Hraph(4,0,26,"LC");
-            HraphObjects.Add(LC);
-            LD = new Hraph(4,0,28,"LD");
-            HraphObjects.Add(LD);
-        }
 
         public bool Update(int tick)
         {
@@ -126,8 +114,6 @@ namespace Models {
 
                 if(u is IUpdatable) {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
-                    //xpos = xpos + 0.01;
-                    //u.Move(xpos, ypos, zpos);
                     if(needsCommand) {
                         SendCommandToObservers(new UpdateModel3DCommand(u));
                     }
@@ -137,8 +123,6 @@ namespace Models {
             return true;
         }
     }
-    //Waypoints word gebruikt om coordinaten in op te slaan en te versturen na de respectiefelijke robots.
-    //Ook word het door de robots zelf gebruikt om de waypoints op te slaan. Robot loopt ze dan 1 voor 1 af.
     internal class Unsubscriber<Command> : IDisposable
     {
         private List<IObserver<Command>> _observers;
