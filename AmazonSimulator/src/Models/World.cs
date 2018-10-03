@@ -138,16 +138,28 @@ namespace Models {
                 }
             }
 
-            //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
-            if (rnd.Next(1000) <= 10){
+            //20 updates per seconde. 20x 0,5% kans per seconde om een actie te laten gebeuren.
+            if (rnd.Next(1000) <= 5){
                 //Ophalen van een pakket
-                foreach (Kast kast in kastLijst){
+                foreach (C3model o in worldObjects){
+                    Kast kast;
+                    if(o is Kast) {
+                        kast = (Kast)o;
+                    } else {
+                        continue;
+                    }
                         if(kast.actorStatus == "opgeslagen"){
-                            foreach (Robot robot in robotLijst)
+                            foreach (C3model p in worldObjects)
                             {
+                                Robot robot;
+                                if(p is Robot) {
+                                    robot = (Robot)p;
+                                } else {
+                                    continue;
+                                }
                                 if(robot.actorStatus == "idle"){
                                     var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie);
-                                    var terugReis = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie);
+                                    var terugReis = graphContent.GetPath(kast.opgeslagenLocatie,"vrachtdepot");
                                     //terugReis word bij rijs ingevoegd
                                     rijs.AddRange(terugReis);
                                     //Navigeer de robot na de locatie van de Kast.
