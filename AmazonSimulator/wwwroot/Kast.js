@@ -22,6 +22,8 @@ class Kast extends THREE.Group {
         meshkast._meshkast = new THREE.Mesh(kgeometry, kmaterial);
         mkast._meshkast.position.set.y = 0.15;
         mkast.add(mkast._meshkast);
+
+        mkast._loadState = LoadStates.LOADED;
         
     }
             

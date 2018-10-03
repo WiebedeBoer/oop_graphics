@@ -7,8 +7,6 @@ class dumptruck extends THREE.Group {
 
         this._loadState = LoadStates.LOADING;
 
-        var mkast = this;
-
         var dumptruck = this;
         loadOBJModel("models/","Dump_Truck.obj","models/","Dump_Truck.mtl", (mesh) => {
             dumptruck.position.y = 1;
@@ -19,6 +17,7 @@ class dumptruck extends THREE.Group {
             dumptruck._meshtruck = new THREE.Mesh(g, m);
             mkast._meshtruck.position.set.y = 0.15;
             dumptruck.add(dumptruck._meshtruck);
+            dumptruck._loadState = LoadStates.LOADED;
         });
     }    
             
