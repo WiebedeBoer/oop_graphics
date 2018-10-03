@@ -11,9 +11,9 @@ namespace Models {
         private List<Kast> kastLijst = new List<Kast>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
-        double xpos = 4.5; //global x
-        double ypos = 0; //global y
-        double zpos = 13; //global z
+        //double xpos = 4.5; //global x
+        //double ypos = 0; //global y
+        //double zpos = 13; //global z
 
         Robot robot1;
         Robot robot2;
@@ -26,6 +26,8 @@ namespace Models {
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
         Random rnd = new Random();
+
+        private bool Cargocarry;
 
 
         public World() {
@@ -65,7 +67,7 @@ namespace Models {
         private void CreerActoren() {
             //Alle 'Workers'
             robot1 = CreateRobot(0,0,0);
-            robot1.Move(xpos, ypos, zpos);
+            robot1.Move(4.5, 0, 13);
             robot2 = CreateRobot(0,0,0);
             robot2.Move(7,0,7);
             robot3 = CreateRobot(0,0,0);
@@ -88,6 +90,11 @@ namespace Models {
             kast1.Move(6.8, 3.25, 6.2);
             kast2.Move(6.8, 3.25, 6.6);
             kast3.Move(6.8, 3.25, 7.4);
+        }
+
+        //oppakken van cargo
+        private void CargoPicked(){
+            dumptruck.Target(1.6, 0, -45);
         }
 
         //Er worden aangelegd
@@ -162,6 +169,9 @@ namespace Models {
                                     var terugReis = graphContent.GetPath(kast.opgeslagenLocatie,"vrachtdepot");
                                     //terugReis word bij rijs ingevoegd
                                     rijs.AddRange(terugReis);
+                                    //foreach (var result in terugReis){
+                                    //    System.Diagnostics.Debug.WriteLine(result);
+                                    //}
                                     //Navigeer de robot na de locatie van de Kast.
                                     if (robot.actorStatus == "idle")
                                     robot.goTo(rijs,HraphObjects);
@@ -181,6 +191,10 @@ namespace Models {
             } 
             if (dumptruck.Cargodrop == true){
                 CargoDropped();
+            }
+
+            if (Cargocarry ==true){
+                CargoPicked();
             }
 
             return true;
