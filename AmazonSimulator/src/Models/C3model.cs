@@ -22,7 +22,7 @@ namespace Models {
         public double rotationZ { get { return _rZ; } }
 
         protected List<Hraph> hraphTarget = new List<Hraph>();
-        protected double tX = -1, tY = -1, tZ =-1;
+        public double tX = -1, tY = -1, tZ =-1;
         protected int waypointNr = 0;
         public string actorStatus = "idle";
         private string location;
@@ -56,11 +56,7 @@ namespace Models {
             needsUpdate = true;
         }
         //goTo geeft een lijst met coordinaten waar de acteur heen moet gaan, in die volgorde.
-        public void goTo (List<string> waypointName, List<Hraph> allWaypoints){
-            //Wissel volgorde om van de lijst van waypoints, die staan namelijk niet goed.
-           
-            //Je bent weer terug bij af
-            waypointNr = 0;
+        public void goTo (List<string> waypointName, List<Hraph> allWaypoints){         
             foreach(var input in waypointName){
                 foreach (var hraph in allWaypoints){
                     if(input == hraph.nodeName){
@@ -68,7 +64,6 @@ namespace Models {
                     }
                 }
             }
-            actorStatus = "moving to waypoints";
             //Eerste waypoint/destination eerst...
             Target(hraphTarget[0].x,hraphTarget[0].y,hraphTarget[0].z);
         }

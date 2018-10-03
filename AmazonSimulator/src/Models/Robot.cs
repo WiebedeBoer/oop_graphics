@@ -10,55 +10,83 @@ namespace Models {
         {
             
         }
-        //RoboCommand geeft naast het bewegen, ook een commando.
-        //Denk aan een kast op te pakken zodra meneer robot op zijn bestemming is.
-        
+        private void PakKast(){
+            carryingKast.GetPickedUp();
+        }
+        private void DropKast(){
+            carryingKast.NeerGezet();
+            carryingKast = null;
+        }
+        public void GoCarryKast(Kast input) {
+            carryingKast = input;
+            actorStatus = "GoingToKast";
+        }
         public override bool Update(int tick)
         {
             //Beweging naar bestemming (Gaat veranderd worden voor correcte path vinding)
-            if(tX>x && tX != -1){
-                if (tX-x < 0.01){
-                    this.Move(tX,y,z); 
-                }else{ 
-                this.Move(x+0.01,y,z);  
+            if(tX != -1 && tY != -1 && tZ != -1){
+                if(tX>x){
+                    if (tX-x <= 0.1){
+                        this.Move(tX,y,z); 
+                    }else{ 
+                        this.Move(x+0.1,y,z);  
+                    }
+                }else if(tX<x){
+                    if (tX-x >= -0.1){
+                        this.Move(tX,y,z); 
+                    }else{ 
+                        this.Move(x-0.1,y,z);  
+                    } 
+                    //En nu voor de Y as
+                }else if(tZ>z){
+                    if (tZ-z <= 0.1){
+                        this.Move(x,y,tZ); 
+                    }else{ 
+                        this.Move(x,y,z+0.1);  
+                    }  
+                }else if(tZ<z){
+                    if (tZ-z >= -0.1){
+                        this.Move(x,y,tZ); 
+                    }else{ 
+                        this.Move(x,y,z-0.1);
+                    } 
                 }
-            }else if(tX<x && tX != -1){
-                if (tX-x > 0.01){
-                    this.Move(tX,y,z); 
-                }else{ 
-                this.Move(x-0.01,y,z);  
-                } 
-                //En nu voor de Y as
-            }else if(tZ>z && tX != -1){
-                if (tZ-z < 0.01){
-                    this.Move(x,y,tZ); 
-                }else{ 
-                this.Move(x,y,z+0.01);  
-                }  
-            }else if(tZ<z && tX != -1){
-                if (tZ-z > 0.01){
-                    this.Move(x,y,tZ); 
-                }else{ 
-                this.Move(x,y,tZ-0.01);
-                } 
             }
             //Bestemming of waypoint berijkt.
-            if((x==tX && y==tX && z==tZ) && actorStatus == "moving to waypoints"){
+            if((x==tX && z==tZ) && hraphTarget.Count != 0){
 
-                if (hraphTarget.Count == waypointNr){
+                if (hraphTarget.Count == waypointNr+1){
                     //we zijn er!
                     actorStatus = "idle";
                     hraphTarget.Clear();
                     waypointNr = 0;
+                    //Als we terug zijn bij depot en we hebben een kast bij ons...
+                    //Drop de kast
+                    if (carryingKast != null){
+                        DropKast();
+                        carryingKast = null;
+                    }
+                    tX = -1;
+                    tY = -1;
+                    tZ = -1;
                 }else{
                     //we zijn er bijna.
-                    actorStatus = "moving to waypoints";
+                    if (carryingKast != null){
+                        //als op aflever punt zijn van kast? droppen
+                        if (carryingKast.opgeslagenLocatie.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "Opgepakt"){
+                            carryingKast = null;
+                            DropKast();
+                        }else if (carryingKast.huidigeLocatie.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "WachtOpRobot"){
+                            
+                            PakKast();
+                        }
+                        
+                    }
                     waypointNr++;
-                    Target(hraphTarget[waypointNr-1].x,hraphTarget[waypointNr-1].y,hraphTarget[waypointNr-1].z);
+                    Target(hraphTarget[waypointNr].x,hraphTarget[waypointNr].y,hraphTarget[waypointNr].z);
                 }
                 
             }
-            //TODO: if positie != thuisbasis en status == idle then-> na huis jij
 
             return base.Update(tick);
         }

@@ -22,6 +22,9 @@ namespace Models {
         Kast kast2;
         Kast kast3;
         Kast kast4;
+        Kast kast5;
+        Kast kast6;
+        Kast kast7;
         Dumptruck dumptruck;
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
@@ -57,7 +60,7 @@ namespace Models {
         }
 
         private Kast CreateKast(double x, double y, double z, string type, bool cargoed) {
-            Kast d = new Kast(x,y,z,0,0,0,"",false);
+            Kast d = new Kast(x,y,z,0,0,0,null,false);
             worldObjects.Add(d);
             kastLijst.Add(d);
             return d;
@@ -67,20 +70,29 @@ namespace Models {
         private void CreerActoren() {
             //Alle 'Workers'
             robot1 = CreateRobot(0,0,0);
-            robot1.Move(4.5, 0, 13);
+            robot1.Move(7,0,7);
             robot2 = CreateRobot(0,0,0);
             robot2.Move(7,0,7);
             robot3 = CreateRobot(0,0,0);
             robot3.Move(7,0,7);
 
             //Alle kasten
-            kast1 = CreateKast(0,1000,0,"depot", false);
-            kast2 = CreateKast(0,1000,0,"depot", false);
-            kast3 = CreateKast(0,1000,0,"depot", false);
+            kast1 = CreateKast(0,1000,0,null, false);
+            kast2 = CreateKast(0,1000,0,null, false);
+            kast3 = CreateKast(0,1000,0,null, false);
 
-            kast4 = CreateKast(25,0,7,"RB", false);
+            kast4 = CreateKast(26,3,5,null, false);
             kast4.actorStatus = "opgeslagen";
-            kast4.opgeslagenLocatie = "LC";
+            kast4.huidigeLocatie = new Hraph(26,0,5,"RC");
+            kast5 = CreateKast(28,3,5,null, false);
+            kast5.actorStatus = "opgeslagen";
+            kast5.huidigeLocatie = new Hraph(28,0,5,"RD");
+            kast6 = CreateKast(26,3,9,null, false);
+            kast6.actorStatus = "opgeslagen";
+            kast6.huidigeLocatie = new Hraph(26,0,9,"LC");
+            kast7 = CreateKast(28,3,9,null, false);
+            kast7.actorStatus = "opgeslagen";
+            kast7.huidigeLocatie = new Hraph(28,0,9,"LD");
 
 
         }
@@ -97,8 +109,7 @@ namespace Models {
             dumptruck.Target(1.6, 0, -45);
         }
 
-        //Er worden aangelegd
-        private void PopuleerGraph(){
+        public void PopuleerGraph(){
             HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot"));
             HraphObjects.Add(new Hraph(22,0,5,"RA"));
             HraphObjects.Add(new Hraph(24,0,5,"RB"));
@@ -145,16 +156,22 @@ namespace Models {
                 }
             }
 
-            //20 updates per seconde. 20x 0,5% kans per seconde om een actie te laten gebeuren.
-            if (rnd.Next(1000) <= 5){
+            //20 updates per seconde. 20x 0,1% kans per seconde om een actie te laten gebeuren.
+            if (rnd.Next(1000) <= 1){
+                Boolean gaVerderFlag = false;
                 //Ophalen van een pakket
                 foreach (C3model o in worldObjects){
+                    //Een flag voor als een robot is gevonden voor een kast
+                    if (gaVerderFlag == true){break;}
+
+                    //ben jij een kast? nee? volgende candidaat
                     Kast kast;
                     if(o is Kast) {
                         kast = (Kast)o;
                     } else {
                         continue;
                     }
+
                         if(kast.actorStatus == "opgeslagen"){
                             foreach (C3model p in worldObjects)
                             {
@@ -165,20 +182,22 @@ namespace Models {
                                     continue;
                                 }
                                 if(robot.actorStatus == "idle"){
-                                    var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie);
-                                    var terugReis = graphContent.GetPath(kast.opgeslagenLocatie,"vrachtdepot");
-                                    //terugReis word bij rijs ingevoegd
-                                    rijs.AddRange(terugReis);
-                                    //foreach (var result in terugReis){
-                                    //    System.Diagnostics.Debug.WriteLine(result);
-                                    //}
-                                    //Navigeer de robot na de locatie van de Kast.
-                                    if (robot.actorStatus == "idle")
-                                    robot.goTo(rijs,HraphObjects);
-                                    robot.carryingKast = kast;
-                                    robot.actorStatus = "GoingToKast";
-                                    kast.actorStatus = "WachtOpRobot";
-                                    break;
+                                    //Ophalen kast
+                                    if(1==1){
+                                        var rijs = graphContent.GetPath("vrachtdepot",kast.huidigeLocatie.nodeName);
+                                        var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,"vrachtdepot");
+                                        //terugReis word bij rijs ingevoegd
+                                        rijs.AddRange(terugReis);
+
+                                        //Navigeer de robot na de locatie van de Kast.
+                                        robot.goTo(rijs,HraphObjects);
+                                        robot.GoCarryKast(kast);
+                                        kast.GetCarriedBy(robot);
+                                        //Eindbestemming is altijd hetzelfde voor een kast
+                                        kast.ZetBestemming(new Hraph(7,0,7,"vrachtdepot"));
+                                        gaVerderFlag = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -190,7 +209,7 @@ namespace Models {
                 // Dan pak hem op!
             } 
             if (dumptruck.Cargodrop == true){
-                CargoDropped();
+                //CargoDropped();
             }
 
             if (Cargocarry ==true){
