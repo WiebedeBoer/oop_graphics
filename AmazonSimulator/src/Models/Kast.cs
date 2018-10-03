@@ -7,9 +7,10 @@ namespace Models {
     public class Kast : C3model, IUpdatable {
         public string opgeslagenLocatie;
         
-        public Kast (double x, double y, double z, double rotationX, double rotationY, double rotationZ, string opgeslagenLocatie) :base(x, y, z, rotationX, rotationY, rotationZ,"kast")
+        public Kast (double x, double y, double z, double rotationX, double rotationY, double rotationZ, string opgeslagenLocatie, bool Cargoed) :base(x, y, z, rotationX, rotationY, rotationZ,"kast")
         {
             this.opgeslagenLocatie = opgeslagenLocatie;
+            this.Cargoed = Cargoed;
         }
         public override bool Update(int tick)
         {

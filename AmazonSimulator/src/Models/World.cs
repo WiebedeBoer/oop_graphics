@@ -54,8 +54,8 @@ namespace Models {
             return d;
         }
 
-        private Kast CreateKast(double x, double y, double z, string type) {
-            Kast d = new Kast(x,y,z,0,0,0,"");
+        private Kast CreateKast(double x, double y, double z, string type, bool cargoed) {
+            Kast d = new Kast(x,y,z,0,0,0,"",false);
             worldObjects.Add(d);
             kastLijst.Add(d);
             return d;
@@ -72,11 +72,11 @@ namespace Models {
             robot3.Move(7,0,7);
 
             //Alle kasten
-            kast1 = CreateKast(0,1000,0,"depot");
-            kast2 = CreateKast(0,1000,0,"depot");
-            kast3 = CreateKast(0,1000,0,"depot");
+            kast1 = CreateKast(0,1000,0,"depot", false);
+            kast2 = CreateKast(0,1000,0,"depot", false);
+            kast3 = CreateKast(0,1000,0,"depot", false);
 
-            kast4 = CreateKast(25,0,7,"RB");
+            kast4 = CreateKast(25,0,7,"RB", false);
             kast4.actorStatus = "opgeslagen";
             kast4.opgeslagenLocatie = "LC";
 
