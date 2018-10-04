@@ -20,7 +20,7 @@ namespace Models {
         }
         public void NeerGezet(){
             this.Move(opgeslagenLocatie.x,3,opgeslagenLocatie.z);
-            huidigeLocatie = new Hraph(opgeslagenLocatie.x,3,opgeslagenLocatie.z,opgeslagenLocatie.nodeName);
+            huidigeLocatie = new Hraph(opgeslagenLocatie.x,3,opgeslagenLocatie.z,opgeslagenLocatie.nodeName, true);
             if(opgeslagenLocatie.nodeName == "vrachtdepot"){
                 actorStatus = "InDepot";
             } else {
