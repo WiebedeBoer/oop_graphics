@@ -83,16 +83,16 @@ namespace Models {
 
             kast4 = CreateKast(26,3,5,null, false);
             kast4.actorStatus = "opgeslagen";
-            kast4.huidigeLocatie = new Hraph(26,0,5,"RC");
+            kast4.huidigeLocatie = new Hraph(26,0,5,"RC", true);
             kast5 = CreateKast(28,3,5,null, false);
             kast5.actorStatus = "opgeslagen";
-            kast5.huidigeLocatie = new Hraph(28,0,5,"RD");
+            kast5.huidigeLocatie = new Hraph(28,0,5,"RD", true);
             kast6 = CreateKast(26,3,9,null, false);
             kast6.actorStatus = "opgeslagen";
-            kast6.huidigeLocatie = new Hraph(26,0,9,"LC");
+            kast6.huidigeLocatie = new Hraph(26,0,9,"LC", true);
             kast7 = CreateKast(28,3,9,null, false);
             kast7.actorStatus = "opgeslagen";
-            kast7.huidigeLocatie = new Hraph(28,0,9,"LD");
+            kast7.huidigeLocatie = new Hraph(28,0,9,"LD", true);
 
 
         }
@@ -110,15 +110,17 @@ namespace Models {
         }
 
         public void PopuleerGraph(){
-            HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot"));
-            HraphObjects.Add(new Hraph(22,0,5,"RA"));
-            HraphObjects.Add(new Hraph(24,0,5,"RB"));
-            HraphObjects.Add(new Hraph(26,0,5,"RC"));
-            HraphObjects.Add(new Hraph(28,0,5,"RD"));
-            HraphObjects.Add(new Hraph(22,0,9,"LA"));
-            HraphObjects.Add(new Hraph(24,0,9,"LB"));
-            HraphObjects.Add(new Hraph(26,0,9,"LC"));
-            HraphObjects.Add(new Hraph(28,0,9,"LD"));
+            HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", true));
+            HraphObjects.Add(new Hraph(11,0,7,"padepot", false));
+            HraphObjects.Add(new Hraph(11,0,11,"pbdepot", false));
+            HraphObjects.Add(new Hraph(15,0,11,"RA", false));
+            HraphObjects.Add(new Hraph(19,0,11,"RB", false));
+            HraphObjects.Add(new Hraph(23,0,11,"RC", false));
+            HraphObjects.Add(new Hraph(23,0,15,"RD", false));
+            HraphObjects.Add(new Hraph(11,0,15,"LA", false));
+            HraphObjects.Add(new Hraph(11,0,19,"LB", false));
+            HraphObjects.Add(new Hraph(11,0,23,"LC", false));
+            HraphObjects.Add(new Hraph(15,0,23,"LD", false));
         }
         public IDisposable Subscribe(IObserver<Command> observer)
         {
@@ -194,7 +196,7 @@ namespace Models {
                                         robot.goTo(rijs,HraphObjects);
                                         kast.GetCarriedBy(robot);
                                         //Eindbestemming is altijd hetzelfde voor een kast
-                                        kast.ZetBestemming(new Hraph(7,0,7,"vrachtdepot"));
+                                        kast.ZetBestemming(new Hraph(7,0,7,"vrachtdepot", true));
                                         //break de huidige robot foreach en zet de break boolean flag voor de kast for each
                                         gaVerderFlag = true;
                                         break;
