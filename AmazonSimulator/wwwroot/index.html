@@ -45,7 +45,7 @@
 
                 //ambient light
                 var light = new THREE.AmbientLight(0x404040);
-                light.intensity = 4;
+                light.intensity = 1;
                 scene.add(light);
 
                 // axes skybox
@@ -106,13 +106,11 @@
                         }
                         //dumptruck
                         else if (command.parameters.type == "dumptruck") {
-                           dumptruck = new THREE.Group();
-                           scene.add(dumptruck);
-                            worldObjects[command.parameters.guid] = dumptruck;
-                            loadOBJModel("models/","Dump_Truck.obj","models/","Dump_Truck.mtl", (mesh) => {
-                                dumptruck.position.y = 1;
-                                dumptruck.add(mesh);                                
-                            });
+
+                            var ndumptruck = new Dumptruck();
+                            scene.add(ndumptruck);
+                            worldObjects[command.parameters.guid] = ndumptruck;
+
                         }
                     }
                     var object = worldObjects[command.parameters.guid];
@@ -135,10 +133,13 @@
     <script src="MTLLoader.js"></script>
     <script src="DDSLoader.js"></script>
     <script src="ModelLoader.js"></script>
+    <script src="PointLight.js"></script>
+    <script src="SpotLight.js"></script>
+    <script src="Dumptruck.js"></script>
     <script src="Kast.js"></script>
     <script src="Robot.js"></script>
     <script src="LoadStates.js"></script>
-    <script src="PointLight.js"></script>
+    
 </body>
 
 </html>
