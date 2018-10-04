@@ -111,6 +111,11 @@ namespace Models {
 
         public void PopuleerGraph(){
             HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", true));
+            HraphObjects.Add(new Hraph(7,0,5,"updepot", true));
+            HraphObjects.Add(new Hraph(7,0,9,"downdepot", true));
+            HraphObjects.Add(new Hraph(8,0,7,"idlevracht", false));
+            HraphObjects.Add(new Hraph(8,0,5,"idleup", false));
+            HraphObjects.Add(new Hraph(8,0,9,"idledown", false));
             HraphObjects.Add(new Hraph(11,0,7,"padepot", false));
             HraphObjects.Add(new Hraph(11,0,11,"pbdepot", false));
             HraphObjects.Add(new Hraph(15,0,11,"RA", false));
