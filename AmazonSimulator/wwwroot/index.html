@@ -18,6 +18,8 @@
             var camera, scene, renderer;
             var cameraControls;
             var worldObjects = {};
+
+            //initialize
             function init() {
                 camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
                 cameraControls = new THREE.OrbitControls(camera);
@@ -31,10 +33,6 @@
                 renderer.setSize(window.innerWidth, window.innerHeight + 5);
                 document.body.appendChild(renderer.domElement);
                 window.addEventListener('resize', onWindowResize, false);
-
-                //kast
-                //var kast = new Kast();
-                //scene.Add(kast);
 
                 //plane
                 var geometry = new THREE.PlaneGeometry(300, 300, 320);
@@ -85,23 +83,6 @@
                 renderer.render(scene, camera);
             }
 
-            /*
-            //model loader
-            function loadOBJModel(modelPath, modelName, texturePath, textureName, onload) {
-                new THREE.MTLLoader()
-                    .setPath(texturePath)
-                    .load(textureName, function (materials) {
-                        materials.preload();
-                        new THREE.OBJLoader()
-                            .setPath(modelPath)
-                            .setMaterials(materials)
-                            .load(modelName, function (object) {
-                                onload(object);
-                            }, function () { }, function (e) { console.log("Error loading"); });
-                    });
-            }
-            */
-
             //socket update events
             exampleSocket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
             exampleSocket.onmessage = function (event) {
@@ -110,44 +91,15 @@
                     if (Object.keys(worldObjects).indexOf(command.parameters.guid) < 0) {
                         //robot
                         if (command.parameters.type == "robot") {
-                            var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
-                            var cubeMaterials = [
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
-                            ];
-                            var material = new THREE.MeshFaceMaterial(cubeMaterials);
-                            var robot = new THREE.Mesh(geometry, material);
-                            robot.position.y = 0.15;
-                            var group = new THREE.Group();
-                            group.add(robot);
-                            scene.add(group);
-                            worldObjects[command.parameters.guid] = group;
+
+                            var nrobot = new Robot();
+                            scene.add(nrobot);
+                            worldObjects[command.parameters.guid] = nrobot;
+
                         }
                         //kast
                         else if (command.parameters.type == "kast") {
-                            /*
-                            var geometry = new THREE.BoxGeometry(0.9, 6, 0.9);
-                            var cubeMaterials = [
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.jpg"), side: THREE.DoubleSide }), //LEFT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.jpg"), side: THREE.DoubleSide }), //RIGHT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.jpg"), side: THREE.DoubleSide }), //TOP
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.jpg"), side: THREE.DoubleSide }), //BOTTOM
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.jpg"), side: THREE.DoubleSide }), //FRONT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/bricks.jpg"), side: THREE.DoubleSide }), //BACK
-                            ];
-                            var material = new THREE.MeshFaceMaterial(cubeMaterials);
-                            var kast = new THREE.Mesh(geometry, material);
-                            kast.position.y = 0.15;
-                            var group = new THREE.Group();
-                            group.add(kast);
-                            scene.add(group);
-                            worldObjects[command.parameters.guid] = group;
-                            */
-                        //worldObjects[command.parameters.guid] = kast;
+                        
                            var nkast = new Kast();
                            scene.add(nkast);
                            worldObjects[command.parameters.guid] = nkast;
@@ -184,6 +136,7 @@
     <script src="DDSLoader.js"></script>
     <script src="ModelLoader.js"></script>
     <script src="Kast.js"></script>
+    <script src="Robot.js"></script>
     <script src="LoadStates.js"></script>
     <script src="PointLight.js"></script>
 </body>
