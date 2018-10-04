@@ -23,6 +23,14 @@ namespace Models {
         }
         public override bool Update(int tick)
         {
+            //Als we in het depot zijn. en we moeten een kast brengen na de opslag plaatsen
+            //De begin positie(vrachtdepot) zit niet in de waypoints. Dus moeten we effe checken of we de kast hier al kunnen oppakken
+            //ook VOORDAT we beginnen met bewegen!
+            if (carryingKast != null){
+                if((x == carryingKast.huidigeLocatie.x && z == carryingKast.huidigeLocatie.z && carryingKast.actorStatus == "WachtOpRobot") || carryingKast.huidigeLocatie.nodeName == "vrachtdepot" && carryingKast.actorStatus == "WachtOpRobot"){
+                    PakKast();
+                }
+            }
             //Beweging naar bestemming (Gaat veranderd worden voor correcte path vinding)
             if(tX != -1 && tY != -1 && tZ != -1){
                 if(tX>x){
@@ -64,7 +72,6 @@ namespace Models {
                     //Drop de kast
                     if (carryingKast != null){
                         DropKast();
-                        carryingKast = null;
                     }
                     tX = -1;
                     tY = -1;
@@ -74,10 +81,8 @@ namespace Models {
                     if (carryingKast != null){
                         //als op aflever punt zijn van kast? droppen
                         if (carryingKast.opgeslagenLocatie.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "Opgepakt"){
-                            carryingKast = null;
                             DropKast();
                         }else if (carryingKast.huidigeLocatie.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "WachtOpRobot"){
-                            
                             PakKast();
                         }
                         
