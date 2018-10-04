@@ -7,6 +7,11 @@ namespace Models {
     public class Robotasks {
 
         private Random rnd = new Random();
+        GraphClass graphContent = new GraphClass();
+        public List<Hraph> HraphObjects = new List<Hraph>();
+        Dumptruck dumptruck;
+        private List<C3model> worldObjects = new List<C3model>();
+        private List<Kast> kastLijst = new List<Kast>();
 
         //kasten bewegen
         public void MoveKasten (){
@@ -18,7 +23,7 @@ namespace Models {
                     //Een flag voor als een robot is gevonden voor een kast
                     if (gaVerderFlag == true){break;}
 
-                    //ben jij een kast? nee? volgende candidaat
+                    //ben jij een kast? nee? volgende kandidaat
                     Kast kast;
                     if(o is Kast) {
                         kast = (Kast)o;
