@@ -28,11 +28,22 @@
                 camera.position.x = 15;
                 cameraControls.update();
                 scene = new THREE.Scene();
+
+                //renderer
                 renderer = new THREE.WebGLRenderer({ antialias: true });
                 renderer.setPixelRatio(window.devicePixelRatio);
                 renderer.setSize(window.innerWidth, window.innerHeight + 5);
                 document.body.appendChild(renderer.domElement);
                 window.addEventListener('resize', onWindowResize, false);
+
+                /*
+                //fog
+                var prevFog = false;
+                if ( prevFog !== scene.fog ) {
+                    mesh.material.needsUpdate = true;
+                    prevFog = scene.fog;
+                }
+                */
 
                 //plane
                 var geometry = new THREE.PlaneGeometry(300, 300, 320);
