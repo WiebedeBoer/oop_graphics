@@ -96,8 +96,8 @@ namespace Models {
 
 
         }
-
-        public void PopuleerGraph(){
+        
+        private void PopuleerGraph(){
             HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", true));
             HraphObjects.Add(new Hraph(7,0,5,"updepot", true));
             HraphObjects.Add(new Hraph(7,0,9,"downdepot", true));
@@ -142,7 +142,7 @@ namespace Models {
                 obs.OnNext(new UpdateModel3DCommand(m3d));
             }
         }
-
+    
         public bool Update(int tick)
         {
             
@@ -173,7 +173,7 @@ namespace Models {
                         continue;
                     }
 
-                        if(kast.actorStatus == "opgeslagen" || kast.actorStatus == "InDepot"){
+                        if(kast.actorStatus == "opgeslagen" || kast.actorStatus == "InDepotNieuw"){
                             foreach (C3model p in worldObjects)
                             {
                                 Robot robot;
@@ -199,8 +199,8 @@ namespace Models {
                                         //break de huidige robot foreach en zet de break boolean flag voor de kast for each
                                         gaVerderFlag = true;
                                         break;
-                                    }else if (kast.actorStatus == "InDepot"){
-                                    //Of brengen kast uit depot
+                                    }else if (kast.actorStatus == "InDepotNieuw"){
+                                        //Of brengen kast uit depot
                                         //allemaal even kans voor elke opslag plaats in het depot.
                                         int counter = 0;
                                         //de vrachtwagen is een geen geldige optie. dus -1
@@ -229,7 +229,22 @@ namespace Models {
                         }
                 }
             }
-
+            
+            if(dumptruck.x == 0 && dumptruck.z == 7){
+                //We zijn bij depot
+                dumptruck.depotTimer++;
+                if(dumptruck.depotTimer == 20){
+                    dumptruck.DropCargo(kastLijst,HraphObjects);
+                }else if(dumptruck.depotTimer == 40){
+                    dumptruck.PickupOldCargo(kastLijst,HraphObjects);
+                }else if(dumptruck.depotTimer == 60){
+                    dumptruck.Target(dumptruck.x,dumptruck.y,dumptruck.z-100);
+                    dumptruck.depotTimer = 0;
+                }
+            }else if(dumptruck.z == -93){
+                dumptruck.Move(0,0,107);
+                dumptruck.Target(dumptruck.x,dumptruck.y,dumptruck.z-100);
+            }
             
             return true;
         }

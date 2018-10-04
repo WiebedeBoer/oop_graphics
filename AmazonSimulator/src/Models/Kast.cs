@@ -22,7 +22,7 @@ namespace Models {
             this.Move(opgeslagenLocatie.x,3,opgeslagenLocatie.z);
             huidigeLocatie = new Hraph(opgeslagenLocatie.x,3,opgeslagenLocatie.z,opgeslagenLocatie.nodeName, true);
             if(opgeslagenLocatie.nodeName == "vrachtdepot"){
-                actorStatus = "InDepot";
+                actorStatus = "InDepotOud";
             } else {
                 actorStatus = "opgeslagen";
             }
