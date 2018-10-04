@@ -13,11 +13,13 @@ namespace Models {
         public double x { get { return _x; } }
         public double y { get { return _y; } }
         public double z { get { return _z; } }
-        public Hraph(double x, double y, double z, string nodeName) {
+        public bool Cargoplace;
+        public Hraph(double x, double y, double z, string nodeName, bool Cargoplace) {
             _x = x;
             _y = y;
             _z = z;
             this.nodeName = nodeName;
+            this.Cargoplace = Cargoplace;
         }
 
     }
