@@ -35,15 +35,9 @@ namespace Models {
 
         public World() {
             //Initialiseren van actoren binnen de simulatie en de paths.
-            CreerActoren();
             PopuleerGraph();
-
-            //Dumptruck die pakketen afleverd en ophaalt.
-            dumptruck = CreateDumptruck(0,1000,0);
-            dumptruck.Move(1.6, 0, 45);
-            dumptruck.Target(1.6, 0, 7);
-
-            //TODO: Maak simulatie dat alle acteurs continu beweegt en simuleerd.
+            CreerActoren();
+            
         }
 
         private Robot CreateRobot(double x, double y, double z) {
@@ -75,11 +69,17 @@ namespace Models {
             robot2.Move(7,0,7);
             robot3 = CreateRobot(0,0,0);
             robot3.Move(7,0,7);
+            //Dumptruck
+            dumptruck = CreateDumptruck(0,0,107);
+            dumptruck.Target(0,0,7);
 
             //Alle kasten
             kast1 = CreateKast(0,1000,0,null, false);
+            kast1.actorStatus = "hemel";
             kast2 = CreateKast(0,1000,0,null, false);
+            kast2.actorStatus = "hemel";
             kast3 = CreateKast(0,1000,0,null, false);
+            kast3.actorStatus = "hemel";
 
             kast4 = CreateKast(26,3,5,null, false);
             kast4.actorStatus = "opgeslagen";
@@ -95,18 +95,6 @@ namespace Models {
             kast7.huidigeLocatie = new Hraph(28,0,9,"LD", true);
 
 
-        }
-
-        //droppen van cargo
-        private void CargoDropped(){
-            kast1.Move(6.8, 3.25, 6.2);
-            kast2.Move(6.8, 3.25, 6.6);
-            kast3.Move(6.8, 3.25, 7.4);
-        }
-
-        //oppakken van cargo
-        private void CargoPicked(){
-            dumptruck.Target(1.6, 0, -45);
         }
 
         public void PopuleerGraph(){
@@ -242,18 +230,7 @@ namespace Models {
                 }
             }
 
-            foreach (Robot robot in robotLijst){
-                //als robot opzelfde locatie is als kast? en hij hoort de kast op te pakken?
-                // Dan pak hem op!
-            } 
-            if (dumptruck.Cargodrop == true){
-                //CargoDropped();
-            }
-
-            if (Cargocarry ==true){
-                CargoPicked();
-            }
-
+            
             return true;
         }
     }

@@ -102,7 +102,6 @@ namespace Models
                 g.add_vertex("SRD", new Dictionary<string, int>() {{"RD", 1}});
             }
             public List<string> GetPath(string startingPlace, string destination) {
-                //g.shortest_path('A', 'H').ForEach( x => Console.WriteLine(x) );
                 return(g.shortest_path(startingPlace, destination));
             }
     }
