@@ -60,7 +60,7 @@ namespace Models {
             foreach(var input in waypointName){
                 foreach (var hraph in allWaypoints){
                     if(input == hraph.nodeName){
-                        hraphTarget.Add( new Hraph(hraph.x,hraph.y,hraph.z,hraph.nodeName));
+                        hraphTarget.Add( new Hraph(hraph.x,hraph.y,hraph.z,hraph.nodeName, true));
                     }
                 }
             }
