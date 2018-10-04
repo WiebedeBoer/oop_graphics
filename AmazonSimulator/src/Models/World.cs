@@ -80,27 +80,26 @@ namespace Models {
             kast2.actorStatus = "hemel";
             kast3 = CreateKast(0,1000,0,null, false);
             kast3.actorStatus = "hemel";
+            kast4 = CreateKast(0,1000,0,null, false);
+            kast4.actorStatus = "hemel";
 
-            kast4 = CreateKast(26,3,5,null, false);
-            kast4.actorStatus = "opgeslagen";
-            kast4.huidigeLocatie = new Hraph(26,0,5,"RC", true);
-            kast5 = CreateKast(28,3,5,null, false);
-            kast5.actorStatus = "opgeslagen";
-            kast5.huidigeLocatie = new Hraph(28,0,5,"RD", true);
-            kast6 = CreateKast(26,3,9,null, false);
-            kast6.actorStatus = "opgeslagen";
-            kast6.huidigeLocatie = new Hraph(26,0,9,"LC", true);
+            kast5 = CreateKast(7,0,7,"vrachtdepot", true);
+            kast5.actorStatus = "InDepotNieuw";
+            kast5.huidigeLocatie = new Hraph(7,0,7,"vrachtdepot", false);
+            kast6 = CreateKast(7,0,5,"updepot", true);
+            kast6.actorStatus = "InDepotNieuw";
+            kast6.huidigeLocatie = new Hraph(7,0,5,"updepot", false);
             kast7 = CreateKast(28,3,9,null, false);
-            kast7.actorStatus = "opgeslagen";
-            kast7.huidigeLocatie = new Hraph(28,0,9,"LD", true);
+            kast7.actorStatus = "InDepotNieuw";
+            kast7.huidigeLocatie = new Hraph(7,0,9,"downdepot", true);
 
 
         }
         
         private void PopuleerGraph(){
-            HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", true));
-            HraphObjects.Add(new Hraph(7,0,5,"updepot", true));
-            HraphObjects.Add(new Hraph(7,0,9,"downdepot", true));
+            HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", false));
+            HraphObjects.Add(new Hraph(7,0,5,"updepot", false));
+            HraphObjects.Add(new Hraph(7,0,9,"downdepot", false));
             HraphObjects.Add(new Hraph(8,0,7,"idlevracht", false));
             HraphObjects.Add(new Hraph(8,0,5,"idleup", false));
             HraphObjects.Add(new Hraph(8,0,9,"idledown", false));
@@ -185,28 +184,40 @@ namespace Models {
                                 if(robot.actorStatus == "idle"){
                                     //Ophalen kast
                                     if(rnd.Next(100) <= 60 && kast.actorStatus == "opgeslagen"){
-                                        var rijs = graphContent.GetPath("vrachtdepot",kast.huidigeLocatie.nodeName);
-                                        var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,"vrachtdepot");
-                                        //terugReis word bij rijs ingevoegd
-                                        rijs.AddRange(terugReis);
+                                        int mogelijkheden = 3;
+                                        int counter = 1;
+                                        foreach (var result in HraphObjects){
+                                            if(result.nodeName == "vrachtdepot" || result.nodeName == "updepot" || result.nodeName == "downdepot"){
+                                                if (rnd.Next(mogelijkheden) <= counter){
 
-                                        //Navigeer de robot na de locatie van de Kast.
-                                        robot.GoCarryKast(kast);
-                                        robot.goTo(rijs,HraphObjects);
-                                        kast.GetCarriedBy(robot);
-                                        //Eindbestemming is altijd hetzelfde voor een kast
-                                        kast.ZetBestemming(new Hraph(7,0,7,"vrachtdepot", true));
-                                        //break de huidige robot foreach en zet de break boolean flag voor de kast for each
-                                        gaVerderFlag = true;
-                                        break;
+                                                    var rijs = graphContent.GetPath("idlevracht",kast.huidigeLocatie.nodeName);
+                                                    var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,result.nodeName);
+                                                    //terugReis word bij rijs ingevoegd
+                                                    rijs.AddRange(terugReis);
+
+                                                    //Navigeer de robot na de locatie van de Kast.
+                                                    robot.GoCarryKast(kast);
+                                                    robot.goTo(rijs,HraphObjects);
+                                                    kast.GetCarriedBy(robot);
+                                                    //Eindbestemming is altijd hetzelfde voor een kast
+                                                    kast.ZetBestemming(result);
+                                                    //break de huidige robot foreach en zet de break boolean flag voor de kast for each
+                                                    gaVerderFlag = true;
+                                                    break;
+                                                }
+                                                counter++;
+                                            }
+                                        }
+                                        
                                     }else if (kast.actorStatus == "InDepotNieuw"){
                                         //Of brengen kast uit depot
                                         //allemaal even kans voor elke opslag plaats in het depot.
-                                        int counter = 0;
+                                        int counter = 1;
                                         //de vrachtwagen is een geen geldige optie. dus -1
                                         int countHraph = HraphObjects.Count-1;
                                         foreach (var result in HraphObjects){
-                                            if (rnd.Next(countHraph) <= counter && result.nodeName != "vrachtdepot"){
+                                            //TODO kans berekening klopt niet
+                                            if (rnd.Next(countHraph) <= counter && result.Cargoplace == true){
                                                 kast.ZetBestemming(result);
                                                 break;
                                             }
