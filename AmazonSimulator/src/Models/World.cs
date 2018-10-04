@@ -121,6 +121,12 @@ namespace Models {
             HraphObjects.Add(new Hraph(11,0,19,"LB", false));
             HraphObjects.Add(new Hraph(11,0,23,"LC", false));
             HraphObjects.Add(new Hraph(15,0,23,"LD", false));
+            HraphObjects.Add(new Hraph(15,0,12,"SRA", true));
+            HraphObjects.Add(new Hraph(19,0,12,"SRB", true));
+            HraphObjects.Add(new Hraph(22,0,15,"SRD", true));
+            HraphObjects.Add(new Hraph(12,0,15,"SLA", true));
+            HraphObjects.Add(new Hraph(12,0,19,"SLB", true));
+            HraphObjects.Add(new Hraph(15,0,22,"SLD", true));
         }
         public IDisposable Subscribe(IObserver<Command> observer)
         {

@@ -81,14 +81,20 @@ namespace Models
                 g.add_vertex("vrachtdepot", new Dictionary<string, int>() {{"padepot", 4}});
                 g.add_vertex("padepot", new Dictionary<string, int>() {{"vrachtdepot", 4}, {"pbdepot", 4}});
                 g.add_vertex("pbdepot", new Dictionary<string, int>() {{"padepot", 4}, {"RA", 4}, {"LA", 4}});
-                g.add_vertex("RA", new Dictionary<string, int>() {{"pbdepot", 4}, {"RB", 4}});
-                g.add_vertex("RB", new Dictionary<string, int>() {{"RA", 4}, {"RC", 4}});
+                g.add_vertex("RA", new Dictionary<string, int>() {{"pbdepot", 4}, {"RB", 4}, {"SRA", 1}});
+                g.add_vertex("RB", new Dictionary<string, int>() {{"RA", 4}, {"RC", 4}, {"SRB", 1}});
                 g.add_vertex("RC", new Dictionary<string, int>() {{"RB", 4}, {"RD", 4}});
-                g.add_vertex("RD", new Dictionary<string, int>() {{"RC", 4}});
-                g.add_vertex("LA", new Dictionary<string, int>() {{"pbdepot", 4}, {"LB", 4}});
-                g.add_vertex("LB", new Dictionary<string, int>() {{"LA", 4}, {"LC", 4}});
+                g.add_vertex("RD", new Dictionary<string, int>() {{"RC", 4}, {"SRD", 1}});
+                g.add_vertex("LA", new Dictionary<string, int>() {{"pbdepot", 4}, {"LB", 4}, {"SLA", 1}});
+                g.add_vertex("LB", new Dictionary<string, int>() {{"LA", 4}, {"LC", 4}, {"SLB", 1}});
                 g.add_vertex("LC", new Dictionary<string, int>() {{"LB", 4}, {"LD", 4}});
-                g.add_vertex("LD", new Dictionary<string, int>() {{"LC", 4}});
+                g.add_vertex("LD", new Dictionary<string, int>() {{"LC", 4}, {"SLD", 1}});
+                g.add_vertex("SLA", new Dictionary<string, int>() {{"LA", 1}});
+                g.add_vertex("SLB", new Dictionary<string, int>() {{"LC", 1}});
+                g.add_vertex("SLD", new Dictionary<string, int>() {{"LD", 1}});
+                g.add_vertex("SRA", new Dictionary<string, int>() {{"RA", 1}});
+                g.add_vertex("SRB", new Dictionary<string, int>() {{"RB", 1}});
+                g.add_vertex("SRD", new Dictionary<string, int>() {{"RD", 1}});
             }
             public List<string> GetPath(string startingPlace, string destination) {
                 //g.shortest_path('A', 'H').ForEach( x => Console.WriteLine(x) );
