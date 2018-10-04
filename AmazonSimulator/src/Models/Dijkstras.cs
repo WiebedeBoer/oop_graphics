@@ -81,9 +81,11 @@ namespace Models
                 g.add_vertex("vrachtdepot", new Dictionary<string, int>() {{"idlevracht", 1}});
                 g.add_vertex("updepot", new Dictionary<string, int>() {{"idleup", 1}});
                 g.add_vertex("downdepot", new Dictionary<string, int>() {{"idledown", 1}});
-                g.add_vertex("idlevracht", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"idledown", 2}, {"idleup", 2}});
+
+                g.add_vertex("idlevracht", new Dictionary<string, int>() {{"vrachtdepot", 1}, {"idledown", 2}, {"idleup", 2}, {"padepot", 3}});
                 g.add_vertex("idledown", new Dictionary<string, int>() {{"downdepot", 1}, {"idlevracht", 2}});
                 g.add_vertex("idleup", new Dictionary<string, int>() {{"updepot", 1}, {"idlevracht", 2}});
+
                 g.add_vertex("padepot", new Dictionary<string, int>() {{"idlevracht", 3}, {"pbdepot", 4}});
                 g.add_vertex("pbdepot", new Dictionary<string, int>() {{"padepot", 4}, {"RA", 4}, {"LA", 4}});
                 g.add_vertex("RA", new Dictionary<string, int>() {{"pbdepot", 4}, {"RB", 4}, {"SRA", 1}});
