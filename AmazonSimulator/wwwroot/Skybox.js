@@ -1,4 +1,5 @@
-	            var imagePrefix = "images/skybox";
+function Skybox () {
+                var imagePrefix = "images/skybox";
 	            var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 	            var imageSuffix = ".png";
 	            var skyGeometry = new THREE.CubeGeometry( 1000, 1000, 1000 );	
@@ -11,4 +12,5 @@
 		            }));
 	            var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
 	            var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-	            scene.add( skyBox );
+                scene.add( skyBox );
+            }
