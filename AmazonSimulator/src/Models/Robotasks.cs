@@ -6,12 +6,11 @@ using Newtonsoft.Json;
 namespace Models {
     public class Robotasks {
 
-        private Random rnd = new Random();
-        GraphClass graphContent = new GraphClass();
-        public List<Hraph> HraphObjects = new List<Hraph>();
-        Dumptruck dumptruck;
+        private Random rnd = new Random(); //alleen hier binnen gebruikt voor randomiseren
+        GraphClass graphContent = new GraphClass();    
         private List<C3model> worldObjects = new List<C3model>();
-        private List<Kast> kastLijst = new List<Kast>();
+        private List<Kast> kastLijst = new List<Kast>(); //ook voor bewegen dumptruck
+        public List<Hraph> HraphObjects = new List<Hraph>(); //ook voor bewegen dumptruck
 
         //kasten bewegen
         
@@ -102,23 +101,6 @@ namespace Models {
             }
         }
 
-        //dumptruck bewegen
-        public void MoveDumptruck(){   
-            if(dumptruck.x == 0 && dumptruck.z == 7){
-                //We zijn bij depot
-                dumptruck.depotTimer++;
-                if(dumptruck.depotTimer == 20){
-                    dumptruck.DropCargo(kastLijst,HraphObjects);
-                }else if(dumptruck.depotTimer == 40){
-                    dumptruck.PickupOldCargo(kastLijst,HraphObjects);
-                }else if(dumptruck.depotTimer == 60){
-                    dumptruck.Target(dumptruck.x,dumptruck.y,dumptruck.z-100);
-                    dumptruck.depotTimer = 0;
-                }
-            }else if(dumptruck.z == -93){
-                dumptruck.Move(0,0,107);
-                dumptruck.Target(dumptruck.x,dumptruck.y,dumptruck.z-100);
-            }
-        }
+        
     }
 }
