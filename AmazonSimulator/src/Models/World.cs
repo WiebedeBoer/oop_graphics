@@ -85,12 +85,12 @@ namespace Models {
             kast5 = CreateKast(7,0,7,"vrachtdepot", true);
             kast5.actorStatus = "InDepotNieuw";
             kast5.huidigeLocatie = new Hraph(7,0,7,"vrachtdepot", false);
-            kast6 = CreateKast(7,0,5,"updepot", true);
+            kast6 = CreateKast(7,0,7,"vrachtdepot", false);
             kast6.actorStatus = "InDepotNieuw";
-            kast6.huidigeLocatie = new Hraph(7,0,5,"updepot", false);
-            kast7 = CreateKast(28,3,9,null, false);
+            kast6.huidigeLocatie = new Hraph(7,0,7,"vrachtdepot", false);
+            kast7 = CreateKast(7,0,7,"vrachtdepot", false);
             kast7.actorStatus = "InDepotNieuw";
-            kast7.huidigeLocatie = new Hraph(7,0,9,"downdepot", true);
+            kast7.huidigeLocatie = new Hraph(7,0,7,"vrachtdepot", false);
 
 
         }
@@ -165,7 +165,7 @@ namespace Models {
 
         //move kasten
         private void MoveKasten (){
-                        //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
+            //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
             if (rnd.Next(10000) <= 100){
                 Boolean gaVerderFlag = false;
                 //Ophalen van een pakket
@@ -223,14 +223,15 @@ namespace Models {
                                         //allemaal even kans voor elke opslag plaats in het depot.
                                         int counter = 1;
                                         //de vrachtwagen is een geen geldige optie. dus -1
-                                        int countHraph = HraphObjects.Count-1;
+                                        int countHraph = 6;
                                         foreach (var result in HraphObjects){
-                                            //TODO kans berekening klopt niet
-                                            if (rnd.Next(countHraph) <= counter && result.Cargoplace == true){
-                                                kast.ZetBestemming(result);
-                                                break;
+                                            if (result.Cargoplace == true){
+                                                if (rnd.Next(countHraph) <= counter){
+                                                    kast.ZetBestemming(result);
+                                                    break;
+                                                }
+                                                counter++;
                                             }
-                                            counter++;
                                         }
                                         var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie.nodeName);
                                         var terugReis = graphContent.GetPath(kast.opgeslagenLocatie.nodeName,"vrachtdepot");
