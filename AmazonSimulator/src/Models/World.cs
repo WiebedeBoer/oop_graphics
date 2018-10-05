@@ -29,12 +29,12 @@ namespace Models {
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
         Random rnd = new Random();
-        Robotasks robotasks = new Robotasks();
+        Robotasks robotasks;
         public World() {
             //Initialiseren van actoren binnen de simulatie en de paths.
             PopuleerGraph();
             CreerActoren();
-            
+            robotasks = new Robotasks(worldObjects,graphContent,HraphObjects);
         }
 
         //maakt robot
@@ -157,7 +157,7 @@ namespace Models {
                 }
             }
             
-            robotasks.MoveKasten(worldObjects,graphContent,HraphObjects);
+            robotasks.MoveKasten();
             
             dumptruck.MoveDumptruck(kastLijst,HraphObjects);
             

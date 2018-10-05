@@ -11,7 +11,7 @@ namespace Models {
             
         }
         
-        public void MoveDumptruck(List<Kast> kastLijst, List<Hraph> HraphObjects){   
+        public void MoveDumptruck(List<Kast> kastLijst, List<Hraph> HraphObjects){
             if(this.x == 0 && this.z == 7){
                 //We zijn bij depot
                 this.depotTimer++;
