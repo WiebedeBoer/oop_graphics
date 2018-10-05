@@ -38,7 +38,7 @@ namespace Controllers {
 
     public class ShowGridCommand : Command {
         
-        public ShowGridCommand(C3model parameters) : base("grid", parameters) {
+        public ShowGridCommand(bool parameters) : base("grid", parameters) {
         }
     }
 }

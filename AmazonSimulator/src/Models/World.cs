@@ -33,6 +33,7 @@ namespace Models {
             PopuleerGraph();
             CreerActoren();
             robotasks = new Robotasks(worldObjects,graphContent,HraphObjects);
+            showGrid = true;
         }
 
         //maakt robot
@@ -136,9 +137,7 @@ namespace Models {
             }
             if (showGrid)
             {
-                //obs.OnNext(new ShowGridCommand(HraphObjects));
-                //obs.OnNext(new ShowGridCommand(PopuleerGraph()));
-                //PopuleerGraph();
+                obs.OnNext(new ShowGridCommand(showGrid));
             }
         }
     

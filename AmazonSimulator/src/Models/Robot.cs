@@ -11,7 +11,6 @@ namespace Models {
             
         }
         public void Beweeg(){
-            //Beweging naar bestemming (Gaat veranderd worden voor correcte path vinding)
             if(tX != -1 && tY != -1 && tZ != -1){
                 if(tX>x){
                     if (tX-x <= 0.1){
