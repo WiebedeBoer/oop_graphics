@@ -1,19 +1,29 @@
 class Skyshader extends THREE.Group {
-	init(){			
+
+	
+	
+	init(){	
+		var msphere = this;
+		//var sky;
+
+		//var sky, sunSphere;
 			function initSky() {
+				
 				// Add Sky
-				//sky = new THREE.Sky();
-				//sky.scale.setScalar( 450000 );
+				var sky = new THREE.Sky();
+				sky.scale.setScalar( 450 );
 				//scene.add( sky );
 				// Add Sun Helper
-				var msphere = this;
-				sunSphere = new THREE.Mesh(
+				
+
+				var sunSphere = new THREE.Mesh(
 					new THREE.SphereBufferGeometry( 200, 16, 8 ),
 					new THREE.MeshBasicMaterial( { color: 0xff0000 } )
 				);
 				sunSphere.position.y = - 70;
 				sunSphere.visible = false;
 				msphere.add( sunSphere );
+				//msphere.add( sky );
 				/// GUI
 				var effectController  = {
 					turbidity: 10,
@@ -26,8 +36,8 @@ class Skyshader extends THREE.Group {
 					sun: ! true
 				};
 				var distance = 400;
-				/*
-			function guiChanged() {
+				
+				function guiChanged() {
 					var uniforms = sky.material.uniforms;
 					uniforms.turbidity.value = effectController.turbidity;
 					uniforms.rayleigh.value = effectController.rayleigh;
@@ -43,6 +53,7 @@ class Skyshader extends THREE.Group {
 					uniforms.sunPosition.value.copy( sunSphere.position );
 					//renderer.render( scene, camera );
 				}
+				/*
 				var gui = new dat.GUI();
 				gui.add( effectController, "turbidity", 1.0, 20.0, 0.1 ).onChange( guiChanged );
 				gui.add( effectController, "rayleigh", 0.0, 4, 0.001 ).onChange( guiChanged );
@@ -52,14 +63,21 @@ class Skyshader extends THREE.Group {
 				gui.add( effectController, "inclination", 0, 1, 0.0001 ).onChange( guiChanged );
 				gui.add( effectController, "azimuth", 0, 1, 0.0001 ).onChange( guiChanged );
 				gui.add( effectController, "sun" ).onChange( guiChanged );
-				guiChanged();
 				*/
+				guiChanged();
+
 			}
+			
+			initSky();
 		}
+
+
     
 			constructor(){
 				super();
+				//guiChanged();
+				//initSky();
 				//this._LoadState = LoadStates.NOT_LOADING;
 				this.init();
 			}	
-        }
+    }
