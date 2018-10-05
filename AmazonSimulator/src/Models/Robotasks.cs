@@ -14,8 +14,9 @@ namespace Models {
         private List<Kast> kastLijst = new List<Kast>();
 
         //kasten bewegen
+        
         public void MoveKasten (){
-            //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
+                        //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
             if (rnd.Next(10000) <= 100){
                 Boolean gaVerderFlag = false;
                 //Ophalen van een pakket
@@ -23,7 +24,7 @@ namespace Models {
                     //Een flag voor als een robot is gevonden voor een kast
                     if (gaVerderFlag == true){break;}
 
-                    //ben jij een kast? nee? volgende kandidaat
+                    //ben jij een kast? nee? volgende candidaat
                     Kast kast;
                     if(o is Kast) {
                         kast = (Kast)o;
@@ -43,28 +44,40 @@ namespace Models {
                                 if(robot.actorStatus == "idle"){
                                     //Ophalen kast
                                     if(rnd.Next(100) <= 60 && kast.actorStatus == "opgeslagen"){
-                                        var rijs = graphContent.GetPath("vrachtdepot",kast.huidigeLocatie.nodeName);
-                                        var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,"vrachtdepot");
-                                        //terugReis word bij rijs ingevoegd
-                                        rijs.AddRange(terugReis);
+                                        int mogelijkheden = 3;
+                                        int counter = 1;
+                                        foreach (var result in HraphObjects){
+                                            if(result.nodeName == "vrachtdepot" || result.nodeName == "updepot" || result.nodeName == "downdepot"){
+                                                if (rnd.Next(mogelijkheden) <= counter){
 
-                                        //Navigeer de robot na de locatie van de Kast.
-                                        robot.GoCarryKast(kast);
-                                        robot.goTo(rijs,HraphObjects);
-                                        kast.GetCarriedBy(robot);
-                                        //Eindbestemming is altijd hetzelfde voor een kast
-                                        kast.ZetBestemming(new Hraph(7,0,7,"vrachtdepot", true));
-                                        //break de huidige robot foreach en zet de break boolean flag voor de kast for each
-                                        gaVerderFlag = true;
-                                        break;
+                                                    var rijs = graphContent.GetPath("idlevracht",kast.huidigeLocatie.nodeName);
+                                                    var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,result.nodeName);
+                                                    //terugReis word bij rijs ingevoegd
+                                                    rijs.AddRange(terugReis);
+
+                                                    //Navigeer de robot na de locatie van de Kast.
+                                                    robot.GoCarryKast(kast);
+                                                    robot.goTo(rijs,HraphObjects);
+                                                    kast.GetCarriedBy(robot);
+                                                    //Eindbestemming is altijd hetzelfde voor een kast
+                                                    kast.ZetBestemming(result);
+                                                    //break de huidige robot foreach en zet de break boolean flag voor de kast for each
+                                                    gaVerderFlag = true;
+                                                    break;
+                                                }
+                                                counter++;
+                                            }
+                                        }
+                                        
                                     }else if (kast.actorStatus == "InDepotNieuw"){
                                         //Of brengen kast uit depot
                                         //allemaal even kans voor elke opslag plaats in het depot.
-                                        int counter = 0;
+                                        int counter = 1;
                                         //de vrachtwagen is een geen geldige optie. dus -1
                                         int countHraph = HraphObjects.Count-1;
                                         foreach (var result in HraphObjects){
-                                            if (rnd.Next(countHraph) <= counter && result.nodeName != "vrachtdepot"){
+                                            //TODO kans berekening klopt niet
+                                            if (rnd.Next(countHraph) <= counter && result.Cargoplace == true){
                                                 kast.ZetBestemming(result);
                                                 break;
                                             }
