@@ -39,15 +39,6 @@
                 document.body.appendChild(renderer.domElement);
                 window.addEventListener('resize', onWindowResize, false);
 
-                /*
-                //fog
-                var prevFog = false;
-                if ( prevFog !== scene.fog ) {
-                    mesh.material.needsUpdate = true;
-                    prevFog = scene.fog;
-                }
-                */
-
                 //plane                
                 var plane = new Plane();
                 scene.add(plane);
@@ -64,6 +55,9 @@
                 //skybox
                 var skyBox = new Skybox();
                 scene.add( skyBox );
+
+                //shader
+                //initSky();
                 
             }
 
@@ -119,6 +113,9 @@
                     object.rotation.y = command.parameters.rotationY;
                     object.rotation.z = command.parameters.rotationZ;
                 }
+                else if (command.command =="grid"){
+                    ShowGrid(command);
+                }
             }
             init();
             animate();
@@ -140,6 +137,7 @@
     <script src="Depot.js"></script>
     <script src="Skybox.js"></script>
     <script src="Plane.js"></script>
+    <script src="Skyshader.js"></script>
 </body>
 
 </html>
