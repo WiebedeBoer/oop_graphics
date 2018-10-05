@@ -35,4 +35,10 @@ namespace Controllers {
         public UpdateModel3DCommand(C3model parameters) : base("update", parameters) {
         }
     }
+
+    public class ShowGridCommand : Command {
+        
+        public ShowGridCommand(C3model parameters) : base("grid", parameters) {
+        }
+    }
 }
