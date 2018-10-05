@@ -62,7 +62,7 @@ namespace Models {
         //Word 1x aangeroept. creert en plaatst alle actoren
         private void CreerActoren() {
             //Alle 'Workers'
-            robot1 = CreateRobot(0,0,0);
+           robot1 = CreateRobot(0,0,0);
             robot1.Move(7,0,7);
             robot2 = CreateRobot(0,0,0);
             robot2.Move(7,0,7);
@@ -192,14 +192,10 @@ namespace Models {
                                 }
                                 if(robot.actorStatus == "idle"){
                                     //Ophalen kast
-                                    if(rnd.Next(100) <= 60 && kast.actorStatus == "opgeslagen"){
-                                        int mogelijkheden = 3;
-                                        int counter = 1;
+                                    if(rnd.Next(100) >= 70 && kast.actorStatus == "opgeslagen"){
                                         foreach (var result in HraphObjects){
-                                            if(result.nodeName == "vrachtdepot" || result.nodeName == "updepot" || result.nodeName == "downdepot"){
-                                                if (rnd.Next(mogelijkheden) <= counter){
-
-                                                    var rijs = graphContent.GetPath("idlevracht",kast.huidigeLocatie.nodeName);
+                                            if(result.nodeName == "vrachtdepot"){
+                                                    var rijs = graphContent.GetPath("vrachtdepot",kast.huidigeLocatie.nodeName);
                                                     var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,result.nodeName);
                                                     //terugReis word bij rijs ingevoegd
                                                     rijs.AddRange(terugReis);
@@ -213,8 +209,6 @@ namespace Models {
                                                     //break de huidige robot foreach en zet de break boolean flag voor de kast for each
                                                     gaVerderFlag = true;
                                                     break;
-                                                }
-                                                counter++;
                                             }
                                         }
                                         
@@ -222,12 +216,12 @@ namespace Models {
                                         //Of brengen kast uit depot
                                         //allemaal even kans voor elke opslag plaats in het depot.
                                         int counter = 1;
-                                        //de vrachtwagen is een geen geldige optie. dus -1
                                         int countHraph = 6;
                                         foreach (var result in HraphObjects){
                                             if (result.Cargoplace == true){
                                                 if (rnd.Next(countHraph) <= counter){
                                                     kast.ZetBestemming(result);
+                                                    System.Diagnostics.Debug.WriteLine("BESTEMMING = "+result.nodeName);
                                                     break;
                                                 }
                                                 counter++;
@@ -236,7 +230,10 @@ namespace Models {
                                         var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie.nodeName);
                                         var terugReis = graphContent.GetPath(kast.opgeslagenLocatie.nodeName,"vrachtdepot");
                                         rijs.AddRange(terugReis);
-
+                                        foreach(var result in rijs){
+                                            System.Diagnostics.Debug.WriteLine(result);
+                                        }
+                                        
                                         robot.GoCarryKast(kast);
                                         robot.goTo(rijs,HraphObjects);
                                         kast.GetCarriedBy(robot);

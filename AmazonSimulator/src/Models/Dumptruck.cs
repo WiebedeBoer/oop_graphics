@@ -23,7 +23,7 @@ namespace Models {
         public void DropCargo(List<Kast> alleKasten,List<Hraph> Hraph){
             foreach (Hraph hraph in Hraph)
             {
-                if(hraph.nodeName == "vrachtdepot" || hraph.nodeName == "updepot" || hraph.nodeName == "downdepot"){
+                if(hraph.nodeName == "vrachtdepot"){
                     foreach(Kast kast in alleKasten){
                         if(kast.actorStatus == "hemel"){
                             kast.Move(hraph.x,3,hraph.z);
