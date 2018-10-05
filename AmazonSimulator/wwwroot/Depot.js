@@ -19,7 +19,7 @@ function Depot() {
 }
 */
 
-class Depot {
+class Depot extends THREE.Group {
 
     init(){
         var mdepot = this;
@@ -42,7 +42,7 @@ class Depot {
 
     
     constructor(){
-        //super();
+        super();
         //this._LoadState = LoadStates.NOT_LOADING;
         this.init();
     }

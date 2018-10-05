@@ -21,12 +21,15 @@
 
             //initialize
             function init() {
+                //camera
                 camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
                 cameraControls = new THREE.OrbitControls(camera);
                 camera.position.z = 15;
                 camera.position.y = 5;
                 camera.position.x = 15;
                 cameraControls.update();
+                
+                //scene
                 scene = new THREE.Scene();
 
                 //renderer
@@ -45,62 +48,22 @@
                 }
                 */
 
-                //plane
-                var geometry = new THREE.PlaneGeometry(300, 300, 320);
-                var material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
-                var plane = new THREE.Mesh(geometry, material);
-                plane.rotation.x = Math.PI / 2.0;
-                plane.position.x = 15;
-                plane.position.z = 15;
+                //plane                
+                var plane = new Plane();
                 scene.add(plane);
 
                 //depot
-                
-                var dgeometry = new THREE.BoxGeometry(3.9, 13.3, 5.9);
-                var dcubeMaterials = [
-                    new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //LEFT
-                    new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //RIGHT
-                    new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/bobdebouwer.png"), side: THREE.DoubleSide }), //TOP
-                    new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
-                    new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/bobdebouwer.png"), side: THREE.DoubleSide }), //FRONT
-                    new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BACK
-                    ];
-                var dmaterial = new THREE.MeshPhongMaterial(dcubeMaterials);
-                var depot = new THREE.Mesh(dgeometry, dmaterial);
-                depot.position.x = 7;
-                depot.position.y = 0;
-                depot.position.z = 7;
-                scene.add(depot);
-                
-
-                //var ndepot = new Depot();
-                //scene.add(ndepot);
-                //Depot();
-                
+                var ndepot = new Depot();
+                scene.add(ndepot);              
 
                 //ambient light
                 var light = new THREE.AmbientLight(0x404040);
                 light.intensity = 2;
                 scene.add(light);
 
-                // axes skybox
-	            //var axes = new THREE.AxisHelper(100);
-	            //scene.add( axes );
-	
-	            var imagePrefix = "images/skybox";
-	            var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
-	            var imageSuffix = ".png";
-	            var skyGeometry = new THREE.CubeGeometry( 1000, 1000, 1000 );	
-	
-	            var materialArray = [];
-	            for (var i = 0; i < 6; i++)
-		            materialArray.push( new THREE.MeshBasicMaterial({
-			        map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-			        side: THREE.BackSide
-		            }));
-	            var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-	            var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-	            scene.add( skyBox );
+                //skybox
+                var skyBox = new Skybox();
+                scene.add( skyBox );
                 
             }
 
