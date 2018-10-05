@@ -10,6 +10,8 @@ namespace Models {
         private List<Robot> robotLijst = new List<Robot>();
         private List<Kast> kastLijst = new List<Kast>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
+
+        bool showGrid;
         
         Robot robot1;
         Robot robot2;
@@ -131,11 +133,18 @@ namespace Models {
             for(int i = 0; i < this.observers.Count; i++) {
                 this.observers[i].OnNext(c);
             }
+
         }
 
         private void SendCreationCommandsToObserver(IObserver<Command> obs) {
             foreach(C3model m3d in worldObjects) {
                 obs.OnNext(new UpdateModel3DCommand(m3d));
+            }
+            if (showGrid)
+            {
+                //obs.OnNext(new ShowGridCommand(HraphObjects));
+                //obs.OnNext(new ShowGridCommand(PopuleerGraph()));
+                //PopuleerGraph();
             }
         }
     
