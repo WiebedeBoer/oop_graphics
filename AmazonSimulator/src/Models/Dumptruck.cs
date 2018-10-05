@@ -10,7 +10,7 @@ namespace Models {
         {
             
         }
-        //move this
+        
         public void MoveDumptruck(List<Kast> kastLijst, List<Hraph> HraphObjects){   
             if(this.x == 0 && this.z == 7){
                 //We zijn bij depot
@@ -24,11 +24,12 @@ namespace Models {
                     this.depotTimer = 0;
                 }
             }else if(this.z == -93){
+                //terug bij af
                 this.Move(0,0,107);
                 this.Target(this.x,this.y,this.z-100);
             }
         }
-        public void PickupOldCargo(List<Kast> alleKasten,List<Hraph> Hraph){
+        private void PickupOldCargo(List<Kast> alleKasten,List<Hraph> Hraph){
                 
                     foreach(Kast kast in alleKasten){
                         if(kast.actorStatus == "InDepotOud"){
@@ -38,7 +39,7 @@ namespace Models {
                     }
             
         }
-        public void DropCargo(List<Kast> alleKasten,List<Hraph> Hraph){
+        private void DropCargo(List<Kast> alleKasten,List<Hraph> Hraph){
             foreach (Hraph hraph in Hraph)
             {
                 if(hraph.nodeName == "vrachtdepot"){

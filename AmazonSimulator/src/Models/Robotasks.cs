@@ -7,16 +7,16 @@ namespace Models {
     public class Robotasks {
 
         private Random rnd = new Random(); //alleen hier binnen gebruikt voor randomiseren
-        GraphClass graphContent = new GraphClass(); //alleen hier gemaakt   
-        private List<C3model> worldObjects = new List<C3model>(); //world create en update, in move check of kast
-        private List<Kast> kastLijst = new List<Kast>(); //ook voor bewegen dumptruck
-        public List<Hraph> HraphObjects = new List<Hraph>(); //ook voor bewegen dumptruck
+        //private GraphClass graphContent; //alleen hier gemaakt   
+        private List<C3model> worldObjects; //world create en update, in move check of kast
+        private List<Kast> kastLijst; //ook voor bewegen dumptruck
+        public List<Hraph> HraphObjects; //ook voor bewegen dumptruck
 
         //kasten bewegen
         
-        public void MoveKasten (){
-                        //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
-            if (rnd.Next(10000) <= 100){
+        public void MoveKasten (List<C3model> worldObjects,GraphClass graphContent,List<Hraph> HraphObjects){
+            //20 updates per seconde. 20x 0,5% kans per seconde om een actie te laten gebeuren.
+            if (rnd.Next(10000) <= 50){
                 Boolean gaVerderFlag = false;
                 //Ophalen van een pakket
                 foreach (C3model o in worldObjects){
@@ -42,14 +42,10 @@ namespace Models {
                                 }
                                 if(robot.actorStatus == "idle"){
                                     //Ophalen kast
-                                    if(rnd.Next(100) <= 60 && kast.actorStatus == "opgeslagen"){
-                                        int mogelijkheden = 3;
-                                        int counter = 1;
+                                    if(rnd.Next(100) >= 70 && kast.actorStatus == "opgeslagen"){
                                         foreach (var result in HraphObjects){
-                                            if(result.nodeName == "vrachtdepot" || result.nodeName == "updepot" || result.nodeName == "downdepot"){
-                                                if (rnd.Next(mogelijkheden) <= counter){
-
-                                                    var rijs = graphContent.GetPath("idlevracht",kast.huidigeLocatie.nodeName);
+                                            if(result.nodeName == "vrachtdepot"){
+                                                    var rijs = graphContent.GetPath("vrachtdepot",kast.huidigeLocatie.nodeName);
                                                     var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,result.nodeName);
                                                     //terugReis word bij rijs ingevoegd
                                                     rijs.AddRange(terugReis);
@@ -63,8 +59,6 @@ namespace Models {
                                                     //break de huidige robot foreach en zet de break boolean flag voor de kast for each
                                                     gaVerderFlag = true;
                                                     break;
-                                                }
-                                                counter++;
                                             }
                                         }
                                         
@@ -72,20 +66,20 @@ namespace Models {
                                         //Of brengen kast uit depot
                                         //allemaal even kans voor elke opslag plaats in het depot.
                                         int counter = 1;
-                                        //de vrachtwagen is een geen geldige optie. dus -1
-                                        int countHraph = HraphObjects.Count-1;
+                                        int countHraph = 6;
                                         foreach (var result in HraphObjects){
-                                            //TODO kans berekening klopt niet
-                                            if (rnd.Next(countHraph) <= counter && result.Cargoplace == true){
-                                                kast.ZetBestemming(result);
-                                                break;
+                                            if (result.Cargoplace == true){
+                                                if (rnd.Next(countHraph) <= counter){
+                                                    kast.ZetBestemming(result);
+                                                    break;
+                                                }
+                                                counter++;
                                             }
-                                            counter++;
                                         }
                                         var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie.nodeName);
                                         var terugReis = graphContent.GetPath(kast.opgeslagenLocatie.nodeName,"vrachtdepot");
                                         rijs.AddRange(terugReis);
-
+                                        
                                         robot.GoCarryKast(kast);
                                         robot.goTo(rijs,HraphObjects);
                                         kast.GetCarriedBy(robot);

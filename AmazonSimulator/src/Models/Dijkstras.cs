@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models
 {
-    class Dijkstra
+    public class Dijkstra
     {
         Dictionary<string, Dictionary<string, int>> vertices = new Dictionary<string, Dictionary<string, int>>();
 
@@ -74,7 +74,7 @@ namespace Models
     }
 
  
-    class GraphClass
+    public class GraphClass
     {
         public Dijkstra g = new Dijkstra();
             public GraphClass() {

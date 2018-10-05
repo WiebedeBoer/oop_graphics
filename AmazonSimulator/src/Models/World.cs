@@ -29,6 +29,7 @@ namespace Models {
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
         Random rnd = new Random();
+        Robotasks robotasks = new Robotasks();
         public World() {
             //Initialiseren van actoren binnen de simulatie en de paths.
             PopuleerGraph();
@@ -156,97 +157,11 @@ namespace Models {
                 }
             }
             
-            MoveKasten();
+            robotasks.MoveKasten(worldObjects,graphContent,HraphObjects);
             
             dumptruck.MoveDumptruck(kastLijst,HraphObjects);
             
             return true;
-        }
-
-        //move kasten
-        private void MoveKasten (){
-            //20 updates per seconde. 20x 0,5% kans per seconde om een actie te laten gebeuren.
-            if (rnd.Next(10000) <= 50){
-                Boolean gaVerderFlag = false;
-                //Ophalen van een pakket
-                foreach (C3model o in worldObjects){
-                    //Een flag voor als een robot is gevonden voor een kast
-                    if (gaVerderFlag == true){break;}
-
-                    //ben jij een kast? nee? volgende candidaat
-                    Kast kast;
-                    if(o is Kast) {
-                        kast = (Kast)o;
-                    } else {
-                        continue;
-                    }
-
-                        if(kast.actorStatus == "opgeslagen" || kast.actorStatus == "InDepotNieuw"){
-                            foreach (C3model p in worldObjects)
-                            {
-                                Robot robot;
-                                if(p is Robot) {
-                                    robot = (Robot)p;
-                                } else {
-                                    continue;
-                                }
-                                if(robot.actorStatus == "idle"){
-                                    //Ophalen kast
-                                    if(rnd.Next(100) >= 70 && kast.actorStatus == "opgeslagen"){
-                                        foreach (var result in HraphObjects){
-                                            if(result.nodeName == "vrachtdepot"){
-                                                    var rijs = graphContent.GetPath("vrachtdepot",kast.huidigeLocatie.nodeName);
-                                                    var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,result.nodeName);
-                                                    //terugReis word bij rijs ingevoegd
-                                                    rijs.AddRange(terugReis);
-
-                                                    //Navigeer de robot na de locatie van de Kast.
-                                                    robot.GoCarryKast(kast);
-                                                    robot.goTo(rijs,HraphObjects);
-                                                    kast.GetCarriedBy(robot);
-                                                    //Eindbestemming is altijd hetzelfde voor een kast
-                                                    kast.ZetBestemming(result);
-                                                    //break de huidige robot foreach en zet de break boolean flag voor de kast for each
-                                                    gaVerderFlag = true;
-                                                    break;
-                                            }
-                                        }
-                                        
-                                    }else if (kast.actorStatus == "InDepotNieuw"){
-                                        //Of brengen kast uit depot
-                                        //allemaal even kans voor elke opslag plaats in het depot.
-                                        int counter = 1;
-                                        int countHraph = 6;
-                                        foreach (var result in HraphObjects){
-                                            if (result.Cargoplace == true){
-                                                if (rnd.Next(countHraph) <= counter){
-                                                    kast.ZetBestemming(result);
-                                                    System.Diagnostics.Debug.WriteLine("BESTEMMING = "+result.nodeName);
-                                                    break;
-                                                }
-                                                counter++;
-                                            }
-                                        }
-                                        var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie.nodeName);
-                                        var terugReis = graphContent.GetPath(kast.opgeslagenLocatie.nodeName,"vrachtdepot");
-                                        rijs.AddRange(terugReis);
-                                        foreach(var result in rijs){
-                                            System.Diagnostics.Debug.WriteLine(result);
-                                        }
-                                        
-                                        robot.GoCarryKast(kast);
-                                        robot.goTo(rijs,HraphObjects);
-                                        kast.GetCarriedBy(robot);
-
-                                        //break de huidige robot foreach en zet de break boolean flag voor de kast for each
-                                        gaVerderFlag = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                }
-            }
         }
     }
 
