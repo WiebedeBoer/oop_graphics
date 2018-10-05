@@ -32,7 +32,7 @@ class Depot extends THREE.Group {
             new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/bobdebouwer.png"), side: THREE.DoubleSide }), //FRONT
             new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BACK
             ];
-        var dmaterial = new THREE.MeshPhongMaterial(dcubeMaterials);
+        var dmaterial = new THREE.MeshFaceMaterial(dcubeMaterials);
         var ddepot = new THREE.Mesh(dgeometry, dmaterial);
         ddepot.position.x = 7;
         ddepot.position.y = 0;
