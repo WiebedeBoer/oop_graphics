@@ -7,8 +7,8 @@ namespace Models {
     public class Robotasks {
 
         private Random rnd = new Random(); //alleen hier binnen gebruikt voor randomiseren
-        GraphClass graphContent = new GraphClass();    
-        private List<C3model> worldObjects = new List<C3model>();
+        GraphClass graphContent = new GraphClass(); //alleen hier gemaakt   
+        private List<C3model> worldObjects = new List<C3model>(); //world create en update, in move check of kast
         private List<Kast> kastLijst = new List<Kast>(); //ook voor bewegen dumptruck
         public List<Hraph> HraphObjects = new List<Hraph>(); //ook voor bewegen dumptruck
 
