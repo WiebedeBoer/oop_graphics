@@ -10,6 +10,24 @@ namespace Models {
         {
             
         }
+        //move this
+        public void MoveDumptruck(List<Kast> kastLijst, List<Hraph> HraphObjects){   
+            if(this.x == 0 && this.z == 7){
+                //We zijn bij depot
+                this.depotTimer++;
+                if(this.depotTimer == 20){
+                    this.DropCargo(kastLijst,HraphObjects);
+                }else if(this.depotTimer == 40){
+                    this.PickupOldCargo(kastLijst,HraphObjects);
+                }else if(this.depotTimer == 60){
+                    this.Target(this.x,this.y,this.z-100);
+                    this.depotTimer = 0;
+                }
+            }else if(this.z == -93){
+                this.Move(0,0,107);
+                this.Target(this.x,this.y,this.z-100);
+            }
+        }
         public void PickupOldCargo(List<Kast> alleKasten,List<Hraph> Hraph){
                 
                     foreach(Kast kast in alleKasten){

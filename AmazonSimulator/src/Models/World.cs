@@ -158,15 +158,15 @@ namespace Models {
             
             MoveKasten();
             
-            MoveDumptruck();
+            dumptruck.MoveDumptruck(kastLijst,HraphObjects);
             
             return true;
         }
 
         //move kasten
         private void MoveKasten (){
-            //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
-            if (rnd.Next(10000) <= 100){
+            //20 updates per seconde. 20x 0,5% kans per seconde om een actie te laten gebeuren.
+            if (rnd.Next(10000) <= 50){
                 Boolean gaVerderFlag = false;
                 //Ophalen van een pakket
                 foreach (C3model o in worldObjects){
@@ -248,26 +248,6 @@ namespace Models {
                 }
             }
         }
-
-        //move dumptruck
-        private void MoveDumptruck(){   
-            if(dumptruck.x == 0 && dumptruck.z == 7){
-                //We zijn bij depot
-                dumptruck.depotTimer++;
-                if(dumptruck.depotTimer == 20){
-                    dumptruck.DropCargo(kastLijst,HraphObjects);
-                }else if(dumptruck.depotTimer == 40){
-                    dumptruck.PickupOldCargo(kastLijst,HraphObjects);
-                }else if(dumptruck.depotTimer == 60){
-                    dumptruck.Target(dumptruck.x,dumptruck.y,dumptruck.z-100);
-                    dumptruck.depotTimer = 0;
-                }
-            }else if(dumptruck.z == -93){
-                dumptruck.Move(0,0,107);
-                dumptruck.Target(dumptruck.x,dumptruck.y,dumptruck.z-100);
-            }
-        }
-
     }
 
     internal class Unsubscriber<Command> : IDisposable
