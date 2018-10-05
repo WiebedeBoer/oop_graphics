@@ -97,7 +97,7 @@ namespace Models
                 g.add_vertex("LC", new Dictionary<string, int>() {{"LB", 4}, {"LD", 4}});
                 g.add_vertex("LD", new Dictionary<string, int>() {{"LC", 4}, {"SLD", 1}});
                 g.add_vertex("SLA", new Dictionary<string, int>() {{"LA", 1}});
-                g.add_vertex("SLB", new Dictionary<string, int>() {{"LC", 1}});
+                g.add_vertex("SLB", new Dictionary<string, int>() {{"LB", 1}});
                 g.add_vertex("SLD", new Dictionary<string, int>() {{"LD", 1}});
                 g.add_vertex("SRA", new Dictionary<string, int>() {{"RA", 1}});
                 g.add_vertex("SRB", new Dictionary<string, int>() {{"RB", 1}});
