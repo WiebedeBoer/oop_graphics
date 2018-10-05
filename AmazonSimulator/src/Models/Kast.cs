@@ -10,10 +10,9 @@ namespace Models {
         private Robot carryingRobot;
         public bool Cargoed;
         
-        public Kast (double x, double y, double z, double rotationX, double rotationY, double rotationZ, Hraph huidigeLocatie, bool Cargoed) :base(x, y, z, rotationX, rotationY, rotationZ,"kast")
+        public Kast (double x, double y, double z, double rotationX, double rotationY, double rotationZ, Hraph huidigeLocatie) :base(x, y, z, rotationX, rotationY, rotationZ,"kast")
         {
             this.huidigeLocatie = huidigeLocatie;
-            this.Cargoed = Cargoed;
         }
         public void Beweeg(){
             if (actorStatus == "Opgepakt"){

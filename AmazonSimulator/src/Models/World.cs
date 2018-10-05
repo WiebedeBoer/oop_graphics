@@ -51,8 +51,8 @@ namespace Models {
         }
 
         //maakt kast
-        private Kast CreateKast(double x, double y, double z, string type, bool cargoed) {
-            Kast d = new Kast(x,y,z,0,0,0,null,false);
+        private Kast CreateKast(double x, double y, double z, Hraph huidigeLocatie) {
+            Kast d = new Kast(x,y,z,0,0,0,huidigeLocatie);
             worldObjects.Add(d);
             kastLijst.Add(d);
             return d;
@@ -61,35 +61,29 @@ namespace Models {
         //Word 1x aangeroept. creert en plaatst alle actoren
         private void CreerActoren() {
             //Alle 'Workers'
-            robot1 = CreateRobot(0,0,0);
-            robot1.Move(7,0.15,7);
-            robot2 = CreateRobot(0,0,0);
-            robot2.Move(7,0.15,7);
-            robot3 = CreateRobot(0,0,0);
-            robot3.Move(7,0.15,7);
+            robot1 = CreateRobot(7,0.15,7);
+            robot2 = CreateRobot(7,0.15,7);
+            robot3 = CreateRobot(7,0.15,7);
             //Dumptruck
             dumptruck = CreateDumptruck(0,0,107);
             dumptruck.Target(0,0,7);
 
             //Alle kasten
-            kast1 = CreateKast(0,1000,0,null, false);
+            kast1 = CreateKast(0,1000,0,null);
             kast1.actorStatus = "hemel";
-            kast2 = CreateKast(0,1000,0,null, false);
+            kast2 = CreateKast(0,1000,0,null);
             kast2.actorStatus = "hemel";
-            kast3 = CreateKast(0,1000,0,null, false);
+            kast3 = CreateKast(0,1000,0,null);
             kast3.actorStatus = "hemel";
-            kast4 = CreateKast(0,1000,0,null, false);
+            kast4 = CreateKast(0,1000,0,null);
             kast4.actorStatus = "hemel";
 
-            kast5 = CreateKast(7,0,7,"vrachtdepot", true);
+            kast5 = CreateKast(7,3,7,new Hraph(7,3,7,"vrachtdepot",false));
             kast5.actorStatus = "InDepotNieuw";
-            kast5.huidigeLocatie = new Hraph(7,0,7,"vrachtdepot", false);
-            kast6 = CreateKast(7,0,7,"vrachtdepot", false);
+            kast6 = CreateKast(7,3,7,new Hraph(7,3,7,"vrachtdepot",false));
             kast6.actorStatus = "InDepotNieuw";
-            kast6.huidigeLocatie = new Hraph(7,0,7,"vrachtdepot", false);
-            kast7 = CreateKast(7,0,7,"vrachtdepot", false);
+            kast7 = CreateKast(7,3,7,new Hraph(7,3,7,"vrachtdepot",false));
             kast7.actorStatus = "InDepotNieuw";
-            kast7.huidigeLocatie = new Hraph(7,0,7,"vrachtdepot", false);
 
 
         }
