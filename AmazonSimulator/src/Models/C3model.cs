@@ -56,7 +56,7 @@ namespace Models {
             needsUpdate = true;
         }
         //goTo geeft een lijst met coordinaten waar de acteur heen moet gaan, in die volgorde.
-        public void goTo (List<string> waypointName, List<Hraph> allWaypoints){         
+        public void goTo (List<string> waypointName, List<Hraph> allWaypoints){
             foreach(var input in waypointName){
                 foreach (var hraph in allWaypoints){
                     if(input == hraph.nodeName){

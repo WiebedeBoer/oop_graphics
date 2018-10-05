@@ -4,13 +4,43 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace Models {
-    public class Dumptruck : C3model, IUpdatable {
-        public int depotTimer;
+    public class Dumptruck : C3model, IUpdatable, IBeweging {
+        public sbyte depotTimer;
         public Dumptruck (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"dumptruck")
         {
             
         }
         
+        public void Beweeg(){
+            if(tX != -1 && tY != -1 && tZ != -1){
+                if(tX>x){
+                    if (tX-x <= 0.3){
+                        this.Move(tX,y,z); 
+                    }else{ 
+                        this.Move(x+0.3,y,z);  
+                    }
+                }else if(tX<x){
+                    if (tX-x >= -0.3){
+                        this.Move(tX,y,z); 
+                    }else{ 
+                        this.Move(x-0.3,y,z);  
+                    } 
+                    //En nu voor de Y as
+                }else if(tZ>z){
+                    if (tZ-z <= 0.3){
+                        this.Move(x,y,tZ); 
+                    }else{ 
+                        this.Move(x,y,z+0.3);  
+                    }  
+                }else if(tZ<z){
+                    if (tZ-z >= -0.3){
+                        this.Move(x,y,tZ); 
+                    }else{ 
+                        this.Move(x,y,z-0.3);
+                    } 
+                }
+            }
+        }
         public void MoveDumptruck(List<Kast> kastLijst, List<Hraph> HraphObjects){
             if(this.x == 0 && this.z == 7){
                 //We zijn bij depot
@@ -59,35 +89,7 @@ namespace Models {
 
         public override bool Update(int tick)
         {
-            if(tX != -1 && tY != -1 && tZ != -1){
-                if(tX>x){
-                    if (tX-x <= 0.3){
-                        this.Move(tX,y,z); 
-                    }else{ 
-                        this.Move(x+0.3,y,z);  
-                    }
-                }else if(tX<x){
-                    if (tX-x >= -0.3){
-                        this.Move(tX,y,z); 
-                    }else{ 
-                        this.Move(x-0.3,y,z);  
-                    } 
-                    //En nu voor de Y as
-                }else if(tZ>z){
-                    if (tZ-z <= 0.3){
-                        this.Move(x,y,tZ); 
-                    }else{ 
-                        this.Move(x,y,z+0.3);  
-                    }  
-                }else if(tZ<z){
-                    if (tZ-z >= -0.3){
-                        this.Move(x,y,tZ); 
-                    }else{ 
-                        this.Move(x,y,z-0.3);
-                    } 
-                }
-            }
-            
+            Beweeg();            
             return base.Update(tick);
         }
     }

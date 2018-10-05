@@ -4,33 +4,13 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace Models {
-    public class Robot : C3model, IUpdatable {
+    public class Robot : C3model, IUpdatable, IBeweging {
         public Kast carryingKast;
         public Robot (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"robot")
         {
             
         }
-        private void PakKast(){
-            carryingKast.GetPickedUp();
-        }
-        private void DropKast(){
-            carryingKast.NeerGezet();
-            carryingKast = null;
-        }
-        public void GoCarryKast(Kast input) {
-            carryingKast = input;
-            actorStatus = "GoingToKast";
-        }
-        public override bool Update(int tick)
-        {
-            //Als we in het depot zijn. en we moeten een kast brengen na de opslag plaatsen
-            //De begin positie(vrachtdepot) zit niet in de waypoints. Dus moeten we effe checken of we de kast hier al kunnen oppakken
-            //ook VOORDAT we beginnen met bewegen!
-            if (carryingKast != null){
-                if((x == carryingKast.huidigeLocatie.x && z == carryingKast.huidigeLocatie.z && carryingKast.actorStatus == "WachtOpRobot") || carryingKast.huidigeLocatie.nodeName == "vrachtdepot" && carryingKast.actorStatus == "WachtOpRobot"){
-                    PakKast();
-                }
-            }
+        public void Beweeg(){
             //Beweging naar bestemming (Gaat veranderd worden voor correcte path vinding)
             if(tX != -1 && tY != -1 && tZ != -1){
                 if(tX>x){
@@ -60,6 +40,29 @@ namespace Models {
                     } 
                 }
             }
+        }
+        private void PakKast(){
+            carryingKast.GetPickedUp();
+        }
+        private void DropKast(){
+            carryingKast.NeerGezet();
+            carryingKast = null;
+        }
+        public void GoCarryKast(Kast input) {
+            carryingKast = input;
+            actorStatus = "GoingToKast";
+        }
+        public override bool Update(int tick)
+        {
+            //Als we in het depot zijn. en we moeten een kast brengen na de opslag plaatsen
+            //De begin positie(vrachtdepot) zit niet in de waypoints. Dus moeten we effe checken of we de kast hier al kunnen oppakken
+            //ook VOORDAT we beginnen met bewegen!
+            if (carryingKast != null){
+                if((x == carryingKast.huidigeLocatie.x && z == carryingKast.huidigeLocatie.z && carryingKast.actorStatus == "WachtOpRobot") || carryingKast.huidigeLocatie.nodeName == "vrachtdepot" && carryingKast.actorStatus == "WachtOpRobot"){
+                    PakKast();
+                }
+            }
+            Beweeg();
             //Bestemming of waypoint berijkt.
             if((x==tX && z==tZ) && hraphTarget.Count != 0){
 

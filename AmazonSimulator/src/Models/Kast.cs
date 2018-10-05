@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace Models {
-    public class Kast : C3model, IUpdatable {
+    public class Kast : C3model, IUpdatable, IBeweging {
         public Hraph opgeslagenLocatie;
         public Hraph huidigeLocatie;
         private Robot carryingRobot;
@@ -14,6 +14,11 @@ namespace Models {
         {
             this.huidigeLocatie = huidigeLocatie;
             this.Cargoed = Cargoed;
+        }
+        public void Beweeg(){
+            if (actorStatus == "Opgepakt"){
+                this.Move(carryingRobot.x,3.3,carryingRobot.z);
+            }
         }
         public void ZetBestemming(Hraph bestemming) {
             opgeslagenLocatie = bestemming;
@@ -36,9 +41,7 @@ namespace Models {
         }
         public override bool Update(int tick)
         {
-            if (actorStatus == "Opgepakt"){
-                this.Move(carryingRobot.x,3.3,carryingRobot.z);
-            }
+            Beweeg();
             return base.Update(tick);
         }
     }

@@ -61,12 +61,12 @@ namespace Models {
         //Word 1x aangeroept. creert en plaatst alle actoren
         private void CreerActoren() {
             //Alle 'Workers'
-           robot1 = CreateRobot(0,0,0);
-            robot1.Move(7,0,7);
+            robot1 = CreateRobot(0,0,0);
+            robot1.Move(7,0.15,7);
             robot2 = CreateRobot(0,0,0);
-            robot2.Move(7,0,7);
+            robot2.Move(7,0.15,7);
             robot3 = CreateRobot(0,0,0);
-            robot3.Move(7,0,7);
+            robot3.Move(7,0.15,7);
             //Dumptruck
             dumptruck = CreateDumptruck(0,0,107);
             dumptruck.Target(0,0,7);
