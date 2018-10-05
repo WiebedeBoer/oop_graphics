@@ -29,10 +29,6 @@ namespace Models {
         GraphClass graphContent = new GraphClass();
         public List<Hraph> HraphObjects = new List<Hraph>();
         Random rnd = new Random();
-
-        private bool Cargocarry;
-
-
         public World() {
             //Initialiseren van actoren binnen de simulatie en de paths.
             PopuleerGraph();
@@ -40,6 +36,7 @@ namespace Models {
             
         }
 
+        //maakt robot
         private Robot CreateRobot(double x, double y, double z) {
             Robot r = new Robot(x,y,z,0,0,0);
             worldObjects.Add(r);
@@ -47,12 +44,14 @@ namespace Models {
             return r;
         }
 
+        //maakt dumptruck
         private Dumptruck CreateDumptruck(double x, double y, double z) {
             Dumptruck d = new Dumptruck(x,y,z,0,0,0);
             worldObjects.Add(d);
             return d;
         }
 
+        //maakt kast
         private Kast CreateKast(double x, double y, double z, string type, bool cargoed) {
             Kast d = new Kast(x,y,z,0,0,0,null,false);
             worldObjects.Add(d);
@@ -96,6 +95,7 @@ namespace Models {
 
         }
         
+        //word 1x aangeroepen, maak nodes aan in wereld
         private void PopuleerGraph(){
             HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", false));
             HraphObjects.Add(new Hraph(7,0,5,"updepot", false));
@@ -155,8 +155,17 @@ namespace Models {
                     }
                 }
             }
+            
+            MoveKasten();
+            
+            MoveDumptruck();
+            
+            return true;
+        }
 
-            //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
+        //move kasten
+        private void MoveKasten (){
+                        //20 updates per seconde. 20x 1% kans per seconde om een actie te laten gebeuren.
             if (rnd.Next(10000) <= 100){
                 Boolean gaVerderFlag = false;
                 //Ophalen van een pakket
@@ -240,7 +249,10 @@ namespace Models {
                         }
                 }
             }
-            
+        }
+
+        //move dumptruck
+        private void MoveDumptruck(){   
             if(dumptruck.x == 0 && dumptruck.z == 7){
                 //We zijn bij depot
                 dumptruck.depotTimer++;
@@ -256,10 +268,10 @@ namespace Models {
                 dumptruck.Move(0,0,107);
                 dumptruck.Target(dumptruck.x,dumptruck.y,dumptruck.z-100);
             }
-            
-            return true;
         }
+
     }
+
     internal class Unsubscriber<Command> : IDisposable
     {
         private List<IObserver<Command>> _observers;
