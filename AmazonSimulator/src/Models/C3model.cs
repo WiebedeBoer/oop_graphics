@@ -22,12 +22,10 @@ namespace Models {
         public double rotationZ { get { return _rZ; } }
 
         protected List<Hraph> hraphTarget = new List<Hraph>();
-        public double tX = -1, tY = -1, tZ =-1;
+        protected double tX = -1, tY = -1, tZ =-1;
         protected int waypointNr = 0;
         public string actorStatus = "idle";
-        private string location;
-
-        public bool needsUpdate = true;
+        private bool needsUpdate = true;
 
         public C3model(double x, double y, double z, double rotationX, double rotationY, double rotationZ, string type) {
             this.type = type;
@@ -56,7 +54,7 @@ namespace Models {
             needsUpdate = true;
         }
         //goTo geeft een lijst met coordinaten waar de acteur heen moet gaan, in die volgorde.
-        public void goTo (List<string> waypointName, List<Hraph> allWaypoints){
+        public void GoTo (List<string> waypointName, List<Hraph> allWaypoints){
             foreach(var input in waypointName){
                 foreach (var hraph in allWaypoints){
                     if(input == hraph.nodeName){

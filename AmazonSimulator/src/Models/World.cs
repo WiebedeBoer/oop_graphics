@@ -13,26 +13,26 @@ namespace Models {
 
         bool showGrid;
         
-        Robot robot1;
-        Robot robot2;
-        Robot robot3;
-        Kast kast1;
-        Kast kast2;
-        Kast kast3;
-        Kast kast4;
-        Kast kast5;
-        Kast kast6;
-        Kast kast7;
-        Dumptruck dumptruck;
-        GraphClass graphContent = new GraphClass();
-        public List<Hraph> HraphObjects = new List<Hraph>();
-        Random rnd = new Random();
-        Robotasks robotasks;
+        private Robot robot1;
+        private Robot robot2;
+        private Robot robot3;
+        private Kast kast1;
+        private Kast kast2;
+        private Kast kast3;
+        private Kast kast4;
+        private Kast kast5;
+        private Kast kast6;
+        private Kast kast7;
+        private Dumptruck dumptruck;
+        private GraphClass graphContent = new GraphClass();
+        private List<Hraph> hraphObjects = new List<Hraph>();
+        private Random rnd = new Random();
+        private RoboTasks roboTasks;
         public World() {
-            //Initialiseren van actoren binnen de simulatie en de paths.
+            //Initializing actors and paths.
             PopuleerGraph();
             CreerActoren();
-            robotasks = new Robotasks(worldObjects,graphContent,HraphObjects);
+            roboTasks = new RoboTasks(worldObjects,graphContent,hraphObjects);
             showGrid = true;
         }
 
@@ -91,28 +91,28 @@ namespace Models {
         
         //word 1x aangeroepen, maak nodes aan in wereld
         private void PopuleerGraph(){
-            HraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", false));
-            HraphObjects.Add(new Hraph(7,0,5,"updepot", false));
-            HraphObjects.Add(new Hraph(7,0,9,"downdepot", false));
-            HraphObjects.Add(new Hraph(8,0,7,"idlevracht", false));
-            HraphObjects.Add(new Hraph(8,0,5,"idleup", false));
-            HraphObjects.Add(new Hraph(8,0,9,"idledown", false));
-            HraphObjects.Add(new Hraph(11,0,7,"padepot", false));
-            HraphObjects.Add(new Hraph(11,0,11,"pbdepot", false));
-            HraphObjects.Add(new Hraph(15,0,11,"RA", false));
-            HraphObjects.Add(new Hraph(19,0,11,"RB", false));
-            HraphObjects.Add(new Hraph(23,0,11,"RC", false));
-            HraphObjects.Add(new Hraph(23,0,15,"RD", false));
-            HraphObjects.Add(new Hraph(11,0,15,"LA", false));
-            HraphObjects.Add(new Hraph(11,0,19,"LB", false));
-            HraphObjects.Add(new Hraph(11,0,23,"LC", false));
-            HraphObjects.Add(new Hraph(15,0,23,"LD", false));
-            HraphObjects.Add(new Hraph(15,0,12,"SRA", true));
-            HraphObjects.Add(new Hraph(19,0,12,"SRB", true));
-            HraphObjects.Add(new Hraph(22,0,15,"SRD", true));
-            HraphObjects.Add(new Hraph(12,0,15,"SLA", true));
-            HraphObjects.Add(new Hraph(12,0,19,"SLB", true));
-            HraphObjects.Add(new Hraph(15,0,22,"SLD", true));
+            hraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", false));
+            hraphObjects.Add(new Hraph(7,0,5,"updepot", false));
+            hraphObjects.Add(new Hraph(7,0,9,"downdepot", false));
+            hraphObjects.Add(new Hraph(8,0,7,"idlevracht", false));
+            hraphObjects.Add(new Hraph(8,0,5,"idleup", false));
+            hraphObjects.Add(new Hraph(8,0,9,"idledown", false));
+            hraphObjects.Add(new Hraph(11,0,7,"padepot", false));
+            hraphObjects.Add(new Hraph(11,0,11,"pbdepot", false));
+            hraphObjects.Add(new Hraph(15,0,11,"RA", false));
+            hraphObjects.Add(new Hraph(19,0,11,"RB", false));
+            hraphObjects.Add(new Hraph(23,0,11,"RC", false));
+            hraphObjects.Add(new Hraph(23,0,15,"RD", false));
+            hraphObjects.Add(new Hraph(11,0,15,"LA", false));
+            hraphObjects.Add(new Hraph(11,0,19,"LB", false));
+            hraphObjects.Add(new Hraph(11,0,23,"LC", false));
+            hraphObjects.Add(new Hraph(15,0,23,"LD", false));
+            hraphObjects.Add(new Hraph(15,0,12,"SRA", true));
+            hraphObjects.Add(new Hraph(19,0,12,"SRB", true));
+            hraphObjects.Add(new Hraph(22,0,15,"SRD", true));
+            hraphObjects.Add(new Hraph(12,0,15,"SLA", true));
+            hraphObjects.Add(new Hraph(12,0,19,"SLB", true));
+            hraphObjects.Add(new Hraph(15,0,22,"SLD", true));
         }
         public IDisposable Subscribe(IObserver<Command> observer)
         {
@@ -155,9 +155,9 @@ namespace Models {
                 }
             }
             
-            robotasks.MoveKasten();
+            roboTasks.MoveKasten();
             
-            dumptruck.MoveDumptruck(kastLijst,HraphObjects);
+            dumptruck.MoveDumptruck(kastLijst,hraphObjects);
             
             return true;
         }

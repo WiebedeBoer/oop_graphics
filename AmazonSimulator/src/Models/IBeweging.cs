@@ -5,6 +5,6 @@ using System.Linq;
 namespace Models {
     interface IBeweging
     {
-        void Beweeg();
+        void Movement();
     }
 }

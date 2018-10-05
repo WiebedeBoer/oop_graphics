@@ -5,13 +5,13 @@ using Newtonsoft.Json;
 
 namespace Models {
     public class Dumptruck : C3model, IUpdatable, IBeweging {
-        public sbyte depotTimer;
+        private sbyte depotTimer;
         public Dumptruck (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"dumptruck")
         {
             
         }
         
-        public void Beweeg(){
+        public void Movement(){
             if(tX != -1 && tY != -1 && tZ != -1){
                 if(tX>x){
                     if (tX-x <= 0.3){
@@ -69,15 +69,15 @@ namespace Models {
                     }
             
         }
-        private void DropCargo(List<Kast> alleKasten,List<Hraph> Hraph){
-            foreach (Hraph hraph in Hraph)
+        private void DropCargo(List<Kast> alleKasten,List<Hraph> hraph){
+            foreach (Hraph hraphresult in hraph)
             {
-                if(hraph.nodeName == "vrachtdepot"){
+                if(hraphresult.nodeName == "vrachtdepot"){
                     foreach(Kast kast in alleKasten){
                         if(kast.actorStatus == "hemel"){
-                            kast.Move(hraph.x,3,hraph.z);
+                            kast.Move(hraphresult.x,3,hraphresult.z);
                             kast.actorStatus = "InDepotNieuw";
-                            kast.huidigeLocatie = hraph;
+                            kast.currentLocation = hraphresult;
                             break;
                         }
                     }
@@ -89,7 +89,7 @@ namespace Models {
 
         public override bool Update(int tick)
         {
-            Beweeg();            
+            Movement();            
             return base.Update(tick);
         }
     }

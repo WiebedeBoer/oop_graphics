@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace Models {
-    public class Robotasks {
+    public class RoboTasks {
 
         private Random rnd = new Random(); //alleen hier binnen gebruikt voor randomiseren
         private GraphClass graphContent; //alleen hier gemaakt   
@@ -12,7 +12,7 @@ namespace Models {
         private List<Hraph> HraphObjects; //ook voor bewegen dumptruck
 
         //kasten bewegen
-        public Robotasks (List<C3model> worldObjects,GraphClass graphContent,List<Hraph> HraphObjects){
+        public RoboTasks (List<C3model> worldObjects,GraphClass graphContent,List<Hraph> HraphObjects){
             this.worldObjects = worldObjects;
             this.graphContent = graphContent;
             this.HraphObjects = HraphObjects;
@@ -48,14 +48,14 @@ namespace Models {
                                     if(rnd.Next(100) >= 70 && kast.actorStatus == "opgeslagen"){
                                         foreach (var result in HraphObjects){
                                             if(result.nodeName == "vrachtdepot"){
-                                                var rijs = graphContent.GetPath("vrachtdepot",kast.huidigeLocatie.nodeName);
-                                                var terugReis = graphContent.GetPath(kast.huidigeLocatie.nodeName,result.nodeName);
+                                                var rijs = graphContent.GetPath("vrachtdepot",kast.currentLocation.nodeName);
+                                                var terugReis = graphContent.GetPath(kast.currentLocation.nodeName,result.nodeName);
                                                 //terugReis word bij rijs ingevoegd
                                                 rijs.AddRange(terugReis);
 
                                                 //Navigeer de robot na de locatie van de Kast.
                                                 robot.GoCarryKast(kast);
-                                                robot.goTo(rijs,HraphObjects);
+                                                robot.GoTo(rijs,HraphObjects);
                                                 kast.GetCarriedBy(robot);
                                                 //Eindbestemming is altijd hetzelfde voor een kast
                                                 kast.ZetBestemming(result);
@@ -71,7 +71,7 @@ namespace Models {
                                         int counter = 1;
                                         int countHraph = 6;
                                         foreach (var result in HraphObjects){
-                                            if (result.Cargoplace == true){
+                                            if (result.cargoPlace == true){
                                                 if (rnd.Next(countHraph) <= counter){
                                                     kast.ZetBestemming(result);
                                                     break;
@@ -79,12 +79,12 @@ namespace Models {
                                                 counter++;
                                             }
                                         }
-                                        var rijs = graphContent.GetPath("vrachtdepot",kast.opgeslagenLocatie.nodeName);
-                                        var terugReis = graphContent.GetPath(kast.opgeslagenLocatie.nodeName,"vrachtdepot");
+                                        var rijs = graphContent.GetPath("vrachtdepot",kast.destinationLocation.nodeName);
+                                        var terugReis = graphContent.GetPath(kast.destinationLocation.nodeName,"vrachtdepot");
                                         rijs.AddRange(terugReis);
                                         
                                         robot.GoCarryKast(kast);
-                                        robot.goTo(rijs,HraphObjects);
+                                        robot.GoTo(rijs,HraphObjects);
                                         kast.GetCarriedBy(robot);
 
                                         //break de huidige robot foreach en zet de break boolean flag voor de kast for each

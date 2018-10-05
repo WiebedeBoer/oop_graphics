@@ -5,27 +5,25 @@ using Newtonsoft.Json;
 
 namespace Models {
     public class Kast : C3model, IUpdatable, IBeweging {
-        public Hraph opgeslagenLocatie;
-        public Hraph huidigeLocatie;
+        public Hraph destinationLocation;
+        public Hraph currentLocation;
         private Robot carryingRobot;
-        public bool Cargoed;
-        
         public Kast (double x, double y, double z, double rotationX, double rotationY, double rotationZ, Hraph huidigeLocatie) :base(x, y, z, rotationX, rotationY, rotationZ,"kast")
         {
-            this.huidigeLocatie = huidigeLocatie;
+            this.currentLocation = huidigeLocatie;
         }
-        public void Beweeg(){
+        public void Movement(){
             if (actorStatus == "Opgepakt"){
                 this.Move(carryingRobot.x,3.3,carryingRobot.z);
             }
         }
-        public void ZetBestemming(Hraph bestemming) {
-            opgeslagenLocatie = bestemming;
+        public void ZetBestemming(Hraph destination) {
+            destinationLocation = destination;
         }
         public void NeerGezet(){
-            this.Move(opgeslagenLocatie.x,3,opgeslagenLocatie.z);
-            huidigeLocatie = new Hraph(opgeslagenLocatie.x,3,opgeslagenLocatie.z,opgeslagenLocatie.nodeName, true);
-            if(opgeslagenLocatie.nodeName == "vrachtdepot"){
+            this.Move(destinationLocation.x,3,destinationLocation.z);
+            currentLocation = new Hraph(destinationLocation.x,3,destinationLocation.z,destinationLocation.nodeName, true);
+            if(destinationLocation.nodeName == "vrachtdepot"){
                 actorStatus = "InDepotOud";
             } else {
                 actorStatus = "opgeslagen";
@@ -40,7 +38,7 @@ namespace Models {
         }
         public override bool Update(int tick)
         {
-            Beweeg();
+            Movement();
             return base.Update(tick);
         }
     }

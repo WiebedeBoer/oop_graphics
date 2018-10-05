@@ -5,12 +5,12 @@ using Newtonsoft.Json;
 
 namespace Models {
     public class Robot : C3model, IUpdatable, IBeweging {
-        public Kast carryingKast;
+        private Kast carryingKast;
         public Robot (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"robot")
         {
             
         }
-        public void Beweeg(){
+        public void Movement(){
             if(tX != -1 && tY != -1 && tZ != -1){
                 if(tX>x){
                     if (tX-x <= 0.1){
@@ -40,7 +40,7 @@ namespace Models {
                 }
             }
         }
-        private void PakKast(){
+        private void GrabKast(){
             carryingKast.GetPickedUp();
         }
         private void DropKast(){
@@ -57,11 +57,11 @@ namespace Models {
             //De begin positie(vrachtdepot) zit niet in de waypoints. Dus moeten we effe checken of we de kast hier al kunnen oppakken
             //ook VOORDAT we beginnen met bewegen!
             if (carryingKast != null){
-                if((x == carryingKast.huidigeLocatie.x && z == carryingKast.huidigeLocatie.z && carryingKast.actorStatus == "WachtOpRobot") || carryingKast.huidigeLocatie.nodeName == "vrachtdepot" && carryingKast.actorStatus == "WachtOpRobot"){
-                    PakKast();
+                if((x == carryingKast.currentLocation.x && z == carryingKast.currentLocation.z && carryingKast.actorStatus == "WachtOpRobot") || carryingKast.currentLocation.nodeName == "vrachtdepot" && carryingKast.actorStatus == "WachtOpRobot"){
+                    GrabKast();
                 }
             }
-            Beweeg();
+            Movement();
             //Bestemming of waypoint berijkt.
             if((x==tX && z==tZ) && hraphTarget.Count != 0){
 
@@ -82,10 +82,10 @@ namespace Models {
                     //we zijn er bijna.
                     if (carryingKast != null){
                         //als op aflever punt zijn van kast? droppen
-                        if (carryingKast.opgeslagenLocatie.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "Opgepakt"){
+                        if (carryingKast.destinationLocation.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "Opgepakt"){
                             DropKast();
-                        }else if (carryingKast.huidigeLocatie.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "WachtOpRobot"){
-                            PakKast();
+                        }else if (carryingKast.currentLocation.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "WachtOpRobot"){
+                            GrabKast();
                         }
                         
                     }
