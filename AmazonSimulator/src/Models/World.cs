@@ -11,10 +11,6 @@ namespace Models {
         private List<Kast> kastLijst = new List<Kast>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
-        //double xpos = 4.5; //global x
-        //double ypos = 0; //global y
-        //double zpos = 13; //global z
-
         Robot robot1;
         Robot robot2;
         Robot robot3;
