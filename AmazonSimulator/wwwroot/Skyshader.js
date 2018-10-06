@@ -7,7 +7,7 @@ class Skyshader extends THREE.Group {
 		//var sky;
 
 		//var sky, sunSphere;
-			function initSky() {
+			//function initSky() {
 				
 				// Add Sky
 				var sky = new THREE.Sky();
@@ -37,7 +37,7 @@ class Skyshader extends THREE.Group {
 				};
 				var distance = 400;
 				
-				function guiChanged() {
+				//function guiChanged() {
 					var uniforms = sky.material.uniforms;
 					uniforms.turbidity.value = effectController.turbidity;
 					uniforms.rayleigh.value = effectController.rayleigh;
@@ -52,7 +52,7 @@ class Skyshader extends THREE.Group {
 					sunSphere.visible = effectController.sun;
 					uniforms.sunPosition.value.copy( sunSphere.position );
 					//renderer.render( scene, camera );
-				}
+				//}
 				/*
 				var gui = new dat.GUI();
 				gui.add( effectController, "turbidity", 1.0, 20.0, 0.1 ).onChange( guiChanged );
@@ -64,11 +64,11 @@ class Skyshader extends THREE.Group {
 				gui.add( effectController, "azimuth", 0, 1, 0.0001 ).onChange( guiChanged );
 				gui.add( effectController, "sun" ).onChange( guiChanged );
 				*/
-				guiChanged();
+				//guiChanged();
 
-			}
+			//}
 			
-			initSky();
+			//initSky();
 		}
 
 
