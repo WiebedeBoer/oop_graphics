@@ -30,10 +30,6 @@ class Kast extends THREE.Group {
     constructor(){
         super();
 
-        //var group = new THREE.Group();
-        //group.add(kast);
-        //scene.add(group);
-        //worldObjects[command.parameters.guid] = group;
         this._LoadState = LoadStates.NOT_LOADING;
         this.init();
     }
