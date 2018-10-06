@@ -4,6 +4,10 @@ using System.Linq;
 using Controllers;
 
 namespace Models {
+    /// <summary>
+    /// Hraph class is used to save positions with additional information.
+    /// Additional information such as name of the position and whether or it is a valid storage space.
+    /// </summary>
     public class Hraph
     {
         private double _x = 0;

@@ -36,22 +36,17 @@ namespace Models {
             showGrid = true;
         }
 
-        //maakt robot
         private Robot CreateRobot(double x, double y, double z) {
             Robot r = new Robot(x,y,z,0,0,0);
             worldObjects.Add(r);
             robotLijst.Add(r);
             return r;
         }
-
-        //maakt dumptruck
         private Dumptruck CreateDumptruck(double x, double y, double z) {
             Dumptruck d = new Dumptruck(x,y,z,0,0,0);
             worldObjects.Add(d);
             return d;
         }
-
-        //maakt kast
         private Kast CreateKast(double x, double y, double z, Hraph huidigeLocatie) {
             Kast d = new Kast(x,y,z,0,0,0,huidigeLocatie);
             worldObjects.Add(d);
@@ -59,7 +54,11 @@ namespace Models {
             return d;
         }
 
-        //Word 1x aangeroept. creert en plaatst alle actoren
+        /// <summary>
+        /// Create all actors to populate the simulation
+        /// A method is used  to make it more readable
+        /// Note: is only called once! at the start of the simulation,
+        /// </summary>
         private void CreerActoren() {
             //Alle 'Workers'
             robot1 = CreateRobot(7,0.15,7);
@@ -89,7 +88,11 @@ namespace Models {
 
         }
         
-        //word 1x aangeroepen, maak nodes aan in wereld
+        /// <summary>
+        /// Create all waypoints for movement
+        /// A Method is used to make it more readable
+        /// Note: is only called once! at the start of the simulation,
+        /// </summary>
         private void PopuleerGraph(){
             hraphObjects.Add(new Hraph(7,0,7,"vrachtdepot", false));
             hraphObjects.Add(new Hraph(7,0,5,"updepot", false));

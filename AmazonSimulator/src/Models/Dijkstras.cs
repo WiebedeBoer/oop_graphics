@@ -7,11 +7,23 @@ namespace Models
     {
         Dictionary<string, Dictionary<string, int>> vertices = new Dictionary<string, Dictionary<string, int>>();
 
+        /// <summary>
+        /// Adds nodes to the vertices property
+        /// </summary>
+        /// <param name="name">Name of the node</param>
+        /// <param name="edges">Its connections</param>
         public void add_vertex(string name, Dictionary<string, int> edges)
         {
             vertices[name] = edges;
         }
-
+        /// <summary>
+        /// Returns the shortest path between point A and B
+        /// See Method comment of GraphClass.GetPath() for more information
+        /// Note: the path is reversed in order right before it is returned.This is because the algortihm provides the path in the 'wrong' order.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="finish"></param>
+        /// <returns></returns>
         public List<string> shortest_path(string start, string finish)
         {
             var previous = new Dictionary<string, string>();
@@ -76,7 +88,11 @@ namespace Models
  
     public class GraphClass
     {
+        //Seperate class to populate and quickly use the Dijkstra class.
         public Dijkstra g = new Dijkstra();
+            /// <summary>
+            /// Populating the Dijkstra class with nodes.
+            /// </summary>
             public GraphClass() {
                 g.add_vertex("vrachtdepot", new Dictionary<string, int>() {{"idlevracht", 1}});
                 g.add_vertex("updepot", new Dictionary<string, int>() {{"idleup", 1}});
@@ -103,6 +119,13 @@ namespace Models
                 g.add_vertex("SRB", new Dictionary<string, int>() {{"RB", 1}});
                 g.add_vertex("SRD", new Dictionary<string, int>() {{"RD", 1}});
             }
+            /// <summary>
+            /// Gets the shortest path between point A and point B
+            /// Note: the starting place is not returned
+            /// </summary>
+            /// <param name="startingPlace"></param>
+            /// <param name="destination"></param>
+            /// <returns>Returns a list of node names. They can be followed to reach point B</returns>
             public List<string> GetPath(string startingPlace, string destination) {
                 return(g.shortest_path(startingPlace, destination));
             }

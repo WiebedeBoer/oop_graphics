@@ -4,21 +4,30 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace Models {
+    /// <summary>
+    /// Complicated RobotTasks that deserve their own class and method.
+    /// </summary>
     public class RoboTasks {
 
-        private Random rnd = new Random(); //alleen hier binnen gebruikt voor randomiseren
-        private GraphClass graphContent; //alleen hier gemaakt   
-        private List<C3model> worldObjects; //world create en update, in move check of kast
-        private List<Hraph> HraphObjects; //ook voor bewegen dumptruck
+        private Random rnd = new Random();
+        private GraphClass graphContent; 
+        private List<C3model> worldObjects;
+        private List<Hraph> HraphObjects;
 
-        //kasten bewegen
         public RoboTasks (List<C3model> worldObjects,GraphClass graphContent,List<Hraph> HraphObjects){
             this.worldObjects = worldObjects;
             this.graphContent = graphContent;
             this.HraphObjects = HraphObjects;
         }
+        /// <summary>
+        /// This big method gets called for in every Update(int tick) in the World class.
+        /// Once it is called it immediatly starts a chance calculation with a low chance of success.
+        /// If it succseeds we start to foreach trough all Kasts and Robots.
+        /// And then it either picks up an already stored Kast, to be brought back to the depot.
+        /// Or it brings a Kast from the depot to an unoccupied storage position.
+        /// </summary>
         public void MoveKasten (){
-            //20 updates per seconde. 20x 0,5% kans per seconde om een actie te laten gebeuren.
+            //20 updates per second, 0,5% chancer per update to make things happen.
             if (rnd.Next(10000) <= 50){
                 Boolean gaVerderFlag = false;
                 //Ophalen van een pakket

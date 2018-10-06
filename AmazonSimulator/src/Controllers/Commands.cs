@@ -5,7 +5,7 @@ using Models;
 using Newtonsoft.Json;
 
 namespace Controllers {
-
+    //all commands are being created here
     public abstract class Command {
 
         private string type;
@@ -36,6 +36,7 @@ namespace Controllers {
         }
     }
 
+    //Command ShowGrid sends a message to the client, telling it that it should show the grid.
     public class ShowGridCommand : Command {
         
         public ShowGridCommand(bool parameters) : base("grid", parameters) {

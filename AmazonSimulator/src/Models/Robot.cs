@@ -4,12 +4,19 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace Models {
+    /// <summary>
+    /// Robot is an actor which moves along the waypoint nodes to transport Kasten from and to the depot.
+    /// </summary>
     public class Robot : C3model, IUpdatable, IBeweging {
         private Kast carryingKast;
         public Robot (double x, double y, double z, double rotationX, double rotationY, double rotationZ) :base(x, y, z, rotationX, rotationY, rotationZ,"robot")
         {
             
         }
+        /// <summary>
+        /// Movement gets called every update in Update(int tick) in the Robot class
+        /// Robot moves to the target coordinates at a relatively slow speed of 0.1 per update.
+        /// </summary>
         public void Movement(){
             if(tX != -1 && tY != -1 && tZ != -1){
                 if(tX>x){
@@ -24,7 +31,7 @@ namespace Models {
                     }else{ 
                         this.Move(x-0.1,y,z);  
                     } 
-                    //En nu voor de Y as
+                    //And now for the Z coordinate
                 }else if(tZ>z){
                     if (tZ-z <= 0.1){
                         this.Move(x,y,tZ); 
@@ -40,31 +47,34 @@ namespace Models {
                 }
             }
         }
+        
         private void GrabKast(){
             carryingKast.GetPickedUp();
         }
         private void DropKast(){
-            carryingKast.NeerGezet();
+            carryingKast.GetPutDown();
             carryingKast = null;
         }
         public void GoCarryKast(Kast input) {
             carryingKast = input;
             actorStatus = "GoingToKast";
         }
+
         public override bool Update(int tick)
         {
-            //Als we in het depot zijn. en we moeten een kast brengen na de opslag plaatsen
-            //De begin positie(vrachtdepot) zit niet in de waypoints. Dus moeten we effe checken of we de kast hier al kunnen oppakken
-            //ook VOORDAT we beginnen met bewegen!
+            //Check if there is a kast that you have to carry, BEFORE you move toward your target and waypoints
             if (carryingKast != null){
                 if((x == carryingKast.currentLocation.x && z == carryingKast.currentLocation.z && carryingKast.actorStatus == "WachtOpRobot") || carryingKast.currentLocation.nodeName == "vrachtdepot" && carryingKast.actorStatus == "WachtOpRobot"){
                     GrabKast();
                 }
             }
             Movement();
-            //Bestemming of waypoint berijkt.
+            
+            //We reached A waypoint
             if((x==tX && z==tZ) && hraphTarget.Count != 0){
-
+                
+                //We reached our final destination!
+                //note: which is always the "vrachtdepot"
                 if (hraphTarget.Count == waypointNr+1){
                     //we zijn er!
                     actorStatus = "idle";
@@ -79,9 +89,9 @@ namespace Models {
                     tY = -1;
                     tZ = -1;
                 }else{
-                    //we zijn er bijna.
+                    //We arent there just yet...
                     if (carryingKast != null){
-                        //als op aflever punt zijn van kast? droppen
+                        //But this might be the place we either have to pickup or drop off our cargo
                         if (carryingKast.destinationLocation.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "Opgepakt"){
                             DropKast();
                         }else if (carryingKast.currentLocation.nodeName == hraphTarget[waypointNr].nodeName && carryingKast.actorStatus == "WachtOpRobot"){
@@ -89,6 +99,7 @@ namespace Models {
                         }
                         
                     }
+                    //Since we havent reached our final desination, we have to keep going to the next.
                     waypointNr++;
                     Target(hraphTarget[waypointNr].x,hraphTarget[waypointNr].y,hraphTarget[waypointNr].z);
                 }
