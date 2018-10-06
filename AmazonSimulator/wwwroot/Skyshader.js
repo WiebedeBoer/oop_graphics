@@ -11,19 +11,19 @@ class Skyshader extends THREE.Group {
 				
 				// Add Sky
 				var sky = new THREE.Sky();
-				sky.scale.setScalar( 450 );
+				sky.scale.setScalar( 4500 );
 				//scene.add( sky );
 				// Add Sun Helper
 				
 
 				var sunSphere = new THREE.Mesh(
-					new THREE.SphereBufferGeometry( 200, 16, 8 ),
+					new THREE.SphereBufferGeometry( 20, 16, 8 ),
 					new THREE.MeshBasicMaterial( { color: 0xff0000 } )
 				);
-				sunSphere.position.y = - 70;
+				sunSphere.position.y = 70;
 				sunSphere.visible = false;
 				msphere.add( sunSphere );
-				//msphere.add( sky );
+				msphere.add( sky );
 				/// GUI
 				var effectController  = {
 					turbidity: 10,
