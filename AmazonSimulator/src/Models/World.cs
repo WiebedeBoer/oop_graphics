@@ -70,13 +70,13 @@ namespace Models {
             dumptruck.Target(0,0,7);
 
             //Alle kasten
-            kast1 = CreateKast(0,1000,0,null);
+            kast1 = CreateKast(0,1000,0,new Hraph(7,3,7,"vrachtdepot",false));
             kast1.actorStatus = "hemel";
-            kast2 = CreateKast(0,1000,0,null);
+            kast2 = CreateKast(0,1000,0,new Hraph(7,3,7,"vrachtdepot",false));
             kast2.actorStatus = "hemel";
-            kast3 = CreateKast(0,1000,0,null);
+            kast3 = CreateKast(0,1000,0,new Hraph(7,3,7,"vrachtdepot",false));
             kast3.actorStatus = "hemel";
-            kast4 = CreateKast(0,1000,0,null);
+            kast4 = CreateKast(0,1000,0,new Hraph(7,3,7,"vrachtdepot",false));
             kast4.actorStatus = "hemel";
 
             kast5 = CreateKast(7,3,7,new Hraph(7,3,7,"vrachtdepot",false));

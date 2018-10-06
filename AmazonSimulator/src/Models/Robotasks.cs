@@ -67,29 +67,49 @@ namespace Models {
                                         
                                     }else if (kast.actorStatus == "InDepotNieuw"){
                                         //Of brengen kast uit depot
-                                        //allemaal even kans voor elke opslag plaats in het depot.
-                                        int counter = 1;
-                                        int countHraph = 6;
+
+                                        //Is there storage available?
+                                        Boolean storageAvailable = true;
                                         foreach (var result in HraphObjects){
                                             if (result.cargoPlace == true){
-                                                if (rnd.Next(countHraph) <= counter){
-                                                    kast.ZetBestemming(result);
-                                                    break;
-                                                }
-                                                counter++;
+                                                    foreach (C3model t in worldObjects){
+                                                        Kast checkKast;
+                                                        if(t is Kast) {
+                                                            checkKast = (Kast)t;
+                                                        } else {
+                                                            continue;
+                                                        }
+                                                        if(checkKast.destinationLocation != null && checkKast.currentLocation != null){
+                                                            if(checkKast.currentLocation.nodeName == result.nodeName || checkKast.destinationLocation.nodeName == result.nodeName){
+                                                                //no, this particular storage place is already occupied
+                                                                storageAvailable = false;
+                                                                break;
+                                                            }else {
+                                                                storageAvailable = true;
+                                                            }
+                                                        }
+                                                    }
+                                                    //If a storage space is abilable-> set it as our destination!
+                                                    if(storageAvailable == true){
+                                                        kast.ZetBestemming(result);
+                                                        break;
+                                                    }
+                                                    //If not? we continue our search for a storage space
                                             }
                                         }
-                                        var rijs = graphContent.GetPath("vrachtdepot",kast.destinationLocation.nodeName);
-                                        var terugReis = graphContent.GetPath(kast.destinationLocation.nodeName,"vrachtdepot");
-                                        rijs.AddRange(terugReis);
-                                        
-                                        robot.GoCarryKast(kast);
-                                        robot.GoTo(rijs,HraphObjects);
-                                        kast.GetCarriedBy(robot);
-
-                                        //break de huidige robot foreach en zet de break boolean flag voor de kast for each
-                                        gaVerderFlag = true;
-                                        break;
+                                        if (storageAvailable == true){
+                                            var rijs = graphContent.GetPath("vrachtdepot",kast.destinationLocation.nodeName);
+                                            var terugReis = graphContent.GetPath(kast.destinationLocation.nodeName,"vrachtdepot");
+                                            rijs.AddRange(terugReis);
+                                            
+                                            robot.GoCarryKast(kast);
+                                            robot.GoTo(rijs,HraphObjects);
+                                            kast.GetCarriedBy(robot);
+                                            
+                                            //break de huidige robot foreach en zet de break boolean flag voor de kast for each
+                                            gaVerderFlag = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }
